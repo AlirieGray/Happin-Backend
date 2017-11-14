@@ -37,7 +37,9 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 
 // authentication controller
-require('./auth.js')(app);
+require('../controllers/auth.js')(app);
+// events controllers
+require('../controllers/events.js')(app);
 
 var PORT = process.env.PORT || 8000;
 
