@@ -44,7 +44,7 @@ app.use(checkAuth);
 
 /***** set up mongoose *****/
 mongoose.promise = global.promise;
-mongoose.connect(`mongodb://<${process.env.dbUsername}>:<${process.env.dbPassword}>@ds129066.mlab.com:29066/activize`);
+mongoose.connect(`mongodb://${process.env.dbUsername}:${process.env.dbPassword}@ds129066.mlab.com:29066/activize`);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
