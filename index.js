@@ -8,13 +8,24 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // user database model
-var User = require('./user-model');
+var User = require('./models/User.js');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// allow CORS (for development)
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // check that a user is logged in
 var checkAuth = function (req, res, next) {
-  //console.log("Checking authentication");
+  console.log("Body: ",req.body);
+  console.log("Checking authentication");
   // make sure the user has a JWT cookie
-  if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {
+  if (req.cookies === undefined || req.cookies.nToken === null) {
     req.user = null;
     //console.log("no user");
   } else {
@@ -29,17 +40,19 @@ var checkAuth = function (req, res, next) {
 }
 app.use(checkAuth);
 
+
+
 /***** set up mongoose *****/
 mongoose.promise = global.promise;
-mongoose.connect('mongodb://heroku_7b5528r5:5i5sjiqq5d2auug32ingk3jeac@ds143245.mlab.com:43245/heroku_7b5528r5');
+mongoose.connect(`mongodb://<${process.env.dbUsername}>:<${process.env.dbPassword}>@ds129066.mlab.com:29066/activize`);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
 
 // authentication controller
-require('../controllers/auth.js')(app);
+require('./controllers/auth.js')(app);
 // events controllers
-require('../controllers/events.js')(app);
+require('./controllers/events.js')(app);
 
 var PORT = process.env.PORT || 8000;
 
