@@ -14,7 +14,7 @@ module.exports = function(app) {
         }
         var token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: "60 days" });
         res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
-        return res.status(200).send({ message: 'Logged in', token: token });
+        return res.status(200).send({ message: 'Logged in', id_token: user.id, access_token: token });
       });
     });
   });
