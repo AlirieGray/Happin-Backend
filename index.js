@@ -57,5 +57,5 @@ require('./controllers/events.js')(app);
 var PORT = process.env.PORT || 8000;
 
 app.listen(PORT, function(req, res) {
-  console.log("listening!");
+  console.log("listening on port " + PORT);
 });

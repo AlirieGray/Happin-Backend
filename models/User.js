@@ -14,9 +14,6 @@ var UserSchema = new Schema({
 UserSchema.pre('save', function(next){
   // SET createdAt AND updatedAt
   var now = new Date();
-  if ( !this.points ) {
-    this.points = 0;
-  }
   this.updatedAt = now;
   if ( !this.createdAt ) {
     this.createdAt = now;

@@ -6,12 +6,14 @@ module.exports = function(app) {
 
   // post login
   app.post('/login', function(req, res, next) {
+    console.log('got post request');
     User.findOne({ username: req.body.username }, "+password", function (err, user) {
-      if (!user) { return res.status(401).send({ message: 'Wrong username or password' }) };
+      if (!user) { return res.status(401).send({ message: 'Wrong username' }) };
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (!isMatch) {
-          return res.status(401).send({ message: 'Wrong username or password' });
+          return res.status(401).send({ message: 'Wrong password' });
         }
+        console.log('logged in, sending token');
         var token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: "60 days" });
         res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
         return res.status(200).send({ message: 'Logged in', id_token: user.id, access_token: token });
@@ -33,7 +35,7 @@ module.exports = function(app) {
 
     user.save(function (err) {
       if (err) {
-        return res.status(400).send({ err: err });
+        return res.status(500).send({ err: err });
       }
       // generate a JWT for this user from the user's id and the secret key
       var token = jwt.sign({ id: user.id}, process.env.SECRET, { expiresIn: "60 days"});
