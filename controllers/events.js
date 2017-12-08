@@ -19,7 +19,8 @@ module.exports = function(app) {
 
     const event = new Event({
       name: req.body.name,
-      loc: req.body.loc,
+      address: req.body.address,
+      placeId: req.body.placeId,
       date: req.body.date
     });
 

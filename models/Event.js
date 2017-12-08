@@ -8,7 +8,8 @@ var EventSchema = new Schema({
   , updatedAt       : { type: Date }
   , date            : { type: String }
   , name            : { type: String }
-  , loc             : { type: String } // temp
+  , address         : { type: String }
+  , placeId         : { type: String }
   , lat             : { type: String }
   , lng             : { type: String }
   , organizers      : []
