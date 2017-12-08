@@ -11,6 +11,16 @@ module.exports = function(app) {
     })
   })
 
+  app.get('/events/:id', (req, res) => {
+    Event.findById(req.params.id).exec(function(err, event) {
+      if (err) {
+        return res.status(500).send("Could not fetch event");
+      }
+      console.log(event);
+      return res.status(200).send(event);
+    })
+  })
+
   app.post('/events/new', (req, res) => {
 
     // TODO: deal with organizer of event
