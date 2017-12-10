@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 
 module.exports = function(app) {
 
-  app.get('/events', (req, res) => {
+  app.get('/events', (req, res, next) => {
     Event.find(function(err, events) {
       return res.send(events);
     })
   })
 
-  app.get('/events/:id', (req, res) => {
+  app.get('/events/:id', (req, res, next) => {
     Event.findById(req.params.id).exec(function(err, event) {
       if (err) {
         return res.status(500).send("Could not fetch event");
@@ -21,7 +21,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/events/new', (req, res) => {
+  app.post('/events/new', (req, res, next) => {
 
     // TODO: deal with organizer of event
     //const organizer = User.findById...
