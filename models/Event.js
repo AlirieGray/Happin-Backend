@@ -11,8 +11,8 @@ var EventSchema = new Schema({
   , name            : { type: String }
   , address         : { type: String }
   , placeId         : { type: String }
-  , lat             : { type: String }
-  , lng             : { type: String }
+  , lat             : { type: Number }
+  , lng             : { type: Number }
   , organizers      : []
 });
 
