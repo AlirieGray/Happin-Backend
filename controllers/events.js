@@ -32,6 +32,8 @@ module.exports = function(app) {
       name: req.body.name,
       address: req.body.address,
       placeId: req.body.placeId,
+      lat: req.body.lat,
+      lng: req.body.lng,
       date: req.body.date,
       description: req.body.description
     });
