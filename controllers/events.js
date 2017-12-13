@@ -25,8 +25,6 @@ module.exports = function(app) {
 
     // TODO: deal with organizer of event
     //const organizer = User.findById...
-    console.log(req.body.name);
-    console.log(req.body.placeId);
 
     const event = new Event({
       name: req.body.name,
