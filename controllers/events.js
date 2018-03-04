@@ -24,9 +24,10 @@ module.exports = function(app) {
 
   app.post('/events/new', (req, res) => {
     User.findById(req.body.userId).exec(function(err, user) {
+      console.log(user)
       if (err) {
         console.log("Error: " + err)
-        return res.status(401).send("Could not find user");
+        return res.status(401).send({message: "Could not find user", err});
       }
 
       const event = new Event({
@@ -37,12 +38,14 @@ module.exports = function(app) {
         lng: req.body.lng,
         date: req.body.date,
         description: req.body.description,
-        organizer: user
+        organizer: user.username
       })
+
       event.save(function(err) {
         if (err) {
           console.log("Could not save event!")
-          return res.status(500).send({message: err})
+          console.log(err)
+          return res.status(500).send({message: "Could not save event", err})
         }
         console.log("Saved new event!")
         return res.status(200).send(event)
