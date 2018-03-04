@@ -13,7 +13,7 @@ var EventSchema = new Schema({
   , placeId         : { type: String }
   , lat             : { type: Number }
   , lng             : { type: Number }
-  , organizers      : []
+  , organizer       : { type: Schema.Types.ObjectId, ref: 'User', required: false } // TODO: changed to required true
 });
 
 EventSchema.pre('save', function(next){
