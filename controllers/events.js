@@ -36,7 +36,7 @@ module.exports = function(app) {
         console.log("Error: " + err);
         return res.status(401).send({message: "Could not find user", err});
       }
-      return res.status(200).send({ events: user.events })
+      return res.status(200).send(user.events)
     })
   })
 
@@ -67,11 +67,10 @@ module.exports = function(app) {
           return res.status(500).send({message: "Could not save event", err})
         }
         console.log("Saved new event!")
-
-      }).then(() => {
         user.events.push(event);
+        user.save();
         user.markModified('events');
-        return res.status(200).send(event)
+        return res.status(200).send(event);
       })
     })
   })
