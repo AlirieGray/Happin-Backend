@@ -80,7 +80,6 @@ module.exports = function(app) {
           return res.status(500).send({message: "Could not save event", err})
         }
         console.log("Saved new event!")
-      }).then((event) => {
         console.log(event._id);
         user.events.push(event._id);
         user.save();
