@@ -6,9 +6,9 @@ const User = require('./User');
 var EventSchema = new Schema({
     createdAt       : { type: Date }
   , updatedAt       : { type: Date }
-  , description     : { type: String }
-  , date            : { type: String }
   , name            : { type: String }
+  , date            : { type: String }
+  , description     : { type: String }
   , address         : { type: String }
   , placeId         : { type: String }
   , lat             : { type: Number }

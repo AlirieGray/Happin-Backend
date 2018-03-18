@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const User = require('../models/User');
 const Event = require('../models/Event');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 module.exports = function(app) {
 
@@ -36,17 +37,28 @@ module.exports = function(app) {
         console.log("Error: " + err);
         return res.status(401).send({message: "Could not find user", err});
       }
-      return res.status(200).send(user.events)
+      return Event.find({
+        '_id': {
+          $in: user.events.map((eventId) => {
+            return mongoose.Types.ObjectId(eventId);
+          })
+        }, function(err, events) {
+          console.log(events);
+        }
+      })
     })
   })
 
   // create a new event
   app.post('/events/new', (req, res) => {
     User.findById(req.body.userId).exec(function(err, user) {
-      console.log(user)
+      console.log("User: ",user)
       if (err) {
         console.log("Error: " + err)
-        return res.status(401).send({message: "Could not find user", err});
+        return res.status(401).send({message: "Could not find user"});
+      }
+      if (!user) {
+        return res.status(401).send({message: "Could not find user"});
       }
 
       const event = new Event({
@@ -57,7 +69,7 @@ module.exports = function(app) {
         lng: req.body.lng,
         date: req.body.date,
         description: req.body.description,
-        organizer: user.username
+        organizer: req.body.userId
       })
 
       event.save(function(err) {
@@ -67,7 +79,9 @@ module.exports = function(app) {
           return res.status(500).send({message: "Could not save event", err})
         }
         console.log("Saved new event!")
-        user.events.push(event);
+      }).then((event) => {
+        console.log(event._id);
+        user.events.push(event._id);
         user.save();
         user.markModified('events');
         return res.status(200).send(event);
