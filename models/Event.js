@@ -14,6 +14,7 @@ var EventSchema = new Schema({
   , lat             : { type: Number }
   , lng             : { type: Number }
   , organizer       : { type: String, required: true, unique: false }
+  , organizerId     : { type: String, required: true, unique: false }
 });
 
 EventSchema.pre('save', function(next){
