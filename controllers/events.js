@@ -73,15 +73,15 @@ module.exports = function(app) {
         organizerId: req.body.userId
       })
 
-      event.save(function(err) {
+      event.save(function(err, createdEvent) {
         if (err) {
           console.log("Could not save event!")
           console.log(err)
           return res.status(500).send({message: "Could not save event", err})
         }
         console.log("Saved new event!")
-        console.log(event._id);
-        user.events.push(event._id);
+        console.log(createdEvent._id);
+        user.events.push(createdEvent._id);
         user.save();
         user.markModified('events');
         return res.status(200).send(event);
