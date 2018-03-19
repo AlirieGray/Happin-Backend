@@ -13,7 +13,7 @@ module.exports = function(app) {
         console.log(err)
         return res.status(500).send({message: "Could not get all events"})
       }
-      return res.send(events);
+      return res.send({events});
     })
   })
 
@@ -36,19 +36,20 @@ module.exports = function(app) {
         console.log("Error: " + err);
         return res.status(401).send({message: "Could not find user", err});
       }
-      console.log("user: in /userid/events route: ", user)
-      console.log("User events IDs: ", user.events)
-      Event.find().where('_id').in(user.events).exec(function (err, events) {
-        console.log("Found events: ", events)
-        res.status(200).send( {events: events } );
-      })
+      console.log("User events: ", user.events)
+      return res.status(200).send({ events: user.events })
+      // console.log("user: in /userid/events route: ", user)
+      // console.log("User events IDs: ", user.events)
+      // Event.find().where('_id').in(user.events).exec(function (err, events) {
+      //   console.log("Found events: ", events)
+      //   res.status(200).send( {events: events } );
+      // })
     })
   })
 
   // create a new event
   app.post('/events/new', (req, res) => {
     User.findById(req.body.userId).exec(function(err, user) {
-      console.log("User: ",user)
       if (err) {
         console.log("Error: " + err)
         return res.status(401).send({message: "Could not find user"});
