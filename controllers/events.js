@@ -31,20 +31,16 @@ module.exports = function(app) {
   // get the list of events created by a given user
   app.get('/users/:userId/events', (req, res) => {
     console.log("getting all events for this user")
-    User.findById(req.params.userId).exec(function(err, user) {
-      console.log(user);
+    User.findById(req.params.userId).populate('events').exec(function(err, user) {
       if (err) {
         console.log("Error: " + err);
         return res.status(401).send({message: "Could not find user", err});
       }
-      return Event.find({
-        '_id': {
-          $in: user.events.map((eventId) => {
-            return mongoose.Types.ObjectId(eventId);
-          })
-        }, function(err, events) {
-          console.log(events);
-        }
+      console.log("user: in /userid/events route: ", user)
+      console.log("User events IDs: ", user.events)
+      Event.find().where('_id').in(user.events).exec(function (err, events) {
+        console.log("Found events: ", events)
+        res.status(200).send( {events: events } );
       })
     })
   })
@@ -84,6 +80,7 @@ module.exports = function(app) {
         user.events.push(createdEvent._id);
         user.save();
         user.markModified('events');
+        console.log('Modified user: ', user)
         return res.status(200).send(event);
       })
     })
