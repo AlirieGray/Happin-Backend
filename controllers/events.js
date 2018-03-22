@@ -67,7 +67,8 @@ module.exports = function(app) {
         date: req.body.date,
         description: req.body.description,
         organizer: user.username,
-        organizerId: req.body.userId
+        organizerId: req.body.userId,
+        tags: req.body.tags
       })
 
       event.save(function(err, createdEvent) {

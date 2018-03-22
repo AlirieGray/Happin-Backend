@@ -16,7 +16,6 @@ module.exports = function(app) {
           console.log('Wrong password')
           return res.status(401).send({ message: 'Wrong password' });
         }
-        console.log('logged in, sending token');
         var token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: "60 days" });
 
         return res.status(200).json(

@@ -15,6 +15,7 @@ var EventSchema = new Schema({
   , lng             : { type: Number }
   , organizer       : { type: String, required: true, unique: false }
   , organizerId     : { type: String, required: true, unique: false }
+  , tags            : [String]
 });
 
 EventSchema.pre('save', function(next){
