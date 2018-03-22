@@ -9,6 +9,7 @@ var UserSchema = new Schema({
   , password        : { type: String, select: false }
   , username        : { type: String, required: true, unique: true }
   , events          : [ { type: Schema.Types.ObjectId, ref: 'Event'} ]
+  , attending       : [ { type: Schema.Types.ObjectId, ref: 'Event'} ]
 });
 
 UserSchema.pre('save', function(next){

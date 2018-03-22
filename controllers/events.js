@@ -18,8 +18,8 @@ module.exports = function(app) {
   })
 
   // get an event by ID
-  app.get('/events/:id', (req, res, next) => {
-    Event.findById(req.params.id).exec(function(err, event) {
+  app.get('/events/:eventId', (req, res, next) => {
+    Event.findById(req.params.eventId).exec(function(err, event) {
       if (err) {
         return res.status(500).send("Could not get this event");
       }
@@ -30,7 +30,7 @@ module.exports = function(app) {
 
   // get the list of events created by a given user
   app.get('/users/:userId/events', (req, res) => {
-    console.log("getting all events for this user")
+    console.log("getting all events this user has created")
     User.findById(req.params.userId).populate('events').exec(function(err, user) {
       if (err) {
         console.log("Error: " + err);
@@ -38,12 +38,57 @@ module.exports = function(app) {
       }
       console.log("User events: ", user.events)
       return res.status(200).send({ events: user.events })
-      // console.log("user: in /userid/events route: ", user)
-      // console.log("User events IDs: ", user.events)
-      // Event.find().where('_id').in(user.events).exec(function (err, events) {
-      //   console.log("Found events: ", events)
-      //   res.status(200).send( {events: events } );
-      // })
+    })
+  })
+
+  // get the list of events that the user is attending
+  app.get('/users/:userId/attending', (req, res) => {
+    console.log("getting all events this user is attending")
+    User.findById(req.params.userId).populate('attending').exec(function(err, user) {
+      if (err) {
+        console.log("Error: " + err);
+        return res.status(401).send({message: "Could not find user", err});
+      }
+      console.log("User events: ", user.attending)
+      return res.status(200).send({ events: user.attending })
+    })
+  })
+
+  app.post('/events/:eventId/rsvp', (req, res) => {
+    console.log('RSVPing to event');
+
+    User.findById(req.body.userId).exec(function(err, user) {
+      if (err) {
+        console.log("Error: " + err);
+        return res.status(401).send({message: "Could not find user"});
+      }
+      if (!user) {
+        return res.status(401).send({message: "Could not find user"});
+      }
+
+      // make sure that the event exists before saving it to the user model
+      Event.findById(req.params.eventId).exec(function(err, event) {
+        if (err) {
+          console.log("Error: " + err)
+          return res.status(500).send({message: "Could not find event"});
+        }
+        if (!event) {
+          return res.status(401).send({message: "Could not find event"});
+        }
+
+        // if the user is RSVPing yes, add the id to user.attending
+        if (req.body.rsvp) {
+          user.attending.push(event._id);
+          return res.status(200);
+        }
+        // if the user is RSVPing no, remove the id from user.attending
+        user.attending = user.attending.filter((eventId) => {
+          return eventId !== req.params.eventId
+        })
+        user.save(); // TODO next lines should be in a promise
+        user.markModified('attending');
+        return res.status(200);
+      })
     })
   })
 
@@ -80,7 +125,7 @@ module.exports = function(app) {
         console.log("Saved new event!")
         console.log(createdEvent._id);
         user.events.push(createdEvent._id);
-        user.save();
+        user.save(); // TODO next lines should be in a promise
         user.markModified('events');
         console.log('Modified user: ', user)
         return res.status(200).send(event);
