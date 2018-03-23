@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 module.exports = function(app) {
 
-  // get all events
+  /**** GET all events ****/
   app.get('/events', (req, res, next) => {
     Event.find(function(err, events) {
       if (err) {
@@ -17,7 +17,7 @@ module.exports = function(app) {
     })
   })
 
-  // get an event by ID
+  /**** GET an event by ID ****/
   app.get('/events/:eventId', (req, res, next) => {
     Event.findById(req.params.eventId).exec(function(err, event) {
       if (err) {
@@ -28,9 +28,9 @@ module.exports = function(app) {
     })
   })
 
-  // get the list of events created by a given user
+  /**** GET the list of events created by a given user ****/
   app.get('/users/:userId/events', (req, res) => {
-    console.log("getting all events this user has created")
+    // Look up the user by id and populate the array of events they've created
     User.findById(req.params.userId).populate('events').exec(function(err, user) {
       if (err) {
         console.log("Error: " + err);
@@ -41,9 +41,10 @@ module.exports = function(app) {
     })
   })
 
-  // get the list of events that the user is attending
+  /**** GET the list of events that the a given user is attending ****/
   app.get('/users/:userId/attending', (req, res) => {
-    console.log("getting all events this user is attending")
+    console.log("Getting all events this user is attending")
+    // Loop up the user by id and populate the array of events they're attending
     User.findById(req.params.userId).populate('attending').exec(function(err, user) {
       if (err) {
         console.log("Error: " + err);
@@ -54,9 +55,11 @@ module.exports = function(app) {
     })
   })
 
+  /**** Set a given user's rsvp for an event to either true or false ****/
+  /**** STILL IN PROGRESS ****/
   app.post('/events/:eventId/rsvp', (req, res) => {
     console.log('RSVPing to event');
-
+    // First look up the user by the id passed in the body
     User.findById(req.body.userId).exec(function(err, user) {
       if (err) {
         console.log("Error: " + err);
@@ -85,15 +88,16 @@ module.exports = function(app) {
         user.attending = user.attending.filter((eventId) => {
           return eventId !== req.params.eventId
         })
-        user.save(); // TODO next lines should be in a promise
+        user.save(); // TODO next lines should be in a promise (?)
         user.markModified('attending');
         return res.status(200);
       })
     })
   })
 
-  // create a new event
+  /**** CREATE a new event ****/
   app.post('/events/new', (req, res) => {
+    // first look up the user with the id passed in the body
     User.findById(req.body.userId).exec(function(err, user) {
       if (err) {
         console.log("Error: " + err)
@@ -103,6 +107,7 @@ module.exports = function(app) {
         return res.status(401).send({message: "Could not find user"});
       }
 
+      // Create an Event object from the data in the request body
       const event = new Event({
         name: req.body.name,
         address: req.body.address,
@@ -116,6 +121,7 @@ module.exports = function(app) {
         tags: req.body.tags
       })
 
+      // Then save the event to the database
       event.save(function(err, createdEvent) {
         if (err) {
           console.log("Could not save event!")
@@ -123,11 +129,11 @@ module.exports = function(app) {
           return res.status(500).send({message: "Could not save event", err})
         }
         console.log("Saved new event!")
-        console.log(createdEvent._id);
+
+        // Save the ID of the created event to the user who created it
         user.events.push(createdEvent._id);
-        user.save(); // TODO next lines should be in a promise
+        user.save(); // TODO next lines should be in a promise (?)
         user.markModified('events');
-        console.log('Modified user: ', user)
         return res.status(200).send(event);
       })
     })

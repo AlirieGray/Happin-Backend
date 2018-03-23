@@ -16,7 +16,8 @@ var EventSchema = new Schema({
   , organizer       : { type: String, required: true, unique: false }
   , organizerId     : { type: String, required: true, unique: false }
   , tags            : { type: String }
-  , attendees       : { type: Number, default: 1 }
+  , attendeeCount   : { type: Number, default: 1 }
+  , attendees       : [ { type: Schema.Types.ObjectId, ref: 'User'} ]
 });
 
 EventSchema.pre('save', function(next){
