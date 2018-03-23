@@ -8,9 +8,12 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 require('dotenv').config();
 
-// user database model
-var User = require('./models/User.js');
 
+// App View Engine, Static Files, and BodyParser
+app.set('view engine' , 'pug');
+app.use('/public/css', express.static(__dirname + '/public/css'));
+app.use('/public/scripts', express.static(__dirname + '/public/scripts'));
+app.use('/public/assets', express.static(__dirname + '/public/assets'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -20,6 +23,8 @@ mongoose.connect(`mongodb://${process.env.dbUsername}:${process.env.dbPassword}@
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
+// root controller
+require('./controllers/root.js')(app)
 // authentication controller
 require('./controllers/auth.js')(app);
 // events controllers
