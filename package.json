@@ -1,5 +1,5 @@
 {
-  "name": "activize_backend",
+  "name": "Happin_Backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Catislin/Activize-Backend.git"
+    "url": "git+https://github.com/AlirieGray/Happin-Backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Catislin/Activize-Backend/issues"
+    "url": "https://github.com/AlirieGray/Happin-Backend/issues"
   },
-  "homepage": "https://github.com/Catislin/Activize-Backend#readme",
+  "homepage": "https://www.happin.org/",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
