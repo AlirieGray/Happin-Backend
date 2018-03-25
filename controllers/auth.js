@@ -57,13 +57,4 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.post('/testauth', (req, res) => {
-    if(req.user){
-      res.send(req.user);
-    }else{
-      res.send('not logged in');
-    }
-  })
-
-
 };
