@@ -1,8 +1,7 @@
-var bodyParser = require('body-parser');
-var User = require('../models/User');
-var jwt = require('jsonwebtoken');
+let User = require('../models/User');
+let jwt = require('jsonwebtoken');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
   // post login
   app.post('/login', function(req, res) {
@@ -11,21 +10,21 @@ module.exports = function(app) {
         console.log('could not find user');
         return res.status(401).send({ message: 'Wrong username'
       })};
-      user.comparePassword(req.body.password, function (err, isMatch) {
-        if (!isMatch) {
-          console.log('Wrong password')
-          return res.status(401).send({ message: 'Wrong password' });
-        }
+      if(!user.validPassword(req.body.password)){
+        console.log('Wrong password')
+        return res.status(401).send({ message: 'Wrong password' });
+      }else{
         var token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: "60 days" });
 
-        return res.status(200).json(
+        res.cookie('token', token);
+        res.status(200).json(
           {
             message: 'Logged in',
             token: token,
             userId: user.id
           }
         );
-      });
+      };
     });
   });
 
@@ -33,22 +32,38 @@ module.exports = function(app) {
   app.post('/signup', function(req, res) {
     // create User and JWT
     console.log(req.body);
-    var user = new User(req.body);
 
-    user.save(function (err) {
-      if (err) {
-        return res.status(500).send({ err: err });
+    //If User Exists Already
+    User.findOne({username : req.body.username}, (err, user) => {
+      if(user){
+        res.status('401').send('Username Taken');
+      }else{
+        let newUser = new User({username : req.body.username});
+        newUser.password = newUser.generateHash(req.body.password);
+        newUser.save((err, newUser) => {
+          if (err) {
+            res.status(500).send({ err: err });
+          }
+          // generate a JWT for this user from the user's id and the secret key
+          var token = jwt.sign({ id: newUser.id}, process.env.SECRET, { expiresIn: "60 days"});
+          res.status(200).json({
+            message: 'Signed up',
+            token: token,
+            userId: newUser.id
+          });
+
+        });
       }
-      // generate a JWT for this user from the user's id and the secret key
-      var token = jwt.sign({ id: user.id}, process.env.SECRET, { expiresIn: "60 days"});
-
-      return res.status(200).json(
-        {
-          message: 'Signed up',
-          token: token,
-          userId: user.id
-        }
-      );
-    })
+    });
   });
-}
+
+  app.post('/testauth', (req, res) => {
+    if(req.user){
+      res.send(req.user);
+    }else{
+      res.send('not logged in');
+    }
+  })
+
+
+};
