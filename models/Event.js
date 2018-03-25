@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-    bcrypt = require('bcrypt'),
     Schema = mongoose.Schema;
 const User = require('./User');
 
