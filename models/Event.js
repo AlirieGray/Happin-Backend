@@ -17,6 +17,7 @@ var EventSchema = new Schema({
   , tags            : { type: String }
   , attendeeCount   : { type: Number, default: 1 }
   , attendees       : [ { type: Schema.Types.ObjectId, ref: 'User'} ]
+  , payout          : { type: Number, default: 0}
 });
 
 EventSchema.pre('save', function(next){

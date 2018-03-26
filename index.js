@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -28,19 +30,14 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 // check that a user is logged in
 let checkAuth = function (req, res, next) {
-  // make sure the user has a JWT cookie
   if (typeof req.cookies.token === 'undefined' || req.cookies.token === null) {
     req.user = null;
-    //console.log("no user");
   } else {
     // if the user has a JWT cookie, decode it and set the user
     var token = req.cookies.token;
     var decodedToken = jwt.decode(token, { complete: true }) || {};
     req.user = decodedToken.payload;
-    //console.log("user set");
-    //console.log(req.user);
   }
-  // console.log(req.user);
   next();
 }
 
@@ -53,8 +50,13 @@ require('./controllers/auth.js')(app);
 // events controllers
 require('./controllers/events.js')(app);
 
+io.on('connection', (socket) => {
+  require('./sockets/hap')(io, socket);
+});
+
+
 var PORT = process.env.PORT || 8000;
 
-app.listen(PORT, function(req, res) {
+server.listen(PORT, function(req, res) {
   console.log("listening on port " + PORT);
 });

@@ -18,25 +18,26 @@ $(document).ready(() => {
 
   $('#newRequestSubmit').click(() => {
     let newRequestData = {
-      title : $('#newRequestTitle').val(),
-      body : $('#newRequestBody').val(),
+      name : $('#newRequestTitle').val(),
+      description : $('#newRequestBody').val(),
       payout : $('#newRequestPay').val(),
     };
-    socket.emit('New Request', newRequestData)
+    socket.emit('New Hap', {hap : newRequestData})
   });
 
   //Update Near Requests
   addNewRequest = (request) => {
+    console.log(request);
     let newRequestClone = $('.request-prototype').clone(true);
     newRequestClone.addClass('request').removeClass('request-prototype');
-    newRequestClone.find('#requestTitle').text(request.title);
+    newRequestClone.find('#requestTitle').text(request.name);
     newRequestClone.find('#requestPayout').text('$'+request.payout);
     newRequestClone.appendTo('.requestsContainer');
   }
 
   //Socket Handlers
-  socket.on('New Request', (d) => {
-    addNewRequest(d);
+  socket.on('New Hap', (d) => {
+    addNewRequest(d.hap);
   })
 
 })

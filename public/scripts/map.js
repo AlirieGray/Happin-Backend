@@ -47,7 +47,6 @@ initMap = () => {
     getLocation((pos) => {
       $('#mapLoading').css('display', 'none');
       $('#map').css('display' , 'block');
-      console.log(pos);
       let map = new google.maps.Map(document.getElementById('map'), {
         center : pos,
         zoom: 15
