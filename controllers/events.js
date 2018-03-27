@@ -11,9 +11,9 @@ module.exports = function(app) {
     Event.find(function(err, events) {
       if (err) {
         console.log(err)
-        return res.status(500).send({message: "Could not get all events"})
+        res.status(500).send({message: "Could not get all events"})
       }
-      return res.send({events});
+      res.send(events);
     })
   })
 

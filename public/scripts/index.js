@@ -1,31 +1,39 @@
 
 //====================GOOGLE MAPS===================
 let newHapLocInput;
+let Map;
 initAutoComplete = () => {
   newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
 
   showMap = (pos) => {
     $('#mapLoading').css('display', 'none');
     $('#map').css('display' , 'block');
-    let map = new google.maps.Map(document.getElementById('map'), {
+    Map = new google.maps.Map(document.getElementById('map'), {
       center : pos,
       zoom: 15
     });
   }
 
   showUserPos = (pos) => {
-    let map = new google.maps.Map(document.getElementById('map'), {
+    Map = new google.maps.Map(document.getElementById('map'), {
       center : pos,
       zoom: 15
     });
     let userLocation = new google.maps.Marker({
       position : pos,
-      map : map
+      map : Map
     });
   }
 
   $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
-    showMap(data.location)
+    showMap(data.location);
+    //==============LOAD ALL HAPS===================
+    $.get('/events', (haps) => {
+      console.log(haps);
+      haps.forEach((hap) => {
+        addNewHap(hap);
+      })
+    })
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         pos = {
@@ -43,15 +51,23 @@ $(document).ready(() => {
   //=============CONNECT TO SOCKET==============
   let socket = io.connect();
 
-
   //==========================NEW REQUESTS=========================
-  addNewRequest = (request) => {
-    console.log(request);
+  addNewHap = (hap) => {
+    //ADD HAP TO REQUEST CONTAINER
     let newRequestClone = $('.request-prototype').clone(true);
     newRequestClone.addClass('request').removeClass('request-prototype');
-    newRequestClone.find('#requestTitle').text(request.name);
-    newRequestClone.find('#requestLoc').text(request.address);
+    newRequestClone.find('#requestTitle').text(hap.name);
+    newRequestClone.find('#requestOwner').text(hap.organizer);
+    newRequestClone.find('#requestLoc').text(hap.address);
     newRequestClone.appendTo('.requestsContainer');
+    //ADD HAP TO MAP
+    let newHapLocation = new google.maps.Marker({
+      position : {
+        lat : hap.lat,
+        lng : hap.lng
+      },
+      map : Map
+    });
   }
 
 
@@ -108,7 +124,7 @@ $('#newRequestTitle').keydown((e) => {
 
 //==================SOCKETS HANDLERS===================
   socket.on('New Hap', (d) => {
-    addNewRequest(d.hap);
+    addNewHap(d.hap);
   })
 
 })

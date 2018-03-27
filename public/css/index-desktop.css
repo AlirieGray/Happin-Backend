@@ -223,7 +223,7 @@ body {
 }
 
 .request-prototype{
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: space-between;
   font-family: sans-serif;
