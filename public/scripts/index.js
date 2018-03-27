@@ -4,7 +4,7 @@ let newHapLocInput;
 initAutoComplete = () => {
   newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
 
-  updateMap = (pos) => {
+  showMap = (pos) => {
     $('#mapLoading').css('display', 'none');
     $('#map').css('display' , 'block');
     let map = new google.maps.Map(document.getElementById('map'), {
@@ -23,7 +23,7 @@ initAutoComplete = () => {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      updateMap(pos);
+      showMap(pos);
     });
   }
 }
