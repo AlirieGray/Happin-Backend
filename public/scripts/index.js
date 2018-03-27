@@ -1,4 +1,10 @@
-function initAutoComplete(){}
+
+//============HAP FORM FUNCTONALITY===================
+let newHapLocInput;
+initAutoComplete = () => {
+  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
+}
+
 $(document).ready(() => {
 
   //=============CONNECT TO SOCKET==============
@@ -34,13 +40,6 @@ $(document).ready(() => {
   $('.brand').click(() => {
     location.reload();
   });
-
-
-//============HAP FORM FUNCTONALITY===================
-let newHapLocInput;
-initAutoComplete = () => {
-  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
-}
 
 //Submit New Hap
 $('#newRequestSubmit').click(() => {
