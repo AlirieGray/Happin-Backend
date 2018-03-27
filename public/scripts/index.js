@@ -1,4 +1,4 @@
-
+function initAutoComplete(){}
 $(document).ready(() => {
 
   //=============CONNECT TO SOCKET==============
