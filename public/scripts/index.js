@@ -3,6 +3,29 @@
 let newHapLocInput;
 initAutoComplete = () => {
   newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
+
+  updateMap = (pos) => {
+    $('#mapLoading').css('display', 'none');
+    $('#map').css('display' , 'block');
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center : pos,
+      zoom: 15
+    });
+    let userLocation = new google.maps.Marker({
+      position : pos,
+      map : map
+    });
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position){
+      pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      updateMap(pos);
+    });
+  }
 }
 
 $(document).ready(() => {
