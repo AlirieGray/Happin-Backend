@@ -103,6 +103,7 @@ body {
   width : 90%;
   display : flex;
   justify-content: flex-end;
+  align-items: center;
   margin-top : 10;
 }
 
@@ -114,7 +115,7 @@ body {
   text-align: center;
   border-radius: 8px;
   background-color: white;
-  padding : 10 15;
+  padding : 8 15;
 }
 
 #requestFormCloseBtn:hover{
@@ -148,11 +149,21 @@ body {
 .newRequestLabel{
   /*border : 2px solid white;*/
   color : white;
+  margin-top: -15px;
   text-align: center;
-  height : 5%;
   padding-bottom: 18px;
   width : 70%;
+  font-size: 50px;
+  font-family: sans-serif;
   border-bottom: 2px solid black;
+}
+
+#requestTitleLabel{
+  margin-top: -15px;
+}
+
+#newLocPay{
+  margin-bottom: -15px;
 }
 
 .requestInput{
@@ -173,7 +184,6 @@ body {
   text-align: center;
   width : 20%;
   background-color : white;
-  margin-bottom: 10px;
   border-radius: 10px;
   font-size : 22px;
   margin-top : 30px;

@@ -16,9 +16,9 @@ $(document).ready(() => {
   }
 
 
-//================SITE BUTTONS==============
+//========================SITE BUTTONS===========================
 
-  //Toggle making a new request
+  //Toggle making a new Hap
   $('.newRequestBtn').click(() => {
     let hapFormContainerDisplay = $('.requestFormContainer').css('display');
     if(hapFormContainerDisplay == 'none'){
@@ -29,24 +29,40 @@ $(document).ready(() => {
       $('.requestForm').css('display', 'none');
     }
   });
-  $('#requestFormCloseBtn').click(() => {
-    $('.requestFormContainer').css('display', 'none');
-    $('.requestForm').css('display', 'none');
-  })
 
-  $('#newRequestSubmit').click(() => {
-    let newRequestData = {
-      name : $('#newRequestTitle').val(),
-      description : $('#newRequestBody').val(),
-    };
-    socket.emit('New Hap', {hap : newRequestData})
-  });
-
+  //Refresh Page
   $('.brand').click(() => {
     location.reload();
   });
 
 
+//============HAP FORM FUNCTONALITY===================
+//Submit New Hap
+$('#newRequestSubmit').click(() => {
+  let newRequestData = {
+    name : $('#newRequestTitle').val(),
+    description : $('#newRequestBody').val(),
+  };
+  $('.requestFormContainer').css('display', 'none');
+  $('.requestForm').css('display', 'none');
+  socket.emit('New Hap', {hap : newRequestData})
+});
+//Close Form
+$('#requestFormCloseBtn').click(() => {
+  $('.requestFormContainer').css('display', 'none');
+  $('.requestForm').css('display', 'none');
+})
+//Update Hap Title
+$('#newRequestTitle').keypress((e) => {
+  if(e.key != 'enter'){
+    $('.newRequestLabel').text($('#newRequestTitle').val() + e.key);
+  }
+})
+$('#newRequestTitle').keydown((e) => {
+  if(e.key == 'Backspace'){
+    $('.newRequestLabel').text($('.newRequestLabel').text().substr(0,$('.newRequestLabel').text().length - 1));
+  }
+})
 
 
 //==================SOCKETS HANDLERS===================
