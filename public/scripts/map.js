@@ -1,6 +1,5 @@
 initMap = () => {
 
-
   getLocation = (cb) => {
     // $.getJSON("https://freegeoip.net/json/", function(data) {
     //   let pos = {

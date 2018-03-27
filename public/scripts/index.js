@@ -11,7 +11,7 @@ $(document).ready(() => {
     let newRequestClone = $('.request-prototype').clone(true);
     newRequestClone.addClass('request').removeClass('request-prototype');
     newRequestClone.find('#requestTitle').text(request.name);
-    newRequestClone.find('#requestPayout').text('$'+request.payout);
+    newRequestClone.find('#requestLoc').text(request.address);
     newRequestClone.appendTo('.requestsContainer');
   }
 
@@ -37,11 +37,20 @@ $(document).ready(() => {
 
 
 //============HAP FORM FUNCTONALITY===================
+let newHapLocInput;
+initAutoComplete = () => {
+  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
+}
+
 //Submit New Hap
 $('#newRequestSubmit').click(() => {
   let newRequestData = {
     name : $('#newRequestTitle').val(),
     description : $('#newRequestBody').val(),
+    placeId : newHapLocInput.getPlace().place_id,
+    lat : newHapLocInput.getPlace().geometry.location.lat(),
+    lng : newHapLocInput.getPlace().geometry.location.lng(),
+    address : newHapLocInput.getPlace().formatted_address
   };
   $('.requestFormContainer').css('display', 'none');
   $('.requestForm').css('display', 'none');

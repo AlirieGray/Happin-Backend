@@ -162,8 +162,9 @@ body {
   margin-top: -15px;
 }
 
-#newLocPay{
+#newRequestLoc{
   margin-bottom: -15px;
+  width : 100%;
 }
 
 .requestInput{

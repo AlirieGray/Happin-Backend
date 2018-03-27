@@ -8,8 +8,8 @@ head
   script(src='/public/scripts/socket.io.slim.js')
   script(src="/public/scripts/index.js")
   script(src="/public/scripts/map.js")
-  script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&callback=initMap')
-  
+  script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
+  //- script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=" + mapApiKey + "&libraries=places")
   
 .info
   .nav
@@ -32,7 +32,7 @@ head
           h2#requestBodyLabel Description
           textarea#newRequestBody.requestInput(placeholder="Let's make it happin!")
           h2#requestLocLabel Location
-          input#newLocPay.requestInput(placeholder="Union Square, San Francisco")
+          input#newRequestLoc.requestInput(placeholder="Union Square, San Francisco")
         #newRequestSubmit Submit    
     
 .content
