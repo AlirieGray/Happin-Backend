@@ -15,12 +15,15 @@ head
   .nav
     .brandContainer
       h1.brand Happin
-    .requestButtons
+    .navButtons
       .newRequestBtn Make it Happin
+      .signupBtn Sign Up / Log in
   .mapAndRequests
+    //- Map
     .mapContainer
       img#mapLoading(src="/public/assets/Procfile.svg")
       #map
+    //- New Request Form 
     .requestFormContainer
       .requestFormNav
         #requestFormCloseBtn X
@@ -34,6 +37,7 @@ head
           h2#requestLocLabel Location
           input#newRequestLoc.requestInput(placeholder="Union Square, San Francisco")
         #newRequestSubmit Submit    
+    //- Sign Up Form
     
 .content
   h1.nearRequestslabel What's Happining

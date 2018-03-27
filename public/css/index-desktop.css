@@ -23,7 +23,7 @@ body {
 }
 
 .brandContainer{
-  width : 40%;
+  width : 30%;
 }
 
 .brand{
@@ -31,22 +31,45 @@ body {
   font-weight: bold;
   font-family: sans-serif;
   cursor: pointer;
+  text-align: center;
 }
 
-.requestButtons{
-  width : 40%;
+.navButtons{
+  display: flex;
+  flex-direction: row;
+  width : 60%;
 }
 
-.newRequestBtn {
+.signupBtn {
   color : white;
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
   font-family: sans-serif;
   border : 2px solid white;
   border-radius: 10px;
-  padding : 10px;
+  padding : 10px 25px;
   background-color: #45b267;
   text-align: center;
+}
+
+.signupBtn:hover{
+  background-color: #05b267;
+  cursor: pointer;
+}
+
+.newRequestBtn {
+  color : white;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border : 2px solid white;
+  border-radius: 10px;
+  padding : 10px 15px;
+  background-color: #45b267;
+  text-align: center;
+  width : 40%;
+  margin-right: 20;
+  margin-left: 20;
 }
 
 .newRequestBtn:hover{

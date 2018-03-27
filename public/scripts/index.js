@@ -1,5 +1,5 @@
 
-//====================GOOGLE MAPS===================
+//====================GOOGLE MAPS=========================
 let newHapLocInput;
 let Map;
 initAutoComplete = () => {
@@ -15,10 +15,7 @@ initAutoComplete = () => {
   }
 
   showUserPos = (pos) => {
-    Map = new google.maps.Map(document.getElementById('map'), {
-      center : pos,
-      zoom: 15
-    });
+    Map.setCenter(pos);
     let userLocation = new google.maps.Marker({
       position : pos,
       map : Map
@@ -29,7 +26,6 @@ initAutoComplete = () => {
     showMap(data.location);
     //==============LOAD ALL HAPS===================
     $.get('/events', (haps) => {
-      console.log(haps);
       haps.forEach((hap) => {
         addNewHap(hap);
       })
@@ -72,6 +68,11 @@ $(document).ready(() => {
 
 
 //========================SITE BUTTONS===========================
+
+
+  $('.signupBtn').click(() => {
+
+  });
 
   //Toggle making a new Hap
   $('.newRequestBtn').click(() => {
