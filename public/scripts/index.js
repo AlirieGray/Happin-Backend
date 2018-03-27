@@ -1,5 +1,5 @@
 
-//============HAP FORM FUNCTONALITY===================
+//====================GOOGLE MAPS===================
 let newHapLocInput;
 initAutoComplete = () => {
   newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
@@ -11,21 +11,31 @@ initAutoComplete = () => {
       center : pos,
       zoom: 15
     });
+  }
+
+  showUserPos = (pos) => {
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center : pos,
+      zoom: 15
+    });
     let userLocation = new google.maps.Marker({
       position : pos,
       map : map
     });
   }
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position){
-      pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      showMap(pos);
-    });
-  }
+  $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
+    showMap(data.location)
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position){
+        pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        showUserPos(pos);
+      });
+    }
+  });
 }
 
 $(document).ready(() => {

@@ -42,7 +42,8 @@ initMap = () => {
   //   console.log("No geo");
   // }
 
-  // $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
+  $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
+    console.log(data);
     getLocation((pos) => {
       $('#mapLoading').css('display', 'none');
       $('#map').css('display' , 'block');
@@ -55,6 +56,6 @@ initMap = () => {
         map : map
       });
     });
-
+  });
 
 }
