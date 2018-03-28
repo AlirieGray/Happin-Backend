@@ -11,10 +11,10 @@ module.exports = (io, socket) => {
       User.findById(newHap.organizerId, (err, user)=>{
         user.events.push(newHap._id);
         user.attending.push(newHap._id);
-        hap.attendees.push(user._id);
-        hap.attendeeCount++;
+        newHap.attendees.push(user._id);
+        newHap.attendeeCount++;
         user.save();
-        hap.save();
+        newHap.save();
         console.log(user.username + " has created " + hap.name);
       })
     });
