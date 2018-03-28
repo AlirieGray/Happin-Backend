@@ -25,10 +25,10 @@ module.exports = (io, socket) => {
     Event.findById(d.hapId, (err, hap) => {
       User.findById(d.userId, (err, user) => {
         //Cant join a hap you're already attending
-        if(!hap.attendees.includes(JSON.stringify(user._id))){
-          hap.attendees.push(user._id);
+        if(!hap.attendees.includes(d.userId)){
+          hap.attendees.push(d.userId);
           hap.attendeeCount++;
-          user.attending.push(hap._id);
+          user.attending.push(d.hapId);
           hap.save();
           user.save();
           console.log(user.username + " has joined " + hap.name);
@@ -42,10 +42,10 @@ module.exports = (io, socket) => {
     Event.findById(d.hapId, (err, hap) => {
       User.findById(d.userId, (err, user) => {
         //Cant leave an Event you're not attending
-        if(hap.attendees.includes(JSON.stringify(user._id))){
-          hap.attendees.splice(hap.attendees.indexOf(user._id), 1);
+        if(hap.attendees.includes(d.userId)){
+          hap.attendees.splice(hap.attendees.indexOf(d.userId), 1);
           hap.attendeeCount--;
-          user.attending.splice(user.attending.indexOf(hap._id), 1);
+          user.attending.splice(user.attending.indexOf(d.hapId), 1);
           hap.save();
           user.save();
           console.log(user.username + " has left " + hap.name);
@@ -64,7 +64,7 @@ module.exports = (io, socket) => {
       User.findById(d.inviterId, (err, inviter) => {
         User.findOne({username : d.inviteeName}, (err, invitee) => {
           // Cant invite user to a hap theyre already attending
-          if(!invitee.attending.includes(JSON.stringify(hap._id))){
+          if(!invitee.attending.includes(d.hapId)){
             let newInvite = {
               inviterName : inviter.username,
               hapName : hap.name
