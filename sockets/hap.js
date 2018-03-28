@@ -12,7 +12,6 @@ module.exports = (io, socket) => {
         user.events.push(newHap._id);
         user.attending.push(newHap._id);
         newHap.attendees.push(user._id);
-        newHap.attendeeCount++;
         user.save();
         newHap.save();
         console.log(user.username + " has created " + newHap.name);

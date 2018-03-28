@@ -8,9 +8,9 @@ var UserSchema = new Schema({
   , updatedAt       : { type: Date }
   , password        : { type: String, select: false }
   , username        : { type: String, required: true, unique: true }
-  , events          : []
-  , attending       : []
-  , invites         : []
+  , events          : [String]
+  , attending       : [String]
+  , invites         : [String]
 });
 
 UserSchema.pre('save', function(next){
