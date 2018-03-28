@@ -69,7 +69,7 @@ module.exports = (io, socket) => {
               inviterName : inviter.username,
               hapName : hap.name
             };
-            invitee.invites.append(newInvite);
+            invitee.invites.push(newInvite);
             invitee.save();
             console.log(inviter.username + " has invited " + invitee.username + " to join " + hap.name);
           }
