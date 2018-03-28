@@ -123,17 +123,22 @@ $('#loginSubmitBtn').click(() => {
 
 //Submit New Hap
 $('#newRequestSubmit').click(() => {
-  let newRequestData = {
-    name : $('#newRequestTitle').val(),
-    description : $('#newRequestBody').val(),
-    placeId : newHapLocInput.getPlace().place_id,
-    lat : newHapLocInput.getPlace().geometry.location.lat(),
-    lng : newHapLocInput.getPlace().geometry.location.lng(),
-    address : newHapLocInput.getPlace().formatted_address
-  };
-  $('.requestFormContainer').css('display', 'none');
-  $('.requestForm').css('display', 'none');
-  socket.emit('New Hap', {hap : newRequestData})
+  if($('.requestInput').val().length > 0){
+    let newRequestData = {
+      name : $('#newRequestTitle').val(),
+      description : $('#newRequestBody').val(),
+      placeId : newHapLocInput.getPlace().place_id,
+      lat : newHapLocInput.getPlace().geometry.location.lat(),
+      lng : newHapLocInput.getPlace().geometry.location.lng(),
+      address : newHapLocInput.getPlace().formatted_address,
+      date : $('#newRequestTime').val(),
+      organizer : curUser.username,
+      organizerId : curUser._id
+    };
+    $('.requestFormContainer').css('display', 'none');
+    $('.requestForm').css('display', 'none');
+    socket.emit('New Hap', {hap : newRequestData})
+  }
 });
 //Close Form
 $('#requestFormCloseBtn').click(() => {
