@@ -66,13 +66,48 @@ $(document).ready(() => {
     });
   }
 
+//========================Sign Up Form===========================
+//Toggle SignUp Form Display
+$('.signupBtn').click(() => {
+  let signupDisplay = $('.signupContainer').css('display');
+  if(signupDisplay == 'none'){
+    $('.signupContainer').css('display', 'flex');
+    $('.signupForm').css('display', 'flex');
+  }else{
+    $('.signupContainer').css('display', 'none');
+    $('.signupForm').css('display', 'none');
+  }
+});
+//Close signup
+$('#signupCloseBtn').click(() => {
+  $('.signupContainer').css('display', 'none');
+  $('.signupForm').css('display', 'none');
+})
+//SignUp Submit
+$('#signupSubmitBtn').click(() => {
+  if($('#signupUsername').val().length > 0 && $('#signupPassword').val().length > 0){
+    $.post('/signup', {
+      username : $('#signupUsername').val(),
+      password : $('#signupPassword').val()
+    }, () => {
+      location.reload();
+    })
+  }
+});
+//Login Submit
+$('#loginSubmitBtn').click(() => {
+  if($('#signupUsername').val().length > 0 && $('#signupPassword').val().length > 0){
+    $.post('/login', {
+      username : $('#signupUsername').val(),
+      password : $('#signupPassword').val()
+    }, () => {
+      location.reload();
+    })
+  }
+});
 
-//========================SITE BUTTONS===========================
+//========================New Hap Form===========================
 
-
-  $('.signupBtn').click(() => {
-
-  });
 
   //Toggle making a new Hap
   $('.newRequestBtn').click(() => {
@@ -84,11 +119,6 @@ $(document).ready(() => {
       $('.requestFormContainer').css('display', 'none');
       $('.requestForm').css('display', 'none');
     }
-  });
-
-  //Refresh Page
-  $('.brand').click(() => {
-    location.reload();
   });
 
 //Submit New Hap
@@ -126,6 +156,17 @@ $('#newRequestTitle').keydown((e) => {
 //==================SOCKETS HANDLERS===================
   socket.on('New Hap', (d) => {
     addNewHap(d.hap);
-  })
+  });
+
+
+  //Refresh Page
+  $('.brand').click(() => {
+    location.reload();
+  });
+  //logout
+  $('.profileBtn').click(() => {
+    document.cookie = "token" + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    location.reload();
+  });
 
 })

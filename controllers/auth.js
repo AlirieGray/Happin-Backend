@@ -21,7 +21,7 @@ module.exports = function(app, passport) {
           {
             message: 'Logged in',
             token: token,
-            userId: user.id
+            userId: user.id,
           }
         );
       };
@@ -31,7 +31,6 @@ module.exports = function(app, passport) {
   // sign-up
   app.post('/signup', function(req, res) {
     // create User and JWT
-    console.log(req.body);
 
     //If User Exists Already
     User.findOne({username : req.body.username}, (err, user) => {
@@ -46,6 +45,7 @@ module.exports = function(app, passport) {
           }
           // generate a JWT for this user from the user's id and the secret key
           var token = jwt.sign({ id: newUser.id}, process.env.SECRET, { expiresIn: "60 days"});
+          res.cookie('token', token);
           res.status(200).json({
             message: 'Signed up',
             token: token,
@@ -56,5 +56,9 @@ module.exports = function(app, passport) {
       }
     });
   });
+
+  app.get('/logout', (req, res) => {
+    res.clearCookie("token");
+  })
 
 };

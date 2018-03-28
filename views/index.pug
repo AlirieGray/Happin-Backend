@@ -6,6 +6,9 @@ head
     link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
   script(src='/public/scripts/jquery-3.3.1.min.js')
   script(src='/public/scripts/socket.io.slim.js')
+  if user
+    script.
+      let curUser = !{JSON.stringify(user)};
   script(src="/public/scripts/index.js")
   script(src="/public/scripts/map.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
@@ -16,8 +19,11 @@ head
     .brandContainer
       h1.brand Happin
     .navButtons
-      .newRequestBtn Make it Happin
-      .signupBtn Sign Up / Log in
+      if user
+        .newRequestBtn Make it Happin
+        .profileBtn=user.username
+      else
+        .signupBtn Sign Up / Log in
   .mapAndRequests
     //- Map
     .mapContainer
@@ -38,6 +44,19 @@ head
           input#newRequestLoc.requestInput(placeholder="Union Square, San Francisco")
         #newRequestSubmit Submit    
     //- Sign Up Form
+    .signupContainer
+      .signupNav
+        #signupCloseBtn X
+      h1.signupLabel Sign Up / Login
+      .signupForm
+        .signupInputs
+          h2#signupUsernameLabel Username
+          input#signupUsername.requestInput(placeholder="Username")
+          h2#signupPasswordLabel Password
+          input#signupPassword.requestInput(placeholder="Password" type="password")
+      .signupSubmitBtns
+        #signupSubmitBtn Sign Up
+        #loginSubmitBtn Log In
     
 .content
   h1.nearRequestslabel What's Happining

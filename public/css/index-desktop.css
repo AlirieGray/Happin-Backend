@@ -37,6 +37,7 @@ body {
 .navButtons{
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   width : 60%;
 }
 
@@ -64,7 +65,7 @@ body {
   font-family: sans-serif;
   border : 2px solid white;
   border-radius: 10px;
-  padding : 10px 15px;
+  padding : 10px 20px;
   background-color: #45b267;
   text-align: center;
   width : 40%;
@@ -73,6 +74,26 @@ body {
 }
 
 .newRequestBtn:hover{
+  background-color: #05b267;
+  cursor: pointer;
+}
+
+.profileBtn{
+  color : white;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border : 2px solid white;
+  border-radius: 10px;
+  padding : 10px 20px;
+  background-color: #45b267;
+  text-align: center;
+  width : 40%;
+  margin-right: 20;
+  margin-left: 20;
+}
+
+.profileBtn:hover{
   background-color: #05b267;
   cursor: pointer;
 }
@@ -103,6 +124,129 @@ body {
   width : 100%;
   height : 100%;
 }
+
+/*======================SignUp Form Styles=======================*/
+.signupContainer{
+  width : 70%;
+  height : 95%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+  display : none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 5;
+  background-color: rgba(5, 178, 103, 0.9);
+  border : 2px solid white;
+  border-radius: 15px;
+}
+
+.signupNav{
+  width : 90%;
+  display : flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10;
+}
+
+#signupCloseBtn{
+  display : flex;
+  font-size: 35px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color : #437022;
+  border : 2px solid #437022;
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  padding : 8 15;
+}
+
+#signupCloseBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+
+.signupForm{
+  font-family: sans-serif;
+  color : black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*border : 2px solid white;*/
+  border-radius : 20px;
+  width : 75%;
+}
+
+.signupInputs{
+  display: flex;
+  width : 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: -10px;
+  /*border : 2px solid red;*/
+}
+
+.signupLabel{
+  /*border : 2px solid white;*/
+  color : white;
+  margin-top: -15px;
+  text-align: center;
+  padding-bottom: 18px;
+  width : 70%;
+  font-size: 50px;
+  font-family: sans-serif;
+  border-bottom: 2px solid black;
+}
+
+.signupSubmitBtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height : 20%;
+  font-family: sans-serif;
+}
+
+#signupSubmitBtn{
+  border : 2px solid black;
+  color : #437022;
+  font-weight: bold;
+  text-align: center;
+  background-color : white;
+  border-radius: 10px;
+  font-size : 22px;
+  margin-top : 30px;
+  padding : 10px;
+  cursor : pointer;
+  margin-right: 10
+}
+
+#signupSubmitBtn:hover{
+  background-color : #ffffbf;
+}
+
+#loginSubmitBtn{
+  border : 2px solid black;
+  color : #437022;
+  font-weight: bold;
+  text-align: center;
+  background-color : white;
+  border-radius: 10px;
+  font-size : 22px;
+  margin-top : 30px;
+  padding : 10px;
+  cursor : pointer;
+  margin-left: 10;
+}
+
+#loginSubmitBtn:hover{
+  background-color : #ffffbf;
+}
+
 
 /*======================Request Form Styles======================*/
 
