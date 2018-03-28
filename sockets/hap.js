@@ -15,7 +15,7 @@ module.exports = (io, socket) => {
         newHap.attendeeCount++;
         user.save();
         newHap.save();
-        console.log(user.username + " has created " + hap.name);
+        console.log(user.username + " has created " + newHap.name);
       })
     });
   });
