@@ -11,8 +11,8 @@ module.exports = (io, socket) => {
       User.findById(newHap.organizerId, (err, user)=>{
         user.events.push(newHap._id);
         user.attending.push(newHap._id);
+        user.save();
       })
-      user.save();
     });
   });
 
