@@ -11,7 +11,11 @@ module.exports = (io, socket) => {
       User.findById(newHap.organizerId, (err, user)=>{
         user.events.push(newHap._id);
         user.attending.push(newHap._id);
+        hap.attendees.push(user._id);
+        hap.attendeeCount++;
         user.save();
+        hap.save();
+        console.log(user.username + " has created " + hap.name);
       })
     });
   });
@@ -28,6 +32,7 @@ module.exports = (io, socket) => {
           user.attending.push(hap._id);
           hap.save();
           user.save();
+          console.log(user.username + " has joined " + hap.name);
         }
       })
     })
@@ -44,6 +49,7 @@ module.exports = (io, socket) => {
           user.attending.splice(user.attending.indexOf(hap._id), 1);
           hap.save();
           user.save();
+          console.log(user.username + " has left " + hap.name);
         }
       })
     })
@@ -62,6 +68,7 @@ module.exports = (io, socket) => {
             };
             invitee.invites.append(newInvite);
             invitee.save();
+            console.log(inviter.username + " has invited " + invitee.username + " to join " + hap.name);
           }
         })
       })
