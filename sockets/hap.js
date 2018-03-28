@@ -49,6 +49,10 @@ module.exports = (io, socket) => {
           hap.save();
           user.save();
           console.log(user.username + " has left " + hap.name);
+        }else{
+          console.log(hap.attendees);
+          console.log(user._id);
+          console.log(hap.attendees.includes(user._id));
         }
       })
     })
