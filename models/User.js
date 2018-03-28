@@ -10,6 +10,7 @@ var UserSchema = new Schema({
   , username        : { type: String, required: true, unique: true }
   , events          : [ { type: Schema.Types.ObjectId, ref: 'Event'} ]
   , attending       : [ { type: Schema.Types.ObjectId, ref: 'Event'} ]
+  , invites         : []
 });
 
 UserSchema.pre('save', function(next){
