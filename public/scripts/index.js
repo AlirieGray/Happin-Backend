@@ -26,10 +26,10 @@ initAutoComplete = () => {
 
   clearHapMarkers = () => {
     hapMarkers.forEach((hapMarker) => {
-      console.log("Removing Marker");
       hapMarker.setMap(null);
     })
     hapMarkers.length = 0;
+    $('.request').remove();
   }
 
   //==============LOAD ALL HAPS===================
