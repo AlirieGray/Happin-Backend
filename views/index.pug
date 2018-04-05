@@ -9,10 +9,12 @@ head
   if user
     script.
       let curUser = !{JSON.stringify(user)};
+  else
+    script.
+      let curUser = false;
   script(src="/public/scripts/index.js")
   script(src="/public/scripts/map.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
-  //- script(type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=" + mapApiKey + "&libraries=places")
   
 .info
   .nav
@@ -70,7 +72,6 @@ head
         .requestBasicInfoSep
           #requestOwner Bobby
           #requestLoc 1547 Mission St
-      //- .viewRequestBtn
-      //-   //- #requestPayout $10
-      //-   //- #requestSpots ( 0/1 )
+      #joinHapBtn Join
+      #hapId(hidden)
     

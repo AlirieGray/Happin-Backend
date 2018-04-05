@@ -12,6 +12,7 @@ var EventSchema = new Schema({
   , placeId         : { type: String }
   , lat             : { type: Number }
   , lng             : { type: Number }
+  , loc             : { type : [ Number ], index : '2d'}
   , organizer       : { type: String, required: true, unique: false }
   , organizerId     : { type: String, required: true, unique: false }
   , tags            : { type: String }

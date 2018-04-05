@@ -2,6 +2,8 @@
 //====================GOOGLE MAPS=========================
 let newHapLocInput;
 let Map;
+let hapMarkers = [];
+
 initAutoComplete = () => {
   newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
 
@@ -22,14 +24,34 @@ initAutoComplete = () => {
     });
   }
 
-  $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
-    showMap(data.location);
-    //==============LOAD ALL HAPS===================
-    $.get('/events', (haps) => {
-      haps.forEach((hap) => {
-        addNewHap(hap);
+  clearHapMarkers = () => {
+    hapMarkers.forEach((hapMarker) => {
+      console.log("Removing Marker");
+      hapMarker.setMap(null);
+    })
+    hapMarkers.length = 0;
+  }
+
+  //==============LOAD ALL HAPS===================
+  loadHapsFromPos = (pos) => {
+    $.post('near_events', {userLoc : [pos.lng, pos.lat]}, (haps) => {
+      haps.forEach((hap, i, hapArray) => {
+        // Last Hap Loaded
+        if(i == hapArray.length - 1){
+          addNewHap(hap, true);
+        }
+        // Not Last Hap
+        else{
+          addNewHap(hap);
+        }
       })
     })
+  }
+
+
+  $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
+    showMap(data.location);
+    loadHapsFromPos(data.location);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         pos = {
@@ -37,6 +59,8 @@ initAutoComplete = () => {
           lng: position.coords.longitude
         };
         showUserPos(pos);
+        clearHapMarkers();
+        loadHapsFromPos(pos);
       });
     }
   });
@@ -44,18 +68,21 @@ initAutoComplete = () => {
 
 $(document).ready(() => {
 
-  //=============CONNECT TO SOCKET==============
+//=============CONNECT TO SOCKET==============
   let socket = io.connect();
-
-  //==========================NEW REQUESTS=========================
-  addNewHap = (hap) => {
+//==========================NEW REQUESTS=========================
+  addNewHap = (hap, last=null) => {
     //ADD HAP TO REQUEST CONTAINER
-    let newRequestClone = $('.request-prototype').clone(true);
+    let newRequestClone = $('.request-prototype').clone(true, true);
     newRequestClone.addClass('request').removeClass('request-prototype');
     newRequestClone.find('#requestTitle').text(hap.name);
     newRequestClone.find('#requestOwner').text(hap.organizer);
     newRequestClone.find('#requestLoc').text(hap.address);
+    newRequestClone.find('#hapId').text(hap._id);
     newRequestClone.appendTo('.requestsContainer');
+    if(last){
+      newRequestClone.css('border-bottom', '2px solid #05b267');
+    }
     //ADD HAP TO MAP
     let newHapLocation = new google.maps.Marker({
       position : {
@@ -64,47 +91,65 @@ $(document).ready(() => {
       },
       map : Map
     });
+    hapMarkers.push(newHapLocation);
   }
 
+  $('#joinHapBtn').click(function() {
+    if(!curUser){
+      console.log("Not signed in");
+    }else{
+      let hapId = $(this).siblings('#hapId').text();
+      socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
+    }
+  });
+
 //========================Sign Up Form===========================
-//Toggle SignUp Form Display
-$('.signupBtn').click(() => {
-  let signupDisplay = $('.signupContainer').css('display');
-  if(signupDisplay == 'none'){
-    $('.signupContainer').css('display', 'flex');
-    $('.signupForm').css('display', 'flex');
-  }else{
+  //Toggle SignUp Form Display
+  $('.signupBtn').click(() => {
+    let signupDisplay = $('.signupContainer').css('display');
+    if(signupDisplay == 'none'){
+      $('.signupContainer').css('display', 'flex');
+      $('.signupForm').css('display', 'flex');
+    }else{
+      $('.signupContainer').css('display', 'none');
+      $('.signupForm').css('display', 'none');
+    }
+  });
+  //Close signup
+  $('#signupCloseBtn').click(() => {
     $('.signupContainer').css('display', 'none');
     $('.signupForm').css('display', 'none');
-  }
-});
-//Close signup
-$('#signupCloseBtn').click(() => {
-  $('.signupContainer').css('display', 'none');
-  $('.signupForm').css('display', 'none');
-})
-//SignUp Submit
-$('#signupSubmitBtn').click(() => {
-  if($('#signupUsername').val().length > 0 && $('#signupPassword').val().length > 0){
-    $.post('/signup', {
-      username : $('#signupUsername').val(),
-      password : $('#signupPassword').val()
-    }, () => {
-      location.reload();
-    })
-  }
-});
-//Login Submit
-$('#loginSubmitBtn').click(() => {
-  if($('#signupUsername').val().length > 0 && $('#signupPassword').val().length > 0){
-    $.post('/login', {
-      username : $('#signupUsername').val(),
-      password : $('#signupPassword').val()
-    }, () => {
-      location.reload();
-    })
-  }
-});
+  })
+  //SignUp Submit
+  $('#signupSubmitBtn').click(() => {
+    if($('#signupUsername').val().length > 0 && $('#signupPassword').val().length > 0){
+      $.post('/signup', {
+        username : $('#signupUsername').val(),
+        password : $('#signupPassword').val()
+      }, (d) => {
+        if(d.err){
+          console.log(d.err);
+        }else{
+          location.reload();
+        }
+      })
+    }
+  });
+  //Login Submit
+  $('#loginSubmitBtn').click(() => {
+    if($('#signupUsername').val().length > 0 && $('#signupPassword').val().length > 0){
+      $.post('/login', {
+        username : $('#signupUsername').val(),
+        password : $('#signupPassword').val()
+      }, (d) => {
+        if(d.err){
+          console.log(d.err);
+        }else{
+          location.reload();
+        }
+      })
+    }
+  });
 
 //========================New Hap Form===========================
 

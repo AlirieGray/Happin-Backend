@@ -15,6 +15,15 @@ module.exports = function(app) {
       }
       res.send(events);
     })
+  });
+
+  /**** GET Nearby Haps ****/
+  app.post('/near_events', (req, res) => {
+    Event.find({loc: {$near:req.body.userLoc, $maxDistance: 1} }, function(err, haps){
+      if(haps){
+        res.send(haps);
+      }
+    });
   })
 
   /**** GET an event by ID ****/
@@ -114,6 +123,7 @@ module.exports = function(app) {
         placeId: req.body.placeId,
         lat: req.body.lat,
         lng: req.body.lng,
+        loc: [req.body.lng, req.body.lat],
         date: req.body.date,
         description: req.body.description,
         organizer: user.username,

@@ -6,6 +6,7 @@ module.exports = (io, socket) => {
 //Creating a New Hap
   socket.on('New Hap', (d) => {
     let newHap = new Event(d.hap);
+    newHap.loc = [d.hap.lng, d.hap.lat];
     io.emit('New Hap', {hap : newHap});
     newHap.save((err, newHap) => {
       User.findById(newHap.organizerId, (err, user)=>{
@@ -49,10 +50,6 @@ module.exports = (io, socket) => {
           hap.save();
           user.save();
           console.log(user.username + " has left " + hap.name);
-        }else{
-          console.log(hap.attendees);
-          console.log(user._id);
-          console.log(hap.attendees.includes(user._id));
         }
       })
     })

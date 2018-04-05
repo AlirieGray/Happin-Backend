@@ -7,12 +7,11 @@ module.exports = function(app, passport) {
   app.post('/login', function(req, res) {
     User.findOne({ username: req.body.username }, "+password", function (err, user) {
       if (!user) {
-        console.log('could not find user');
-        return res.status(401).send({ message: 'Wrong username'
-      })};
-      if(!user.validPassword(req.body.password)){
-        console.log('Wrong password')
-        return res.status(401).send({ message: 'Wrong password' });
+        //console.log('could not find user');
+        res.send({ err: 'Wrong username'});
+      }
+      else if(!user.validPassword(req.body.password)){
+        res.send({ err: 'Wrong password' });
       }else{
         var token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: "60 days" });
 
@@ -35,7 +34,7 @@ module.exports = function(app, passport) {
     //If User Exists Already
     User.findOne({username : req.body.username}, (err, user) => {
       if(user){
-        res.status('401').send('Username Taken');
+        res.send({err : 'Username Taken'});
       }else{
         let newUser = new User({username : req.body.username});
         newUser.password = newUser.generateHash(req.body.password);
