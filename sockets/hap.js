@@ -6,13 +6,10 @@ module.exports = (io, socket) => {
 //Date Formatting function
 function getFormattedDate(date) {
   var year = date.getFullYear();
-
   var month = (1 + date.getMonth()).toString();
   month = month.length > 1 ? month : '0' + month;
-
   var day = date.getDate().toString();
   day = day.length > 1 ? day : '0' + day;
-
   let hour = date.getHours();
   let ampm;
   if(hour == 0){
@@ -28,12 +25,11 @@ function getFormattedDate(date) {
     hour = hour.toString();
     ampm = "am"
   }
-
   let minute = date.getMinutes().toString();
   minute = minute.length > 1 ? minute : '0' + minute;
-
   return month + '/' + day + '/' + year + " at " + hour + ":" + minute + ampm;
 }
+
 
 //Creating a New Hap
   socket.on('New Hap', (d) => {
@@ -64,6 +60,7 @@ function getFormattedDate(date) {
           hap.attendees.push(d.userId);
           hap.attendeeCount++;
           user.attending.push(d.hapId);
+          socket.to(hapId).emit('Join Hap');
           hap.save();
           user.save();
           console.log(user.username + " has joined " + hap.name);

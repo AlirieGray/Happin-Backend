@@ -17,12 +17,37 @@ module.exports = function(app) {
     })
   });
 
+  function getDistanceToHap(pos1,pos2) {
+    function deg2rad(deg){
+      return deg * (Math.PI / 180);
+    }
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(pos2.lat-pos1.lat);  // deg2rad below
+    var dlng = deg2rad(pos2.lng-pos1.lng);
+    var a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(pos1.lat)) * Math.cos(deg2rad(pos2.lat)) *
+      Math.sin(dlng/2) * Math.sin(dlng/2)
+      ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    d = d * 0.621371;
+    return Math.round(d * 10) / 10;
+  }
+
   /**** GET Nearby Haps ****/
   app.post('/near_events', (req, res) => {
     const maxDistance = 0.3;
-    Event.find({loc: {$near:req.body.userLoc, $maxDistance: maxDistance} }, function(err, haps){
+    let userLoc = req.body.userLoc;
+    Event.find({loc: {$near:userLoc, $maxDistance: maxDistance} }, function(err, haps){
       if(haps){
-        res.send(haps);
+        let userPos = {lat : userLoc[1], lng : userLoc[0]};
+        let hapDistances = {};
+        haps.forEach((hap) => {
+          let hapPos = {lat : hap.lat, lng : hap.lng};
+          hapDistances[hap._id] = getDistanceToHap(userPos, hapPos);
+        })
+        res.send({haps, hapDistances});
       }
     });
   })

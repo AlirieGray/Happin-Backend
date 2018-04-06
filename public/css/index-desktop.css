@@ -58,7 +58,7 @@ body {
   cursor: pointer;
 }
 
-.newRequestBtn {
+.newHapBtn {
   color : white;
   font-size: 25px;
   font-weight: bold;
@@ -73,7 +73,7 @@ body {
   margin-left: 20;
 }
 
-.newRequestBtn:hover{
+.newHapBtn:hover{
   background-color: #05b267;
   cursor: pointer;
 }
@@ -98,7 +98,7 @@ body {
   cursor: pointer;
 }
 
-.mapAndRequests{
+.mapAndHaps{
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -248,9 +248,9 @@ body {
 }
 
 
-/*======================Request Form Styles======================*/
+/*======================Hap Form Styles======================*/
 
-.requestFormContainer{
+.hapFormContainer{
   width : 70%;
   height : 95%;
   position: absolute;
@@ -266,7 +266,7 @@ body {
   border-radius: 15px;
 }
 
-.requestFormNav{
+.hapFormNav{
   width : 90%;
   display : flex;
   justify-content: flex-end;
@@ -274,7 +274,7 @@ body {
   margin-top : 10;
 }
 
-#requestFormCloseBtn{
+#hapFormCloseBtn{
   display : flex;
   font-size: 35px;
   font-family: sans-serif;
@@ -287,13 +287,13 @@ body {
   padding : 8 15;
 }
 
-#requestFormCloseBtn:hover{
+#hapFormCloseBtn:hover{
   background-color: #ffffbf;
   cursor :pointer;
 }
 
 
-.requestForm{
+.hapForm{
   font-family: sans-serif;
   color : black;
   display: flex;
@@ -305,7 +305,7 @@ body {
   height : 90%;
 }
 
-.requestFormInputs{
+.hapFormInputs{
   display: flex;
   width : 100%;
   flex-direction: column;
@@ -315,7 +315,7 @@ body {
   /*border : 2px solid red;*/
 }
 
-.newRequestLabel{
+.newHapLabel{
   /*border : 2px solid white;*/
   color : white;
   margin-top: -35px;
@@ -327,21 +327,21 @@ body {
   border-bottom: 2px solid black;
 }
 
-#requestTitleLabel{
+#hapTitleLabel{
   margin-top: -15px;
 }
 
-#newRequestLoc{
+#newHapLoc{
   width : 100%;
 }
 
-#newRequestTime{
+#newHapTime{
   font-size: 15px;
   text-align: center;
   width : 60%;
 }
 
-.requestInput{
+.hapInput{
   width : 70%;
   font-size: 14px;
   text-align: center;
@@ -349,11 +349,11 @@ body {
   margin-top : -10px;
 }
 
-#newRequestBody{
+#newHapBody{
   height : 20%;
 }
 
-#newRequestSubmit{
+#newHapSubmit{
   border : 2px solid black;
   color : #437022;
   font-weight: bold;
@@ -367,7 +367,7 @@ body {
   cursor : pointer;
 }
 
-#newRequestSubmit:hover{
+#newHapSubmit:hover{
   background-color : #ffffbf;
 }
 
@@ -562,7 +562,7 @@ body {
   background-color: #f1f9cc;
 }
 
-.nearRequestsLabel {
+.nearHapsLabel {
   color : #05b267;
   font-size: 29px;
   font-weight: bold;
@@ -570,11 +570,11 @@ body {
   text-align: center;
 }
 
-.requestContainer{
+.hapContainer{
   display: flex;
 }
 
-.request-prototype{
+.hap-prototype{
   display: none;
   flex-direction: row;
   justify-content: space-between;
@@ -586,7 +586,7 @@ body {
   height : 10%;
 }
 
-.request{
+.hap{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -600,7 +600,7 @@ body {
   cursor : pointer;
 }
 
-.requestBasicInfo{
+.hapBasicInfo{
   display : flex;
   flex-direction: column;
   justify-content: space-around;
@@ -608,30 +608,30 @@ body {
   width : 80%;
 }
 
-.requestBasicInfoSep{
+.hapBasicInfoSep{
   margin-top: 5px;
   display : flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-#requestOwner{
+#hapOwner{
   margin-right:  20px;
   color : #007241;
   font-weight: 600;
 }
 
-#requestLoc{
+#hapDistance{
   font-style: italic;
   margin-right: 20px;
 }
 
-#requestTitle{
+#hapTitle{
   font-weight: bold;
   font-size: 15px;
 }
 
-#joinHapBtn{
+#viewHapBtn{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -645,17 +645,17 @@ body {
   cursor: pointer;
 }
 
-#joinHapBtn:hover{
+#viewHapBtn:hover{
   background-color: #05b267;
 }
 
-#joinHapBtnLabel{
+#viewHapBtnLabel{
   margin-top: 5px;
   font-size: 25px;
   font-weight: bold;
 }
 
-.joinHapBtnInfo{
+.viewHapBtnInfo{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -673,11 +673,11 @@ body {
   margin-left: 1px;
 }
 
-#requestPayout{
+#hapPayout{
   font-size: 30px;
   font-weight: bold;
 }
 
-#requestSpots{
+#hapSpots{
   font-size: 10px;
 }

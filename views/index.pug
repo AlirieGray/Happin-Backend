@@ -1,4 +1,4 @@
-head
+haphead
   if !mobile
     link(type='text/css' rel='stylesheet' href='/public/css/index-desktop.css')
   else
@@ -22,31 +22,31 @@ head
       h1.brand Happin
     .navButtons
       if user
-        .newRequestBtn Make it Happin
+        .newHapBtn Make it Happin
         .profileBtn=user.username
       else
         .signupBtn Sign Up / Log in
-  .mapAndRequests
+  .mapAndHaps
     //- Map
     .mapContainer
       img#mapLoading(src="/public/assets/Procfile.svg")
       #map
-    //- New Request Form 
-    .requestFormContainer
-      .requestFormNav
-        #requestFormCloseBtn X
-      h1.newRequestLabel New Hap
-      .requestForm
-        .requestFormInputs
-          h2#requestTitleLabel Title
-          input#newRequestTitle.requestInput(placeholder="New Hap")
-          h2#requestBodyLabel Description
-          textarea#newRequestBody.requestInput(placeholder="Let's make it happin!")
-          h2#requestLocLabel Location
-          input#newRequestLoc.requestInput(placeholder="Union Square, San Francisco")
-          h2#requestTimeLabel Date and Time
-          input#newRequestTime.requestInput(type="datetime-local")
-        #newRequestSubmit Submit    
+    //- New Hap Form 
+    .hapFormContainer
+      .hapFormNav
+        #hapFormCloseBtn X
+      h1.newHapLabel New Hap
+      .hapForm
+        .hapFormInputs
+          h2#hapTitleLabel Title
+          input#newHapTitle.hapInput(placeholder="New Hap")
+          h2#hapBodyLabel Description
+          textarea#newHapBody.hapInput(placeholder="Let's make it happin!")
+          h2#hapLocLabel Location
+          input#newHapLoc.hapInput(placeholder="Union Square, San Francisco")
+          h2#hapTimeLabel Date and Time
+          input#newHapTime.hapInput(type="datetime-local")
+        #newHapSubmit Submit    
     //- Sign Up Form
     .signupContainer
       .signupNav
@@ -55,9 +55,9 @@ head
       .signupForm
         .signupInputs
           h2#signupUsernameLabel Username
-          input#signupUsername.requestInput(placeholder="Username")
+          input#signupUsername.hapInput(placeholder="Username")
           h2#signupPasswordLabel Password
-          input#signupPassword.requestInput(placeholder="Password" type="password")
+          input#signupPassword.hapInput(placeholder="Password" type="password")
       .signupSubmitBtns
         #signupSubmitBtn Sign Up
         #loginSubmitBtn Log In
@@ -86,19 +86,20 @@ head
       
     
 .content
-  h1.nearRequestslabel What's Happining
-    .requestsPlaceholder
-  .requestsContainer
-    .request-prototype
-      .requestBasicInfo
-        #requestTitle Help me learn biology please!
-        .requestBasicInfoSep
-          #requestOwner Bobby
-          #requestLoc 1547 Mission St
-        #hapId(hidden)
-      #joinHapBtn
-        #joinHapBtnLabel Join
-        .joinHapBtnInfo
+  h1.nearHapslabel What's Happining
+    .hapsPlaceholder
+  .hapsContainer
+    .hap-prototype
+      .hapBasicInfo
+        #hapTitle Help me learn biology please!
+        .hapBasicInfoSep
+          #hapOwner Bobby
+          #hapDistance 1547 Mission St
+      #viewHapBtn
+        #viewHapBtnLabel View
+        .viewHapBtnInfo
           img#hapAttendeeCountIcon(src='/public/assets/user.svg')
           p#hapAttendeeCount
+      #hapId(hidden)
+      #hapPos(hidden)
     

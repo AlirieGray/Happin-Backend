@@ -6,7 +6,7 @@ let hapMarkers = [];
 let userLoc;
 
 initAutoComplete = () => {
-  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
+  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newHapLoc'));
 
   showMap = (pos) => {
     $('#mapLoading').css('display', 'none');
@@ -30,21 +30,14 @@ initAutoComplete = () => {
       hapMarker.setMap(null);
     })
     hapMarkers.length = 0;
-    $('.request').remove();
+    $('.hap').remove();
   }
 
-  //==============LOAD ALL HAPS===================
+//==============LOAD ALL HAPS===================
   loadHapsFromPos = (pos) => {
-    $.post('near_events', {userLoc : [pos.lng, pos.lat]}, (haps) => {
-      haps.forEach((hap, i, hapArray) => {
-        // Last Hap Loaded
-        if(i == hapArray.length - 1){
-          addNewHap(hap, true);
-        }
-        // Not Last Hap
-        else{
-          addNewHap(hap);
-        }
+    $.post('near_events', {userLoc : [pos.lng, pos.lat]}, (d) => {
+      d.haps.forEach((hap) => {
+        addNewHap(hap, d.hapDistances[hap._id]);
       })
     })
   }
@@ -75,19 +68,20 @@ $(document).ready(() => {
   let socket = io.connect();
 
 //==========================NEW REQUESTS=========================
-  addNewHap = (hap, last=null) => {
+  addNewHap = (hap, distance) => {
     //ADD HAP TO REQUEST CONTAINER
-    let newRequestClone = $('.request-prototype').clone(true, true);
-    newRequestClone.addClass('request').removeClass('request-prototype');
-    newRequestClone.find('#requestTitle').text(hap.name);
-    newRequestClone.find('#requestOwner').text(hap.organizer);
-    newRequestClone.find('#requestLoc').text(hap.address);
-    newRequestClone.find('#hapAttendeeCount').text(hap.attendeeCount);
-    newRequestClone.find('#hapId').text(hap._id);
-    newRequestClone.appendTo('.requestsContainer');
-    if(last){
-      newRequestClone.css('border-bottom', '2px solid #05b267');
-    }
+    let newHapClone = $('.hap-prototype').clone(true, true);
+    newHapClone.addClass('hap').removeClass('hap-prototype');
+    newHapClone.find('#hapTitle').text(hap.name);
+    newHapClone.find('#hapOwner').text(hap.organizer);
+    newHapClone.find('#hapDistance').text(distance + " miles away");
+    newHapClone.find('#hapAttendeeCount').text(hap.attendeeCount);
+    newHapClone.find('#hapId').text(hap._id);
+    newHapClone.find('#hapPos').text(JSON.stringify({lat : hap.lat, lng : hap.lng}));
+    newHapClone.appendTo('.hapsContainer');
+    // if(last){
+    //   newHapClone.css('border-bottom', '2px solid #05b267');
+    // }
     //ADD HAP TO MAP
     let newHapLocation = new google.maps.Marker({
       position : {
@@ -118,12 +112,12 @@ $(document).ready(() => {
   }
 
   //SHOW HAP SCREEN WHEN CLICKED
-  $('.requestBasicInfo').click(function() {
+  $('#viewHapBtn').click(function() {
     if(!curUser){
       $('.signupContainer').css('display', 'flex');
       $('.signupForm').css('display', 'flex');
     }else{
-      let hapId = $(this).find('#hapId').text();
+      let hapId = $(this).siblings('#hapId').text();
       $.get('/events/'+hapId, (hap) => {
         $('.mainHapTitle').text(hap.name);
         $('.mainHapOrganizer').text(hap.organizer);
@@ -144,12 +138,18 @@ $(document).ready(() => {
     }
   });
 
+  $('.hapBasicInfo').click(function() {
+    console.log($(this).siblings('#hapPos').text());
+    let hapPos = JSON.parse($(this).siblings('#hapPos').text());
+    Map.panTo(hapPos);
+  })
+
   $('#joinHapBtn').click(function() {
     if(!curUser){
       $('.signupContainer').css('display', 'flex');
       $('.signupForm').css('display', 'flex');
     }else{
-      let hapId = $(this).siblings('.requestBasicInfo').find('#hapId').text();
+      let hapId = $(this).siblings('.hapBasicInfo').find('#hapId').text();
       socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
     }
   });
@@ -205,50 +205,50 @@ $(document).ready(() => {
 //========================New Hap Form===========================
 
   //Toggle making a new Hap
-  $('.newRequestBtn').click(() => {
-    let hapFormContainerDisplay = $('.requestFormContainer').css('display');
+  $('.newHapBtn').click(() => {
+    let hapFormContainerDisplay = $('.hapFormContainer').css('display');
     if(hapFormContainerDisplay == 'none'){
-      $('.requestFormContainer').css('display', 'flex');
-      $('.requestForm').css('display', 'flex');
+      $('.hapFormContainer').css('display', 'flex');
+      $('.hapForm').css('display', 'flex');
     }else{
-      $('.requestFormContainer').css('display', 'none');
-      $('.requestForm').css('display', 'none');
+      $('.hapFormContainer').css('display', 'none');
+      $('.hapForm').css('display', 'none');
     }
   });
 
   //Submit New Hap
-  $('#newRequestSubmit').click(() => {
-    if($('.requestInput').val().length > 0){
-      let newRequestData = {
-        name : $('#newRequestTitle').val(),
-        description : $('#newRequestBody').val(),
+  $('#newHapSubmit').click(() => {
+    if($('.hapInput').val().length > 0){
+      let newHapData = {
+        name : $('#newHapTitle').val(),
+        description : $('#newHapBody').val(),
         placeId : newHapLocInput.getPlace().place_id,
         lat : newHapLocInput.getPlace().geometry.location.lat(),
         lng : newHapLocInput.getPlace().geometry.location.lng(),
         address : newHapLocInput.getPlace().formatted_address,
-        date : $('#newRequestTime').val(),
+        date : $('#newHapTime').val(),
         organizer : curUser.username,
         organizerId : curUser._id
       };
-      $('.requestFormContainer').css('display', 'none');
-      $('.requestForm').css('display', 'none');
-      socket.emit('New Hap', {hap : newRequestData})
+      $('.hapFormContainer').css('display', 'none');
+      $('.hapForm').css('display', 'none');
+      socket.emit('New Hap', {hap : newHapData})
     }
   });
   //Close Form
-  $('#requestFormCloseBtn').click(() => {
-    $('.requestFormContainer').css('display', 'none');
-    $('.requestForm').css('display', 'none');
+  $('#hapFormCloseBtn').click(() => {
+    $('.hapFormContainer').css('display', 'none');
+    $('.hapForm').css('display', 'none');
   })
   //Update Hap Title
-  $('#newRequestTitle').keypress((e) => {
+  $('#newHapTitle').keypress((e) => {
     if(e.key != 'enter'){
-      $('.newRequestLabel').text($('#newRequestTitle').val() + e.key);
+      $('.newHapLabel').text($('#newHapTitle').val() + e.key);
     }
   })
-  $('#newRequestTitle').keydown((e) => {
+  $('#newHapTitle').keydown((e) => {
     if(e.key == 'Backspace'){
-      $('.newRequestLabel').text($('.newRequestLabel').text().substr(0,$('.newRequestLabel').text().length - 1));
+      $('.newHapLabel').text($('.newHapLabel').text().substr(0,$('.newHapLabel').text().length - 1));
     }
   });
 
