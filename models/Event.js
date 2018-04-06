@@ -7,6 +7,7 @@ var EventSchema = new Schema({
   , updatedAt       : { type: Date }
   , name            : { type: String }
   , date            : { type: String }
+  , dateFormatted   : { type: String }
   , description     : { type: String }
   , address         : { type: String }
   , placeId         : { type: String }

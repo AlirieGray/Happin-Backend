@@ -129,13 +129,15 @@ $(document).ready(() => {
         $('.mainHapOrganizer').text(hap.organizer);
         $('.mainHapAttendeeCount').text(hap.attendeeCount);
         $('.mainHapDescription').text(hap.description);
-        $('.mainHapDate').text(hap.date);
+        $('.mainHapDate').text(hap.dateFormatted);
         $('.mainHapAddress').text(hap.address);
         $('#mainHapId').text(hap._id);
         if(hap.attendees.includes(curUser._id)){
           $('#mainHapLeaveBtn').css('display', 'block');
+          $('#mainHapJoinBtn').css('display', 'none');
         }else{
           $('#mainHapJoinBtn').css('display', 'block');
+          $('#mainHapLeaveBtn').css('display', 'none');
         }
         $('.hapScreenContainer').css('display', 'flex');
       });
