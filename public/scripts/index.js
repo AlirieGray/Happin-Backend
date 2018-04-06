@@ -3,6 +3,7 @@
 let newHapLocInput;
 let Map;
 let hapMarkers = [];
+let userLoc;
 
 initAutoComplete = () => {
   newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newRequestLoc'));
@@ -50,6 +51,7 @@ initAutoComplete = () => {
 
 
   $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
+    userLoc = data.location;
     showMap(data.location);
     loadHapsFromPos(data.location);
     if (navigator.geolocation) {
@@ -58,6 +60,7 @@ initAutoComplete = () => {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        userLoc = pos;
         showUserPos(pos);
         clearHapMarkers();
         loadHapsFromPos(pos);
@@ -71,6 +74,7 @@ $(document).ready(() => {
 //=============CONNECT TO SOCKET==============
   let socket = io.connect();
 //==========================NEW REQUESTS=========================
+
   addNewHap = (hap, last=null) => {
     //ADD HAP TO REQUEST CONTAINER
     let newRequestClone = $('.request-prototype').clone(true, true);
@@ -92,6 +96,24 @@ $(document).ready(() => {
       map : Map
     });
     hapMarkers.push(newHapLocation);
+  }
+
+  function getDistanceToHap(lat1,lon1,lat2,lon2) {
+    function deg2rad(deg){
+      return deg * (Math.PI / 180);
+    }
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    d = d * 0.621371;
+    return Math.round(d * 10) / 10;
   }
 
   $('#joinHapBtn').click(function() {
@@ -205,7 +227,11 @@ $('#newRequestTitle').keydown((e) => {
 
 //==================SOCKETS HANDLERS===================
   socket.on('New Hap', (d) => {
-    addNewHap(d.hap);
+    //If nearby
+    hapDistance = getDistanceToHap(d.hap.lat, d.hap.lng, userLoc.lat, userLoc.lng);
+    if(hapDistance < 10) {
+      addNewHap(d.hap);
+    }
   });
 
 
