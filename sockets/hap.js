@@ -42,8 +42,8 @@ module.exports = (io, socket) => {
   socket.on('Leave Hap', (d) => {
     Event.findById(d.hapId, (err, hap) => {
       User.findById(d.userId, (err, user) => {
-        //Cant leave an Event you're not attending
-        if(hap.attendees.includes(d.userId)){
+        //Cant leave an Event you're not attending, Owner can't leave their hap
+        if(hap.attendees.includes(d.userId) && hap.organizerId != d.userId){
           hap.attendees.splice(hap.attendees.indexOf(d.userId), 1);
           hap.attendeeCount--;
           user.attending.splice(user.attending.indexOf(d.hapId), 1);

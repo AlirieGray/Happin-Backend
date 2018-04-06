@@ -119,21 +119,33 @@ $(document).ready(() => {
 
   //SHOW HAP SCREEN WHEN CLICKED
   $('.requestBasicInfo').click(function() {
-    let hapId = $(this).find('#hapId').text();
-    $.get('/events/'+hapId, (hap) => {
-      $('.mainHapTitle').text(hap.name);
-      $('.mainHapOrganizer').text(hap.organizer);
-      $('.mainHapAttendeeCount').text(hap.attendeeCount);
-      $('.mainHapDescription').text(hap.description);
-      $('.mainHapDate').text(hap.date);
-      $('.mainHapAddress').text(hap.address);
-      $('.hapScreenContainer').css('display', 'flex');
-    })
+    if(!curUser){
+      $('.signupContainer').css('display', 'flex');
+      $('.signupForm').css('display', 'flex');
+    }else{
+      let hapId = $(this).find('#hapId').text();
+      $.get('/events/'+hapId, (hap) => {
+        $('.mainHapTitle').text(hap.name);
+        $('.mainHapOrganizer').text(hap.organizer);
+        $('.mainHapAttendeeCount').text(hap.attendeeCount);
+        $('.mainHapDescription').text(hap.description);
+        $('.mainHapDate').text(hap.date);
+        $('.mainHapAddress').text(hap.address);
+        $('#mainHapId').text(hap._id);
+        if(hap.attendees.includes(curUser._id)){
+          $('#mainHapLeaveBtn').css('display', 'block');
+        }else{
+          $('#mainHapJoinBtn').css('display', 'block');
+        }
+        $('.hapScreenContainer').css('display', 'flex');
+      });
+    }
   });
 
   $('#joinHapBtn').click(function() {
     if(!curUser){
-      console.log("Not signed in");
+      $('.signupContainer').css('display', 'flex');
+      $('.signupForm').css('display', 'flex');
     }else{
       let hapId = $(this).siblings('.requestBasicInfo').find('#hapId').text();
       socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
@@ -243,6 +255,16 @@ $(document).ready(() => {
   $('#hapScreenCloseBtn').click(function(){
     $('.hapScreenContainer').css('display', 'none');
   });
+
+  $('#mainHapJoinBtn').click(function(){
+    let hapId = $(this).siblings('#mainHapId').text();
+    socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
+  });
+
+  $('#mainHapLeaveBtn').click(function(){
+    let hapId = $(this).siblings('#mainHapId').text();
+    socket.emit('Leave Hap', {hapId : hapId, userId : curUser._id});
+  })
 
 
 //==================SOCKETS HANDLERS===================
