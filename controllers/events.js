@@ -33,7 +33,7 @@ module.exports = function(app) {
       if (err) {
         return res.status(500).send("Could not get this event");
       }
-      console.log(event);
+      // console.log(event);
       return res.status(200).send(event);
     })
   })

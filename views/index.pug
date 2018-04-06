@@ -61,6 +61,27 @@ head
       .signupSubmitBtns
         #signupSubmitBtn Sign Up
         #loginSubmitBtn Log In
+    //- Hap Info Screen
+    .hapScreenContainer
+      .hapScreenNav
+        #hapScreenCloseBtn X
+      h1.mainHapTitle Party at Union Square
+      .mainHapInfo
+        p.mainHapOrganizer James
+        .mainHapAttendeeContainer
+          img#mainHapAttendeeCountIcon(src='/public/assets/user.svg')
+          p.mainHapAttendeeCount 27
+      .mainHapDescriptionContainer
+        p.mainHapDescription Come and join us at Union Square for a super fun party! Bring a costume!
+      .mainHapSettingContainer
+        .whenSettingDivide
+          p.mainHapSettingLabel WHEN
+          p.mainHapDate 4/20/2018 5:30pm
+        .whereSettingDivide
+          p.mainHapSettingLabel WHERE
+          p.mainHapAddress Union Square, San Francisco, CA 
+      #mainHapJoinBtn Join Hap
+      
     
 .content
   h1.nearRequestslabel What's Happining
@@ -72,6 +93,10 @@ head
         .requestBasicInfoSep
           #requestOwner Bobby
           #requestLoc 1547 Mission St
-      #joinHapBtn Join
-      #hapId(hidden)
+        #hapId(hidden)
+      #joinHapBtn
+        #joinHapBtnLabel Join
+        .joinHapBtnInfo
+          img#hapAttendeeCountIcon(src='/public/assets/user.svg')
+          p#hapAttendeeCount
     

@@ -372,6 +372,167 @@ body {
 }
 
 
+
+/*==================MAIN HAP SCREEN=======================*/
+.hapScreenContainer{
+  width : 70%;
+  height : 95%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+  display : none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 5;
+  background-color: rgba(5, 178, 103, 0.9);
+  border : 2px solid white;
+  border-radius: 15px;
+  font-family: sans-serif;
+}
+
+.hapScreenNav{
+  width : 90%;
+  display : flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10;
+}
+
+#hapScreenCloseBtn{
+  display : flex;
+  font-size: 35px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color : #437022;
+  border : 2px solid #437022;
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  padding : 8 15;
+}
+
+#hapScreenCloseBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+.mainHapTitle{
+  color : white;
+  margin-top: -35px;
+  text-align: center;
+  padding-bottom: 18px;
+  width : 70%;
+  font-size: 40px;
+  font-family: sans-serif;
+  border-bottom: 2px solid black;
+}
+
+.mainHapInfo{
+  margin-top: -25px;
+  color : white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width : 70%;
+  font-size: 25px;
+}
+
+.mainHapOrganizer{
+  font-weight: bold;
+  color : #fcffc1;
+}
+
+.mainHapAttendeeContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#mainHapAttendeeCountIcon{
+  width : 23px;
+  margin-right: 2px;
+}
+
+.mainHapAttendeeCount{
+  margin-left: 2px;
+}
+
+.mainHapDescriptionContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border : 2px solid black;
+  /*border-radius: 20px;*/
+  width : 70%;
+  margin-bottom: 5px;
+}
+
+.mainHapDescription{
+  text-align: center;
+  width : 93%;
+  line-height: 1.5;
+}
+
+.mainHapSettingContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f1f9cc;
+  border : 2px solid black;
+  width : 70%;
+}
+
+.whenSettingDivide{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  /*margin-bottom: -20px;
+  margin-top: -5px;*/
+  border-bottom: 2px solid #007241;
+}
+
+.whereSettingDivide{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+}
+
+.mainHapSettingLabel{
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+  color : #007241;
+  margin-bottom: -5px;
+  font-size: 20px;
+}
+
+#mainHapJoinBtn{
+  border : 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color : #007241;
+  background-color: white;
+  font-size: 30px;
+  padding: 10 15;
+  margin-top: 35px;
+}
+
+#mainHapJoinBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+
+
+
 /*==================Right Side of Page====================*/
 
 .content {
@@ -418,6 +579,7 @@ body {
   /*border-bottom: 2px solid #05b267;*/
   background-color: #fdfff7;
   height : 10%;
+  cursor : pointer;
 }
 
 .requestBasicInfo{
@@ -461,14 +623,36 @@ body {
   border : 2px solid white;
   color : white;
   width : 20%;
-  font-size: 25px;
-  font-weight: bold;
   text-align: center;
   cursor: pointer;
 }
 
 #joinHapBtn:hover{
   background-color: #05b267;
+}
+
+#joinHapBtnLabel{
+  margin-top: 5px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.joinHapBtnInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#hapAttendeeCountIcon {
+  width : 15px;
+  margin-right: 1px;
+}
+
+#hapAttendeeCount{
+  color : white;
+  font-size: 15px;
+  margin-left: 1px;
 }
 
 #requestPayout{

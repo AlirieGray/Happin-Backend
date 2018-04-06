@@ -49,7 +49,7 @@ initAutoComplete = () => {
     })
   }
 
-
+  //===============GET USER LOCATION===============
   $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
     userLoc = data.location;
     showMap(data.location);
@@ -73,8 +73,8 @@ $(document).ready(() => {
 
 //=============CONNECT TO SOCKET==============
   let socket = io.connect();
-//==========================NEW REQUESTS=========================
 
+//==========================NEW REQUESTS=========================
   addNewHap = (hap, last=null) => {
     //ADD HAP TO REQUEST CONTAINER
     let newRequestClone = $('.request-prototype').clone(true, true);
@@ -82,6 +82,7 @@ $(document).ready(() => {
     newRequestClone.find('#requestTitle').text(hap.name);
     newRequestClone.find('#requestOwner').text(hap.organizer);
     newRequestClone.find('#requestLoc').text(hap.address);
+    newRequestClone.find('#hapAttendeeCount').text(hap.attendeeCount);
     newRequestClone.find('#hapId').text(hap._id);
     newRequestClone.appendTo('.requestsContainer');
     if(last){
@@ -116,11 +117,25 @@ $(document).ready(() => {
     return Math.round(d * 10) / 10;
   }
 
+  //SHOW HAP SCREEN WHEN CLICKED
+  $('.requestBasicInfo').click(function() {
+    let hapId = $(this).find('#hapId').text();
+    $.get('/events/'+hapId, (hap) => {
+      $('.mainHapTitle').text(hap.name);
+      $('.mainHapOrganizer').text(hap.organizer);
+      $('.mainHapAttendeeCount').text(hap.attendeeCount);
+      $('.mainHapDescription').text(hap.description);
+      $('.mainHapDate').text(hap.date);
+      $('.mainHapAddress').text(hap.address);
+      $('.hapScreenContainer').css('display', 'flex');
+    })
+  });
+
   $('#joinHapBtn').click(function() {
     if(!curUser){
       console.log("Not signed in");
     }else{
-      let hapId = $(this).siblings('#hapId').text();
+      let hapId = $(this).siblings('.requestBasicInfo').find('#hapId').text();
       socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
     }
   });
@@ -175,7 +190,6 @@ $(document).ready(() => {
 
 //========================New Hap Form===========================
 
-
   //Toggle making a new Hap
   $('.newRequestBtn').click(() => {
     let hapFormContainerDisplay = $('.requestFormContainer').css('display');
@@ -188,41 +202,47 @@ $(document).ready(() => {
     }
   });
 
-//Submit New Hap
-$('#newRequestSubmit').click(() => {
-  if($('.requestInput').val().length > 0){
-    let newRequestData = {
-      name : $('#newRequestTitle').val(),
-      description : $('#newRequestBody').val(),
-      placeId : newHapLocInput.getPlace().place_id,
-      lat : newHapLocInput.getPlace().geometry.location.lat(),
-      lng : newHapLocInput.getPlace().geometry.location.lng(),
-      address : newHapLocInput.getPlace().formatted_address,
-      date : $('#newRequestTime').val(),
-      organizer : curUser.username,
-      organizerId : curUser._id
-    };
+  //Submit New Hap
+  $('#newRequestSubmit').click(() => {
+    if($('.requestInput').val().length > 0){
+      let newRequestData = {
+        name : $('#newRequestTitle').val(),
+        description : $('#newRequestBody').val(),
+        placeId : newHapLocInput.getPlace().place_id,
+        lat : newHapLocInput.getPlace().geometry.location.lat(),
+        lng : newHapLocInput.getPlace().geometry.location.lng(),
+        address : newHapLocInput.getPlace().formatted_address,
+        date : $('#newRequestTime').val(),
+        organizer : curUser.username,
+        organizerId : curUser._id
+      };
+      $('.requestFormContainer').css('display', 'none');
+      $('.requestForm').css('display', 'none');
+      socket.emit('New Hap', {hap : newRequestData})
+    }
+  });
+  //Close Form
+  $('#requestFormCloseBtn').click(() => {
     $('.requestFormContainer').css('display', 'none');
     $('.requestForm').css('display', 'none');
-    socket.emit('New Hap', {hap : newRequestData})
-  }
-});
-//Close Form
-$('#requestFormCloseBtn').click(() => {
-  $('.requestFormContainer').css('display', 'none');
-  $('.requestForm').css('display', 'none');
-})
-//Update Hap Title
-$('#newRequestTitle').keypress((e) => {
-  if(e.key != 'enter'){
-    $('.newRequestLabel').text($('#newRequestTitle').val() + e.key);
-  }
-})
-$('#newRequestTitle').keydown((e) => {
-  if(e.key == 'Backspace'){
-    $('.newRequestLabel').text($('.newRequestLabel').text().substr(0,$('.newRequestLabel').text().length - 1));
-  }
-})
+  })
+  //Update Hap Title
+  $('#newRequestTitle').keypress((e) => {
+    if(e.key != 'enter'){
+      $('.newRequestLabel').text($('#newRequestTitle').val() + e.key);
+    }
+  })
+  $('#newRequestTitle').keydown((e) => {
+    if(e.key == 'Backspace'){
+      $('.newRequestLabel').text($('.newRequestLabel').text().substr(0,$('.newRequestLabel').text().length - 1));
+    }
+  });
+
+
+//==================MAIN HAP SCREEN=====================
+  $('#hapScreenCloseBtn').click(function(){
+    $('.hapScreenContainer').css('display', 'none');
+  });
 
 
 //==================SOCKETS HANDLERS===================
