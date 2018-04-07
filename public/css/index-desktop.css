@@ -548,6 +548,23 @@ body {
   cursor :pointer;
 }
 
+#mainHapSettingsBtn{
+  display: none;
+  border : 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color : #007241;
+  background-color: white;
+  font-size: 30px;
+  padding: 10 15;
+  margin-top: 35px;
+}
+
+#mainHapSettingsBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
 
 
 

@@ -66,12 +66,22 @@ $(document).ready(() => {
 
 //=============CONNECT TO SOCKET==============
   let socket = io.connect();
+  //Have socket connect to attending haps
+  if(curUser){
+    if(curUser.attending){
+      socket.emit('Connect To Haps', {
+        userId : curUser._id,
+        hapIds : curUser.attending
+      })
+    }
+  }
 
 //==========================NEW REQUESTS=========================
   addNewHap = (hap, distance) => {
     //ADD HAP TO REQUEST CONTAINER
     let newHapClone = $('.hap-prototype').clone(true, true);
     newHapClone.addClass('hap').removeClass('hap-prototype');
+    newHapClone.attr('id', hap._id);
     newHapClone.find('#hapTitle').text(hap.name);
     newHapClone.find('#hapOwner').text(hap.organizer);
     newHapClone.find('#hapDistance').text(distance + " miles away");
@@ -126,7 +136,11 @@ $(document).ready(() => {
         $('.mainHapDate').text(hap.dateFormatted);
         $('.mainHapAddress').text(hap.address);
         $('#mainHapId').text(hap._id);
-        if(hap.attendees.includes(curUser._id)){
+        if(hap.organizerId == curUser._id){
+          $('#mainHapSettingsBtn').css('display', 'block');
+          $('#mainHapJoinBtn').css('display', 'none');
+          $('#mainHapLeaveBtn').css('display', 'none');
+        }else if(hap.attendees.includes(curUser._id)){
           $('#mainHapLeaveBtn').css('display', 'block');
           $('#mainHapJoinBtn').css('display', 'none');
         }else{
@@ -139,20 +153,10 @@ $(document).ready(() => {
   });
 
   $('.hapBasicInfo').click(function() {
-    console.log($(this).siblings('#hapPos').text());
     let hapPos = JSON.parse($(this).siblings('#hapPos').text());
     Map.panTo(hapPos);
   })
 
-  $('#joinHapBtn').click(function() {
-    if(!curUser){
-      $('.signupContainer').css('display', 'flex');
-      $('.signupForm').css('display', 'flex');
-    }else{
-      let hapId = $(this).siblings('.hapBasicInfo').find('#hapId').text();
-      socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
-    }
-  });
 
 //========================Sign Up Form===========================
   //Toggle SignUp Form Display
@@ -261,15 +265,20 @@ $(document).ready(() => {
   $('#mainHapJoinBtn').click(function(){
     let hapId = $(this).siblings('#mainHapId').text();
     socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
+    $('#mainHapJoinBtn').css('display', 'none');
+    $('#mainHapLeaveBtn').css('display', 'block');
   });
 
   $('#mainHapLeaveBtn').click(function(){
     let hapId = $(this).siblings('#mainHapId').text();
     socket.emit('Leave Hap', {hapId : hapId, userId : curUser._id});
+    $('#mainHapLeaveBtn').css('display', 'none');
+    $('#mainHapJoinBtn').css('display', 'block');
   })
 
 
 //==================SOCKETS HANDLERS===================
+  //Someone made a new hap
   socket.on('New Hap', (d) => {
     //If nearby
     hapDistance = getDistanceToHap(d.hap.lat, d.hap.lng, userLoc.lat, userLoc.lng);
@@ -277,6 +286,21 @@ $(document).ready(() => {
       addNewHap(d.hap);
     }
   });
+  //Someone joined a hap
+  socket.on('Join Hap', (d) => {
+    $('#'+d.hapId).find('#hapAttendeeCount').text(d.attendeeCount);
+    if($('.hapScreenContainer').find('#mainHapId').text() == d.hapId){
+      $('.hapScreenContainer').find('.mainHapAttendeeCount').text(d.attendeeCount);
+    }
+  });
+  //Someone left a hap
+  socket.on('Leave Hap', (d) => {
+    $('#'+d.hapId).find('#hapAttendeeCount').text(d.attendeeCount);
+    if($('.hapScreenContainer').find('#mainHapId').text() == d.hapId){
+      $('.hapScreenContainer').find('.mainHapAttendeeCount').text(d.attendeeCount);
+    }
+  });
+
 
 
   //Refresh Page

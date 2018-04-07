@@ -31,6 +31,13 @@ function getFormattedDate(date) {
 }
 
 
+//Have Socket Join Hap Rooms
+  socket.on('Connect To Haps', (d) => {
+    d.hapIds.forEach((hapId) => {
+      socket.join(hapId);
+    })
+  })
+
 //Creating a New Hap
   socket.on('New Hap', (d) => {
     let newHap = new Event(d.hap);
@@ -41,11 +48,13 @@ function getFormattedDate(date) {
     newHap.save((err, newHap) => {
       User.findById(newHap.organizerId, (err, user)=>{
         user.events.push(newHap._id);
-        user.attending.push(newHap._id);
         newHap.attendees.push(user._id);
-        user.save();
-        newHap.save();
-        console.log(user.username + " has created " + newHap.name);
+        user.attending.push(newHap._id);
+        socket.join(newHap._id, () => {
+          user.save();
+          newHap.save();
+          console.log(user.username + " has created " + newHap.name);
+        });
       })
     });
   });
@@ -57,13 +66,18 @@ function getFormattedDate(date) {
       User.findById(d.userId, (err, user) => {
         //Cant join a hap you're already attending
         if(!hap.attendees.includes(d.userId)){
-          hap.attendees.push(d.userId);
           hap.attendeeCount++;
+          hap.attendees.push(d.userId);
           user.attending.push(d.hapId);
-          socket.to(hapId).emit('Join Hap');
           hap.save();
           user.save();
-          console.log(user.username + " has joined " + hap.name);
+          socket.join(d.hapId, () => {
+            io.to(d.hapId).emit('Join Hap', {
+              hapId : d.hapId,
+              username : user.username,
+              attendeeCount : hap.attendeeCount});
+            console.log(user.username + " has joined " + hap.name);
+          });
         }
       })
     })
@@ -80,6 +94,11 @@ function getFormattedDate(date) {
           user.attending.splice(user.attending.indexOf(d.hapId), 1);
           hap.save();
           user.save();
+          io.to(d.hapId).emit('Leave Hap', {
+            hapId : d.hapId,
+            attendeeCount : hap.attendeeCount
+          });
+          socket.leave(d.hapId);
           console.log(user.username + " has left " + hap.name);
         }
       })
