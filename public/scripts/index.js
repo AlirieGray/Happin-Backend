@@ -283,7 +283,7 @@ $(document).ready(() => {
     //If nearby
     hapDistance = getDistanceToHap(d.hap.lat, d.hap.lng, userLoc.lat, userLoc.lng);
     if(hapDistance < 10) {
-      addNewHap(d.hap);
+      addNewHap(d.hap, hapDistance);
     }
   });
   //Someone joined a hap
