@@ -1,0 +1,106 @@
+haphead
+  if !mobile
+    link(type='text/css' rel='stylesheet' href='/public/css/index-desktop.css')
+  else
+    meta(name="viewport" content="initial-scale=1.0, user-scalable=no")
+    link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
+  script(src='/public/scripts/jquery-3.3.1.min.js')
+  script(src='/public/scripts/socket.io.slim.js')
+  if user
+    script.
+      let curUser = !{JSON.stringify(user)};
+  else
+    script.
+      let curUser = false;
+  script(src="/public/scripts/index.js")
+  script(src="/public/scripts/map.js")
+  script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
+  
+.info
+  .nav
+    .brandContainer
+      h1.brand Happin
+    .navButtons
+      if user
+        .newHapBtn Hap Map
+        .profileBtn=user.username
+      else
+        .signupBtn Sign Up / Log in
+  .mapAndHaps
+    //- Map
+    .mapContainer
+      img#mapLoading(src="/public/assets/Procfile.svg")
+      #map
+    //- New Hap Form 
+    .hapFormContainer
+      .hapFormNav
+        #hapFormCloseBtn X
+      h1.newHapLabel New Hap
+      .hapForm
+        .hapFormInputs
+          h2#hapTitleLabel Title
+          input#newHapTitle.hapInput(placeholder="New Hap")
+          h2#hapBodyLabel Description
+          textarea#newHapBody.hapInput(placeholder="Let's make it happin!")
+          h2#hapLocLabel Location
+          input#newHapLoc.hapInput(placeholder="Union Square, San Francisco")
+          h2#hapTimeLabel Date and Time
+          input#newHapTime.hapInput(type="datetime-local")
+        #newHapSubmit Submit    
+    //- Sign Up Form
+    .signupContainer
+      .signupNav
+        #signupCloseBtn X
+      h1.signupLabel Sign Up / Login
+      .signupForm
+        .signupInputs
+          h2#signupUsernameLabel Username
+          input#signupUsername.hapInput(placeholder="Username")
+          h2#signupPasswordLabel Password
+          input#signupPassword.hapInput(placeholder="Password" type="password")
+      .signupSubmitBtns
+        #signupSubmitBtn Sign Up
+        #loginSubmitBtn Log In
+    //- Hap Info Screen
+    .hapScreenContainer
+      .hapScreenNav
+        #hapScreenCloseBtn X
+      h1.mainHapTitle Party at Union Square
+      .mainHapInfo
+        p.mainHapOrganizer James
+        .mainHapAttendeeContainer
+          img#mainHapAttendeeCountIcon(src='/public/assets/user.svg')
+          p.mainHapAttendeeCount 27
+      .mainHapDescriptionContainer
+        p.mainHapDescription Come and join us at Union Square for a super fun party! Bring a costume!
+      .mainHapSettingContainer
+        .whenSettingDivide
+          p.mainHapSettingLabel WHEN
+          p.mainHapDate 4/20/2018 5:30pm
+        .whereSettingDivide
+          p.mainHapSettingLabel WHERE
+          p.mainHapAddress Union Square, San Francisco, CA 
+      #mainHapJoinBtn Join Hap
+      #mainHapLeaveBtn Leave Hap
+      #mainHapSettingsBtn Settings
+      #mainHapId(hidden)
+      
+    
+.content
+  h1.nearHapslabel What's Happining
+    .hapsPlaceholder
+  .hapsContainer
+    .hap-prototype
+      .hapBasicInfo
+        #hapTitle Help me learn biology please!
+        .hapBasicInfoSep
+          #hapOwner Bobby
+          #hapDistance 1547 Mission St
+      #viewHapBtn
+        #viewHapBtnLabel View
+        .viewHapBtnInfo
+          img#hapAttendeeCountIcon(src='/public/assets/user.svg')
+          p#hapAttendeeCount
+      #hapId(hidden)
+      #hapPos(hidden)
+    

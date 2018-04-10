@@ -24,7 +24,7 @@ initAutoComplete = () => {
       userLocMarker = null;
     }
     let markerImage = {
-      url : './public/assets/userLoc.png',
+      url : './public/assets/userloc.png',
     }
     Map.setCenter(pos);
     let userLocation = new google.maps.Marker({
@@ -136,27 +136,29 @@ $(document).ready(() => {
       $('.signupForm').css('display', 'flex');
     }else{
       let hapId = $(this).siblings('#hapId').text();
-      $.get('/events/'+hapId, (hap) => {
-        $('.mainHapTitle').text(hap.name);
-        $('.mainHapOrganizer').text(hap.organizer);
-        $('.mainHapAttendeeCount').text(hap.attendeeCount);
-        $('.mainHapDescription').text(hap.description);
-        $('.mainHapDate').text(hap.dateFormatted);
-        $('.mainHapAddress').text(hap.address);
-        $('#mainHapId').text(hap._id);
-        if(hap.organizerId == curUser._id){
-          $('#mainHapSettingsBtn').css('display', 'block');
-          $('#mainHapJoinBtn').css('display', 'none');
-          $('#mainHapLeaveBtn').css('display', 'none');
-        }else if(hap.attendees.includes(curUser._id)){
-          $('#mainHapLeaveBtn').css('display', 'block');
-          $('#mainHapJoinBtn').css('display', 'none');
-        }else{
-          $('#mainHapJoinBtn').css('display', 'block');
-          $('#mainHapLeaveBtn').css('display', 'none');
-        }
-        $('.hapScreenContainer').css('display', 'flex');
-      });
+      window.location = '/hap/'+hapId+'/dashboard';
+      // let hapId = $(this).siblings('#hapId').text();
+      // $.get('/events/'+hapId, (hap) => {
+      //   $('.mainHapTitle').text(hap.name);
+      //   $('.mainHapOrganizer').text(hap.organizer);
+      //   $('.mainHapAttendeeCount').text(hap.attendeeCount);
+      //   $('.mainHapDescription').text(hap.description);
+      //   $('.mainHapDate').text(hap.dateFormatted);
+      //   $('.mainHapAddress').text(hap.address);
+      //   $('#mainHapId').text(hap._id);
+      //   if(hap.organizerId == curUser._id){
+      //     $('#mainHapSettingsBtn').css('display', 'block');
+      //     $('#mainHapJoinBtn').css('display', 'none');
+      //     $('#mainHapLeaveBtn').css('display', 'none');
+      //   }else if(hap.attendees.includes(curUser._id)){
+      //     $('#mainHapLeaveBtn').css('display', 'block');
+      //     $('#mainHapJoinBtn').css('display', 'none');
+      //   }else{
+      //     $('#mainHapJoinBtn').css('display', 'block');
+      //     $('#mainHapLeaveBtn').css('display', 'none');
+      //   }
+      //   $('.hapScreenContainer').css('display', 'flex');
+      // });
     }
   });
 

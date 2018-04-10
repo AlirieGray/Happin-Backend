@@ -17,6 +17,17 @@ module.exports = function(app) {
     })
   });
 
+  app.get('/hap/:id/dashboard', (req, res) => {
+    const mapApiKey = 'AIzaSyCucitjj7AcVk8Hv35Pd6JVPQiNhzB8LwI';
+    if(req.user){
+      User.findById(req.user.id, (err, user) => {
+        res.render('dashboard', {mapApiKey : mapApiKey, user : user});
+      })
+    }else{
+      res.render('dashboard', {mapApiKey : mapApiKey});
+    }
+  })
+
   function getDistanceToHap(pos1,pos2) {
     function deg2rad(deg){
       return deg * (Math.PI / 180);
