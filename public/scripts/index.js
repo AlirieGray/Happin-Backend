@@ -3,6 +3,7 @@
 let newHapLocInput;
 let Map;
 let hapMarkers = [];
+let userLocMarker;
 let userLoc;
 
 initAutoComplete = () => {
@@ -18,11 +19,20 @@ initAutoComplete = () => {
   }
 
   showUserPos = (pos) => {
+    if(userLocMarker){
+      userLocMarker.setMap(null);
+      userLocMarker = null;
+    }
+    let markerImage = {
+      url : './public/assets/userLoc.png',
+    }
     Map.setCenter(pos);
     let userLocation = new google.maps.Marker({
       position : pos,
-      map : Map
+      map : Map,
+      icon : markerImage
     });
+    userLocMarker = userLocation;
   }
 
   clearHapMarkers = () => {
@@ -46,6 +56,7 @@ initAutoComplete = () => {
   $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
     userLoc = data.location;
     showMap(data.location);
+    showUserPos(data.location);
     loadHapsFromPos(data.location);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
@@ -89,9 +100,6 @@ $(document).ready(() => {
     newHapClone.find('#hapId').text(hap._id);
     newHapClone.find('#hapPos').text(JSON.stringify({lat : hap.lat, lng : hap.lng}));
     newHapClone.appendTo('.hapsContainer');
-    // if(last){
-    //   newHapClone.css('border-bottom', '2px solid #05b267');
-    // }
     //ADD HAP TO MAP
     let newHapLocation = new google.maps.Marker({
       position : {
