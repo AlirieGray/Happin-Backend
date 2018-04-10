@@ -1,9 +1,9 @@
 haphead
   if !mobile
-    link(type='text/css' rel='stylesheet' href='/public/css/index-desktop.css')
+    link(type='text/css' rel='stylesheet' href='/public/css/dashboard-desktop.css')
   else
     meta(name="viewport" content="initial-scale=1.0, user-scalable=no")
-    link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
+    //- link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
   script(src='/public/scripts/jquery-3.3.1.min.js')
   script(src='/public/scripts/socket.io.slim.js')
   if user
@@ -12,7 +12,7 @@ haphead
   else
     script.
       let curUser = false;
-  script(src="/public/scripts/index.js")
+  script(src="/public/scripts/dashboard.js")
   script(src="/public/scripts/map.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
   
@@ -22,7 +22,8 @@ haphead
       h1.brand Happin
     .navButtons
       if user
-        .newHapBtn Hap Map
+        .hapMapBtn Hap Map
+        .hapDetailsBtn Hap Details
         .profileBtn=user.username
       else
         .signupBtn Sign Up / Log in
@@ -64,26 +65,26 @@ haphead
     //- Hap Info Screen
     .hapScreenContainer
       .hapScreenNav
-        #hapScreenCloseBtn X
-      h1.mainHapTitle Party at Union Square
+        //- #hapScreenCloseBtn X
+      h1.mainHapTitle=hap.name
       .mainHapInfo
-        p.mainHapOrganizer James
+        p.mainHapOrganizer=hap.organizer
         .mainHapAttendeeContainer
           img#mainHapAttendeeCountIcon(src='/public/assets/user.svg')
-          p.mainHapAttendeeCount 27
+          p.mainHapAttendeeCount=hap.attendeeCount
       .mainHapDescriptionContainer
-        p.mainHapDescription Come and join us at Union Square for a super fun party! Bring a costume!
+        p.mainHapDescription=hap.description
       .mainHapSettingContainer
         .whenSettingDivide
           p.mainHapSettingLabel WHEN
-          p.mainHapDate 4/20/2018 5:30pm
+          p.mainHapDate=hap.dateFormatted
         .whereSettingDivide
           p.mainHapSettingLabel WHERE
-          p.mainHapAddress Union Square, San Francisco, CA 
+          p.mainHapAddress=hap.address
       #mainHapJoinBtn Join Hap
       #mainHapLeaveBtn Leave Hap
       #mainHapSettingsBtn Settings
-      #mainHapId(hidden)
+      #mainHapId(hidden)=hap._id
       
     
 .content

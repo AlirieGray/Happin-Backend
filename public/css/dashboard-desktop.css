@@ -1,0 +1,727 @@
+body {
+  display : flex;
+  background-color: #BDE899;
+  flex-direction: row;
+  margin : 0px;
+}
+
+/*======================Left Side of Page=====================*/
+
+.info {
+  display : flex;
+  flex-direction: column;
+  align-self: flex-start;
+  width : 70%;
+  height : 100%;
+}
+
+.nav{
+  display : flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.brandContainer{
+  width : 30%;
+}
+
+.brand{
+  color : #007241;
+  font-weight: bold;
+  font-family: sans-serif;
+  cursor: pointer;
+  text-align: center;
+}
+
+.navButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width : 60%;
+}
+
+.signupBtn {
+  color : white;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border : 2px solid white;
+  border-radius: 10px;
+  padding : 10px 25px;
+  background-color: #45b267;
+  text-align: center;
+}
+
+.signupBtn:hover{
+  background-color: #05b267;
+  cursor: pointer;
+}
+
+.hapMapBtn {
+  color : white;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border : 2px solid white;
+  border-radius: 10px;
+  padding : 10px 20px;
+  background-color: #45b267;
+  text-align: center;
+  width : 40%;
+  margin-right: 20;
+  margin-left: 20;
+}
+
+.hapMapBtn:hover{
+  background-color: #05b267;
+  cursor: pointer;
+}
+
+.hapDetailsBtn {
+  display: none;
+  color : white;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border : 2px solid white;
+  border-radius: 10px;
+  padding : 10px 20px;
+  background-color: #45b267;
+  text-align: center;
+  width : 40%;
+  margin-right: 20;
+  margin-left: 20;
+}
+
+.hapDetailsBtn:hover{
+  background-color: #05b267;
+  cursor: pointer;
+}
+
+.profileBtn{
+  color : white;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: sans-serif;
+  border : 2px solid white;
+  border-radius: 10px;
+  padding : 10px 20px;
+  background-color: #45b267;
+  text-align: center;
+  width : 40%;
+  margin-right: 20;
+  margin-left: 20;
+}
+
+.profileBtn:hover{
+  background-color: #05b267;
+  cursor: pointer;
+}
+
+.mapAndHaps{
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  height : 100%;
+  background-color: #05b267;
+  position : relative;
+}
+
+.mapContainer {
+  display : none;
+  flex-direction: column;
+  justify-content: center;
+  height : 100%;
+  z-index: 0;
+}
+
+#mapLoading{
+  align-content: center;
+}
+
+#map {
+  display : None;
+  width : 100%;
+  height : 100%;
+}
+
+/*======================SignUp Form Styles=======================*/
+.signupContainer{
+  width : 70%;
+  height : 95%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+  display : none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 5;
+  background-color: rgba(5, 178, 103, 0.9);
+  border : 2px solid white;
+  border-radius: 15px;
+}
+
+.signupNav{
+  width : 90%;
+  display : flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10;
+}
+
+#signupCloseBtn{
+  display : flex;
+  font-size: 35px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color : #437022;
+  border : 2px solid #437022;
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  padding : 8 15;
+}
+
+#signupCloseBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+
+.signupForm{
+  font-family: sans-serif;
+  color : black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*border : 2px solid white;*/
+  border-radius : 20px;
+  width : 75%;
+}
+
+.signupInputs{
+  display: flex;
+  width : 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: -10px;
+  /*border : 2px solid red;*/
+}
+
+.signupLabel{
+  /*border : 2px solid white;*/
+  color : white;
+  margin-top: -15px;
+  text-align: center;
+  padding-bottom: 18px;
+  width : 70%;
+  font-size: 50px;
+  font-family: sans-serif;
+  border-bottom: 2px solid black;
+}
+
+.signupSubmitBtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height : 20%;
+  font-family: sans-serif;
+}
+
+#signupSubmitBtn{
+  border : 2px solid black;
+  color : #437022;
+  font-weight: bold;
+  text-align: center;
+  background-color : white;
+  border-radius: 10px;
+  font-size : 22px;
+  margin-top : 30px;
+  padding : 10px;
+  cursor : pointer;
+  margin-right: 10
+}
+
+#signupSubmitBtn:hover{
+  background-color : #ffffbf;
+}
+
+#loginSubmitBtn{
+  border : 2px solid black;
+  color : #437022;
+  font-weight: bold;
+  text-align: center;
+  background-color : white;
+  border-radius: 10px;
+  font-size : 22px;
+  margin-top : 30px;
+  padding : 10px;
+  cursor : pointer;
+  margin-left: 10;
+}
+
+#loginSubmitBtn:hover{
+  background-color : #ffffbf;
+}
+
+
+/*======================Hap Form Styles======================*/
+
+.hapFormContainer{
+  width : 70%;
+  height : 95%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+  display : none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  background-color: rgba(5, 178, 103, 0.9);
+  border : 2px solid white;
+  border-radius: 15px;
+}
+
+.hapFormNav{
+  width : 90%;
+  display : flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top : 10;
+}
+
+#hapFormCloseBtn{
+  display : flex;
+  font-size: 35px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color : #437022;
+  border : 2px solid #437022;
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  padding : 8 15;
+}
+
+#hapFormCloseBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+
+.hapForm{
+  font-family: sans-serif;
+  color : black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*border : 2px solid white;*/
+  border-radius : 20px;
+  width : 75%;
+  height : 90%;
+}
+
+.hapFormInputs{
+  display: flex;
+  width : 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: -15px;
+  /*border : 2px solid red;*/
+}
+
+.newHapLabel{
+  /*border : 2px solid white;*/
+  color : white;
+  margin-top: -35px;
+  text-align: center;
+  padding-bottom: 18px;
+  width : 70%;
+  font-size: 50px;
+  font-family: sans-serif;
+  border-bottom: 2px solid black;
+}
+
+#hapTitleLabel{
+  margin-top: -15px;
+}
+
+#newHapLoc{
+  width : 100%;
+}
+
+#newHapTime{
+  font-size: 15px;
+  text-align: center;
+  width : 60%;
+}
+
+.hapInput{
+  width : 70%;
+  font-size: 14px;
+  text-align: center;
+  border : 2px solid black;
+  margin-top : -10px;
+}
+
+#newHapBody{
+  height : 20%;
+}
+
+#newHapSubmit{
+  border : 2px solid black;
+  color : #437022;
+  font-weight: bold;
+  text-align: center;
+  width : 20%;
+  background-color : white;
+  border-radius: 10px;
+  font-size : 22px;
+  margin-top : 30px;
+  padding : 10px;
+  cursor : pointer;
+}
+
+#newHapSubmit:hover{
+  background-color : #ffffbf;
+}
+
+
+
+/*==================MAIN HAP SCREEN=======================*/
+.hapScreenContainer{
+  width : 100%;
+  height : 100%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  margin: auto;
+  display : flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 5;
+  background-color: rgba(5, 178, 103, 0.9);
+  /*border : 2px solid white;*/
+  font-family: sans-serif;
+}
+
+.hapScreenNav{
+  width : 90%;
+  display : flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10;
+}
+
+#hapScreenCloseBtn{
+  display : flex;
+  font-size: 35px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color : #437022;
+  border : 2px solid #437022;
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  padding : 8 15;
+}
+
+#hapScreenCloseBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+.mainHapTitle{
+  color : white;
+  /*margin-top: -35px;*/
+  text-align: center;
+  padding-bottom: 18px;
+  width : 70%;
+  font-size: 40px;
+  font-family: sans-serif;
+  border-bottom: 2px solid black;
+}
+
+.mainHapInfo{
+  margin-top: -25px;
+  color : white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width : 70%;
+  font-size: 25px;
+}
+
+.mainHapOrganizer{
+  font-weight: bold;
+  color : #fcffc1;
+}
+
+.mainHapAttendeeContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#mainHapAttendeeCountIcon{
+  width : 23px;
+  margin-right: 2px;
+}
+
+.mainHapAttendeeCount{
+  margin-left: 2px;
+}
+
+.mainHapDescriptionContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border : 2px solid black;
+  /*border-radius: 20px;*/
+  width : 70%;
+  margin-bottom: 5px;
+}
+
+.mainHapDescription{
+  text-align: center;
+  width : 93%;
+  line-height: 1.5;
+}
+
+.mainHapSettingContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f1f9cc;
+  border : 2px solid black;
+  width : 70%;
+}
+
+.whenSettingDivide{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  /*margin-bottom: -20px;
+  margin-top: -5px;*/
+  border-bottom: 2px solid #007241;
+}
+
+.whereSettingDivide{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+}
+
+.mainHapSettingLabel{
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+  color : #007241;
+  margin-bottom: -5px;
+  font-size: 20px;
+}
+
+#mainHapJoinBtn{
+  display: none;
+  border : 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color : #007241;
+  background-color: white;
+  font-size: 30px;
+  padding: 10 15;
+  margin-top: 35px;
+}
+
+#mainHapJoinBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+#mainHapLeaveBtn{
+  display: none;
+  border : 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color : #007241;
+  background-color: white;
+  font-size: 30px;
+  padding: 10 15;
+  margin-top: 35px;
+}
+
+#mainHapLeaveBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+#mainHapSettingsBtn{
+  display: none;
+  border : 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color : #007241;
+  background-color: white;
+  font-size: 30px;
+  padding: 10 15;
+  margin-top: 35px;
+}
+
+#mainHapSettingsBtn:hover{
+  background-color: #ffffbf;
+  cursor :pointer;
+}
+
+
+
+
+/*==================Right Side of Page====================*/
+
+.content {
+  width : 30%;
+  height : 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  display : flex;
+  background-color: #f1f9cc;
+}
+
+.nearHapsLabel {
+  color : #05b267;
+  font-size: 29px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.hapContainer{
+  display: flex;
+}
+
+.hap-prototype{
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: sans-serif;
+  font-size: 15px;
+  border-top: 2px solid #05b267;
+  background-color: #fdfff7;
+  height : 10%;
+}
+
+.hap{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: sans-serif;
+  font-size: 15px;
+  border-top: 2px solid #05b267;
+  border-left: 2px solid #05b267;
+  /*border-bottom: 2px solid #05b267;*/
+  background-color: #ffffff;
+  height : 10%;
+  cursor : pointer;
+}
+
+.hap:hover{
+  background-color: #ffffcf;
+}
+
+.hap:last-child{
+  border-bottom: 2px solid #05b267;
+}
+
+.hapBasicInfo{
+  display : flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding : 10px;
+  width : 80%;
+}
+
+.hapBasicInfoSep{
+  margin-top: 5px;
+  display : flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#hapOwner{
+  margin-right:  20px;
+  color : #007241;
+  font-weight: 600;
+}
+
+#hapDistance{
+  font-style: italic;
+  margin-right: 20px;
+}
+
+#hapTitle{
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#viewHapBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: #45b267;
+  border : 2px solid white;
+  color : white;
+  width : 20%;
+  text-align: center;
+  cursor: pointer;
+}
+
+#viewHapBtn:hover{
+  background-color: #05b267;
+}
+
+#viewHapBtnLabel{
+  margin-top: 5px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.viewHapBtnInfo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#hapAttendeeCountIcon {
+  width : 15px;
+  margin-right: 1px;
+}
+
+#hapAttendeeCount{
+  color : white;
+  font-size: 15px;
+  margin-left: 1px;
+}
+
+#hapPayout{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#hapSpots{
+  font-size: 10px;
+}
