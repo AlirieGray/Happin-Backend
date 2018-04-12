@@ -70,6 +70,32 @@ $(document).ready(() => {
     $('.hapScreenContainer').css('display', 'flex');
     $('.hapMapBtn').css('display', 'block');
     $('.hapDetailsBtn').css('display', 'none');
+  });
+
+  if(hap.organizerId == curUser._id){
+    $('#mainHapSettingsBtn').css('display', 'block');
+    $('#mainHapJoinBtn').css('display', 'none');
+    $('#mainHapLeaveBtn').css('display', 'none');
+  }else if(hap.attendees.includes(curUser._id)){
+    $('#mainHapLeaveBtn').css('display', 'block');
+    $('#mainHapJoinBtn').css('display', 'none');
+  }else{
+    $('#mainHapJoinBtn').css('display', 'block');
+    $('#mainHapLeaveBtn').css('display', 'none');
+  }
+
+  $('#mainHapJoinBtn').click(function(){
+    let hapId = $(this).siblings('#mainHapId').text();
+    socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
+    $('#mainHapJoinBtn').css('display', 'none');
+    $('#mainHapLeaveBtn').css('display', 'block');
+  });
+
+  $('#mainHapLeaveBtn').click(function(){
+    let hapId = $(this).siblings('#mainHapId').text();
+    socket.emit('Leave Hap', {hapId : hapId, userId : curUser._id});
+    $('#mainHapLeaveBtn').css('display', 'none');
+    $('#mainHapJoinBtn').css('display', 'block');
   })
 
 //==================Map======================

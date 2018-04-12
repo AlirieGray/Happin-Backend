@@ -140,3 +140,15 @@ input {
   font-weight: bold;
   margin-bottom: 10px;
 }
+
+#mainHapJoinBtn{
+  display: none;
+}
+
+#mainHapLeaveBtn{
+  display: none;
+}
+
+#mainHapSettingsBtn{
+  display: none;
+}

@@ -16,6 +16,8 @@ haphead
   else
     script.
       let curUser = false;
+  script.
+    let hap = !{JSON.stringify(hap)};
   script(src="/public/scripts/dashboard.js")
   script(src="/public/scripts/map.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
@@ -40,25 +42,24 @@ haphead
         #map
       //- Hap Info Screen
       .hapScreenContainer.col.s9.z-depth-2
-        //- .hapScreenNav
-        //-   //- #hapScreenCloseBtn X
+        .hapScreenNav
+        .mainHapAttendeeContainer
+          i.material-icons#attendeeCountIcon person
+          .mainHapAttendeeCount=hap.attendeeCount  
         h3.mainHapTitle=hap.name
-        .mainHapInfo.card
-          .mainHapOrganizer.primary-text-dark=hap.organizer
-          .mainHapAttendeeContainer
-            i.material-icons#attendeeCountIcon person
-            .mainHapAttendeeCount=hap.attendeeCount
-        .mainHapDescription.center-align.card=hap.description
-        .mainHapSettingContainer.row
+        .mainHapInfo
+          .mainHapOrganizer.primary-text-dark=hap.organizer + ": "
+          .mainHapDescription.center-align.card=hap.description
+        .mainHapSettingContainer
           .whenSettingDivide.settingDivide
             .mainHapSettingLabel WHEN
-            .mainHapDate=hap.date
+            .mainHapDate=hap.dateFormatted
           .whereSettingDivide.settingDivide
             .mainHapSettingLabel WHERE
             .mainHapAddress=hap.address
-        #mainHapJoinBtn Join Hap
-        #mainHapLeaveBtn Leave Hap
-        #mainHapSettingsBtn Settings
+        #mainHapJoinBtn.btn-large.primary-btn Join Hap
+        #mainHapLeaveBtn.btn-large.primary-btn Leave Hap
+        #mainHapSettingsBtn.btn-large.primary-btn Settings
         #mainHapId(hidden)=hap._id
         
       .content.col.s3

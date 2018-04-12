@@ -45,8 +45,8 @@ function getFormattedDate(date) {
     let newHap = new Event(d.hap);
     console.log('new hap: ', newHap)
     let newHapDate = new Date(d.hap.date);
-    newHap.dateFormatted = getFormattedDate(newHapDate);
-    newHap.date = (d.hap.date + " at " + d.hap.time);
+    newHap.date= getFormattedDate(newHapDate);
+    newHap.dateFormatted = (d.hap.date + " at " + d.hap.time);
     newHap.loc = [d.hap.lng, d.hap.lat];
     io.emit('New Hap', {hap : newHap});
     newHap.save((err, newHap) => {
