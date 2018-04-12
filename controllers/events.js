@@ -56,7 +56,7 @@ module.exports = function(app) {
   }
 
   /**** GET Nearby Haps ****/
-  app.post('/near_events', (req, res) => {
+  app.post('/near_haps', (req, res) => {
     const maxDistance = 0.3;
     let userLoc = req.body.userLoc;
     Event.find({loc: {$near:userLoc, $maxDistance: maxDistance} }, function(err, haps){

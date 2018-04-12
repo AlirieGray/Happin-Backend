@@ -63,10 +63,7 @@ initAutoComplete = () => {
 }
 
 
-
-
 $(document).ready(() => {
-
 
 //==================Details==================
   $('.hapDetailsBtn').click(function() {
@@ -83,8 +80,6 @@ $(document).ready(() => {
     $('.hapMapBtn').css('display', 'none');
     $('.hapDetailsBtn').css('display', 'block');
   })
-
-
 
 //==================Site Links===============
   $('.brand').click(function() {

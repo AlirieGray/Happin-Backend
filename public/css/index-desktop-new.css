@@ -1,0 +1,152 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Roboto'),
+    local('Roboto-Regular'),
+    url('./public/fonts/Roboto-Regular.ttf') format('ttf'),
+}
+
+body{
+  background-color: #fafff9;
+}
+
+
+.brand-logo{
+  margin-left: 30px;
+}
+
+
+#map{
+  margin-top : 3px;
+  width : 100%;
+  height : 90%;
+}
+
+#mapLoading{
+  margin-top : 3px;
+  width : 100%;
+  height : 90%;
+}
+
+.hap{
+  width : 105%;
+  border : 0.5px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px 5px 0px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+#hapTitle{
+  font-weight: bold;
+}
+
+.primary{
+  background-color: #4AB169;
+}
+
+.primary-btn{
+  background-color: #4AB169;
+}
+.primary-btn:hover{
+  background-color: #5ac47a;
+}
+
+.primary-text{
+  color : #4AB169;
+}
+
+.nav-right{
+  margin-right: 45px;
+}
+
+.navBtn{
+  padding : 0px 5px;
+  cursor : pointer;
+  font-size: 18px;
+  display: inline;
+  overflow-x: hidden;
+  white-space: nowrap;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navBtn:hover{
+  background-color: #3a9956;
+}
+
+.newHapBtn{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#newHapIcon{
+  width : 16px;
+  height : 16px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.hap-prototype{
+  display: none;
+}
+
+#hapAttendeeCountIcon{
+  width : 20px;
+  display: inline-block;
+}
+
+#hapAttendeeCount{
+  display: inline-block;
+}
+
+.mapForms{
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  flex-direction: row;
+  z-index: 5;
+  justify-content: center;
+}
+
+.hapInput{
+  padding-left: 10px;
+}
+
+.signupContainer{
+  width : 80%;
+  height : 80%;
+  opacity: 0;
+  margin-top: 20px;
+  background-color: rgba(250, 255, 249, 0.8);
+  flex-direction: column;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupLabel{
+  margin-top: -20px;
+}
+
+.signupForm{
+  width : 60%;
+}
+
+.signupSubmitBtns{
+  margin-top: 50px;
+}
+
+#signupSubmitBtn{
+  display: none;
+}
+
+#loginSubmitBtn{
+  display: none;
+}

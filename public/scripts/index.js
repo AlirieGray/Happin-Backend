@@ -7,7 +7,7 @@ let userLocMarker;
 let userLoc;
 
 initAutoComplete = () => {
-  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newHapLoc'));
+  // newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newHapLoc'));
 
   showMap = (pos) => {
     $('#mapLoading').css('display', 'none');
@@ -45,7 +45,7 @@ initAutoComplete = () => {
 
 //==============LOAD ALL HAPS===================
   loadHapsFromPos = (pos) => {
-    $.post('near_events', {userLoc : [pos.lng, pos.lat]}, (d) => {
+    $.post('near_haps', {userLoc : [pos.lng, pos.lat]}, (d) => {
       d.haps.forEach((hap) => {
         addNewHap(hap, d.hapDistances[hap._id]);
       })
@@ -172,12 +172,44 @@ $(document).ready(() => {
   //Toggle SignUp Form Display
   $('.signupBtn').click(() => {
     let signupDisplay = $('.signupContainer').css('display');
+    $('.signupContainer').css('display', 'flex');
+    $('#loginSubmitBtn').css('display', 'none');
+    $('#signupSubmitBtn').css('display', 'block');
+    $('#signupLabel').text("Sign Up");
+    $('.mapForms').css('display', 'flex');
     if(signupDisplay == 'none'){
-      $('.signupContainer').css('display', 'flex');
-      $('.signupForm').css('display', 'flex');
+      $('.signupContainer').animate({
+        opacity : 1
+      }, 400);
     }else{
-      $('.signupContainer').css('display', 'none');
-      $('.signupForm').css('display', 'none');
+      $('.signupContainer').animate({
+        opacity : 0
+      }, 400, ()=>{
+        $('.signupContainer').css('display', 'none');
+        $('#signupSubmitBtn').css('display', 'none');
+        $('.mapForms').css('display', 'none');
+      });
+    }
+  });
+  $('.loginBtn').click(() => {
+    let signupDisplay = $('.signupContainer').css('display');
+    $('.signupContainer').css('display', 'flex');
+    $('#loginSubmitBtn').css('display', 'block');
+    $('#signupSubmitBtn').css('display', 'none');
+    $('#signupLabel').text("Log In");
+    $('.mapForms').css('display', 'flex');
+    if(signupDisplay == 'none'){
+      $('.signupContainer').animate({
+        opacity : 1
+      }, 400);
+    }else{
+      $('.signupContainer').animate({
+        opacity : 0
+      }, 400, ()=>{
+        $('.signupContainer').css('display', 'none');
+        $('#loginSubmitBtn').css('display', 'none');
+        $('.mapForms').css('display', 'none');
+      });
     }
   });
   //Close signup
@@ -314,7 +346,7 @@ $(document).ready(() => {
 
 
   //Refresh Page
-  $('.brand').click(() => {
+  $('.brand-logo').click(() => {
     location.reload();
   });
   //logout
