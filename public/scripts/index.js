@@ -259,9 +259,11 @@ $(document).ready(() => {
   $('.newHapBtn').click(() => {
     let hapFormContainerDisplay = $('.hapFormContainer').css('display');
     if(hapFormContainerDisplay == 'none'){
+      $('.mapForms').css('display', 'flex');
       $('.hapFormContainer').css('display', 'flex');
       $('.hapForm').css('display', 'flex');
     }else{
+      $('.mapForms').css('display', 'none');
       $('.hapFormContainer').css('display', 'none');
       $('.hapForm').css('display', 'none');
     }
@@ -277,7 +279,8 @@ $(document).ready(() => {
         lat : newHapLocInput.getPlace().geometry.location.lat(),
         lng : newHapLocInput.getPlace().geometry.location.lng(),
         address : newHapLocInput.getPlace().formatted_address,
-        date : $('#newHapTime').val(),
+        date : $('#newHapDate').val(),
+        time : $('#newHapTime').val(),
         organizer : curUser.username,
         organizerId : curUser._id
       };
@@ -289,6 +292,7 @@ $(document).ready(() => {
   //Close Form
   $('#hapFormCloseBtn').click(() => {
     $('.hapFormContainer').css('display', 'none');
+    $('.mapForms').css('display', 'none');
     $('.hapForm').css('display', 'none');
   })
   // //Update Hap Title
