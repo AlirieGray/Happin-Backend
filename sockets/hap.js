@@ -40,12 +40,22 @@ function getFormattedDate(date) {
 
 //Creating a New Hap
   socket.on('New Hap', (d) => {
+    console.log("d: ", d);
+    console.log("d.hap: ", d.hap);
     let newHap = new Event(d.hap);
+    console.log('new hap: ', newHap)
+    console.log("raw date: ", d.hap.date);
     let newHapDate = new Date(d.hap.date);
+    console.log("formatted date: ", newHapDate);
     newHap.dateFormatted = getFormattedDate(newHapDate);
     newHap.loc = [d.hap.lng, d.hap.lat];
     io.emit('New Hap', {hap : newHap});
     newHap.save((err, newHap) => {
+      if (err) {
+        console.log("New Hap Error: ", err)
+        io.emit('Error', {err})
+      }
+
       User.findById(newHap.organizerId, (err, user)=>{
         user.events.push(newHap._id);
         newHap.attendees.push(user._id);

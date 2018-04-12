@@ -12,7 +12,7 @@ module.exports = function(app, passport) {
       }
       else if(!user.validPassword(req.body.password)){
         res.send({ err: 'Wrong password' });
-      }else{
+      }  else {
         var token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: "60 days" });
 
         res.cookie('token', token);
@@ -33,9 +33,9 @@ module.exports = function(app, passport) {
 
     //If User Exists Already
     User.findOne({username : req.body.username}, (err, user) => {
-      if(user){
+      if(user) {
         res.send({err : 'Username Taken'});
-      }else{
+      } else {
         let newUser = new User({username : req.body.username});
         newUser.password = newUser.generateHash(req.body.password);
         newUser.save((err, newUser) => {
