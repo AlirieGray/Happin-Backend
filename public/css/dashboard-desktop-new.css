@@ -1,0 +1,142 @@
+body{
+  background-color: #fafff9;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #4AB169;
+    opacity: 0.5; /* Firefox */
+}
+
+input {
+  color : #4ab169;
+}
+
+
+.brand-logo{
+  margin-left: 30px;
+}
+
+
+.mapContainer{
+  display: none;
+}
+
+#map{
+  margin-top : 3px;
+  width : 100%;
+  height : 90%;
+}
+
+#mapLoading{
+  margin-top : 3px;
+  width : 100%;
+  height : 90%;
+}
+
+
+.primary{
+  background-color: #4AB169;
+}
+
+.primary-btn{
+  background-color: #4AB169;
+}
+.primary-btn:hover{
+  background-color: #5ac47a;
+}
+
+.primary-text{
+  color : #4AB169;
+}
+
+.primary-text-dark{
+  color : #32874b;
+}
+
+.nav-right{
+  margin-right: 45px;
+}
+
+.navBtn{
+  padding : 0px 5px;
+  cursor : pointer;
+  font-size: 18px;
+  display: inline;
+  overflow-x: hidden;
+  white-space: nowrap;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navBtn:hover{
+  background-color: #3a9956;
+}
+
+
+.hapScreenContainer{
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainHapTitle{
+  border-bottom: 1px solid #ccc;
+}
+
+.mainHapInfo{
+  width : 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 25px;
+  padding : 5px;
+}
+
+.mainHapAttendeeContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#attendeeCountIcon{
+  color : #4ab169;
+}
+
+
+.mainHapDescription{
+  padding : 5px 10px;
+  font-size: 18px;
+  margin: 20px 0px;
+}
+
+.mainHapSettingContainer{
+  width : 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.settingDivide{
+  width : 30%;
+  display: flex;
+  flex-direction: column;
+  border : 2px solid #4ab169;
+  border-radius : 20px;
+  align-items: center;
+  text-align: center;
+  height : 100px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.mainHapSettingLabel{
+  margin-top: 5px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}

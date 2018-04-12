@@ -1,9 +1,13 @@
 haphead
+  link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+  link(type="text/css" rel="stylesheet" href="/public/css/materialize.min.css")
   if !mobile
-    link(type='text/css' rel='stylesheet' href='/public/css/dashboard-desktop.css')
+    //- link(type='text/css' rel='stylesheet' href='/public/css/index-desktop.css')
+    link(type='text/css' rel='stylesheet' href='/public/css/dashboard-desktop-new.css')
   else
     meta(name="viewport" content="initial-scale=1.0, user-scalable=no")
-    //- link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
+    link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
+  script(src='/public/scripts/materialize.min.js')
   script(src='/public/scripts/jquery-3.3.1.min.js')
   script(src='/public/scripts/socket.io.slim.js')
   if user
@@ -15,95 +19,48 @@ haphead
   script(src="/public/scripts/dashboard.js")
   script(src="/public/scripts/map.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
-  
+    
 .info
-  .nav
-    .brandContainer
-      h1.brand Happin
-      img(src='/public/assets/flag_red.svg')
-    .navButtons
-      if user
-        .hapMapBtn Hap Map
-        .hapDetailsBtn Hap Details
-        .profileBtn=user.username
-      else
-        .signupBtn Sign Up / Log in
+  nav
+    .nav-wrapper.primary
+      .brand-logo Happin
+      ul.right.hide-on-med-and-down.nav-right
+        if user
+          li.hapMapBtn.navBtn Hap Map
+          li.hapDetailsBtn.navBtn Hap Details
+          li.profileBtn.navBtn=user.username
+        else
+          li.signupBtn.navBtn Sign Up / Log in
+          
   .mapAndHaps
-    //- Map
-    .mapContainer
-      img#mapLoading(src="/public/assets/Procfile.svg")
-      #map
-      .mapIcons
-    //- New Hap Form 
-    .hapFormContainer
-      .hapFormNav
-        #hapFormCloseBtn X
-      h1.newHapLabel New Hap
-      .hapForm
-        .hapFormInputs
-          h2#hapTitleLabel Title
-          input#newHapTitle.hapInput(placeholder="New Hap")
-          h2#hapBodyLabel Description
-          textarea#newHapBody.hapInput(placeholder="Let's make it happin!")
-          h2#hapLocLabel Location
-          input#newHapLoc.hapInput(placeholder="Union Square, San Francisco")
-          h2#hapTimeLabel Date and Time
-          input#newHapTime.hapInput(type="datetime-local")
-        #newHapSubmit Submit    
-    //- Sign Up Form
-    .signupContainer
-      .signupNav
-        #signupCloseBtn X
-      h1.signupLabel Sign Up / Login
-      .signupForm
-        .signupInputs
-          h2#signupUsernameLabel Username
-          input#signupUsername.hapInput(placeholder="Username")
-          h2#signupPasswordLabel Password
-          input#signupPassword.hapInput(placeholder="Password" type="password")
-      .signupSubmitBtns
-        #signupSubmitBtn Sign Up
-        #loginSubmitBtn Log In
-    //- Hap Info Screen
-    .hapScreenContainer
-      .hapScreenNav
-        //- #hapScreenCloseBtn X
-      h1.mainHapTitle=hap.name
-      .mainHapInfo
-        p.mainHapOrganizer=hap.organizer
-        .mainHapAttendeeContainer
-          img#mainHapAttendeeCountIcon(src='/public/assets/user.svg')
-          p.mainHapAttendeeCount=hap.attendeeCount
-      .mainHapDescriptionContainer
-        p.mainHapDescription=hap.description
-      .mainHapSettingContainer
-        .whenSettingDivide
-          p.mainHapSettingLabel WHEN
-          p.mainHapDate=hap.date
-        .whereSettingDivide
-          p.mainHapSettingLabel WHERE
-          p.mainHapAddress=hap.address
-      #mainHapJoinBtn Join Hap
-      #mainHapLeaveBtn Leave Hap
-      #mainHapSettingsBtn Settings
-      #mainHapId(hidden)=hap._id
-      
-    
-.content
-  h1.nearHapslabel What's Happining
-    .hapsPlaceholder
-  .hapsContainer
-    .hap-prototype
-      .hapBasicInfo
-        #hapTitle Help me learn biology please!
-        .hapBasicInfoSep
-          #hapOwner Bobby
-          #hapDistance 1547 Mission St
-      #viewHapBtn
-        #viewHapBtnLabel View
-        .viewHapBtnInfo
-          img#hapAttendeeCountIcon(src='/public/assets/user.svg')
-          p#hapAttendeeCount
-      #hapId(hidden)
-      #hapPos(hidden)
-    
+    .row
+      //- Map
+      .mapContainer.col.s9
+        img#mapLoading(src="/public/assets/Procfile.svg")
+        #map
+      //- Hap Info Screen
+      .hapScreenContainer.col.s9.z-depth-2
+        //- .hapScreenNav
+        //-   //- #hapScreenCloseBtn X
+        h3.mainHapTitle=hap.name
+        .mainHapInfo.card
+          .mainHapOrganizer.primary-text-dark=hap.organizer
+          .mainHapAttendeeContainer
+            i.material-icons#attendeeCountIcon person
+            .mainHapAttendeeCount=hap.attendeeCount
+        .mainHapDescription.center-align.card=hap.description
+        .mainHapSettingContainer.row
+          .whenSettingDivide.settingDivide
+            .mainHapSettingLabel WHEN
+            .mainHapDate=hap.date
+          .whereSettingDivide.settingDivide
+            .mainHapSettingLabel WHERE
+            .mainHapAddress=hap.address
+        #mainHapJoinBtn Join Hap
+        #mainHapLeaveBtn Leave Hap
+        #mainHapSettingsBtn Settings
+        #mainHapId(hidden)=hap._id
+        
+      .content.col.s3
+        h3.center-align People
+          

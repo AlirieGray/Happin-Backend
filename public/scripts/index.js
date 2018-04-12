@@ -168,6 +168,7 @@ $(document).ready(() => {
   })
 
 
+
 //========================Sign Up Form===========================
   //Toggle SignUp Form Display
   $('.signupBtn').click(() => {

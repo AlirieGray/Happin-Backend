@@ -7,7 +7,6 @@ let userLocMarker;
 let userLoc;
 
 initAutoComplete = () => {
-  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newHapLoc'));
 
   showMap = (pos) => {
     $('#mapLoading').css('display', 'none');
