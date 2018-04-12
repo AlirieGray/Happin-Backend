@@ -42,19 +42,19 @@ haphead
         #map
       //- Hap Info Screen
       .hapScreenContainer.col.s9.z-depth-2
-        .hapScreenNav
+        .hapScreenNav 
+          h3.mainHapTitle=hap.name
         .mainHapAttendeeContainer
           i.material-icons#attendeeCountIcon person
-          .mainHapAttendeeCount=hap.attendeeCount  
-        h3.mainHapTitle=hap.name
-        .mainHapInfo
+          .mainHapAttendeeCount=hap.attendeeCount 
+        .mainHapInfo.card
           .mainHapOrganizer.primary-text-dark=hap.organizer + ": "
-          .mainHapDescription.center-align.card=hap.description
+          .mainHapDescription.center-align=hap.description
         .mainHapSettingContainer
-          .whenSettingDivide.settingDivide
+          .whenSettingDivide.settingDivide.card
             .mainHapSettingLabel WHEN
             .mainHapDate=hap.dateFormatted
-          .whereSettingDivide.settingDivide
+          .whereSettingDivide.settingDivide.card
             .mainHapSettingLabel WHERE
             .mainHapAddress=hap.address
         #mainHapJoinBtn.btn-large.primary-btn Join Hap

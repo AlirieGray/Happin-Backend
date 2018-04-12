@@ -11,9 +11,12 @@ input {
   color : #4ab169;
 }
 
-
 .brand-logo{
   margin-left: 30px;
+}
+
+li.hapDetailsBtn.navBtn{
+  display: none
 }
 
 
@@ -75,6 +78,8 @@ input {
 }
 
 
+
+
 .hapScreenContainer{
   width: 100%;
   height: 90%;
@@ -83,8 +88,27 @@ input {
   align-items: center;
 }
 
-.mainHapTitle{
-  border-bottom: 1px solid #ccc;
+.hapScreenNav{
+  margin-top: 10px;
+  width : 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.mainHapAttendeeContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#attendeeCountIcon{
+  color : #4ab169;
+  font-size: 50px;
+}
+
+.mainHapAttendeeCount{
+  font-size: 30px;
 }
 
 .mainHapInfo{
@@ -92,30 +116,21 @@ input {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  font-size: 25px;
-  padding : 5px;
+  padding: 0px 10px;
+  font-size: 18px;
 }
 
-.mainHapAttendeeContainer{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.mainHapOrganizer{
+  /*font-size: 25px;*/
 }
-
-#attendeeCountIcon{
-  color : #4ab169;
-}
-
 
 .mainHapDescription{
-  padding : 5px 10px;
-  font-size: 18px;
-  margin: 20px 0px;
+  padding : 5px 5px;
+  /*font-size: 25px;*/
 }
 
 .mainHapSettingContainer{
-  width : 100%;
+  width : 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -123,11 +138,11 @@ input {
 }
 
 .settingDivide{
-  width : 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  border : 2px solid #4ab169;
-  border-radius : 20px;
+  /*border : 2px solid #4ab169;
+  border-radius : 20px;*/
   align-items: center;
   text-align: center;
   height : 100px;
