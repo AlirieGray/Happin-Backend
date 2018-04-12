@@ -252,7 +252,7 @@ $(document).ready(() => {
 //========================New Hap Form===========================
 
   let dateElem = document.querySelector('.datepicker');
-  let dateInstance = M.Datepicker.init(dateElem, {});
+  let dateInstance = M.Datepicker.init(dateElem, {format : "mm" + "/" + "dd" + "/" + "yyyy"});
   let timeElem = document.querySelector('.timepicker');
   let timeInstance = M.Timepicker.init(timeElem, {});
 
@@ -282,6 +282,7 @@ $(document).ready(() => {
         address : newHapLocInput.getPlace().formatted_address,
         date : $('#newHapDate').val(),
         time : $('#newHapTime').val(),
+        dateTime : $('#newHapDate').val() + "T" + $('#newHapTime'),
         organizer : curUser.username,
         organizerId : curUser._id
       };

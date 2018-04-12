@@ -4,30 +4,19 @@ module.exports = (io, socket) => {
 
 
 //Date Formatting function
-function getFormattedDate(date) {
-  var year = date.getFullYear();
-  var month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : '0' + month;
-  var day = date.getDate().toString();
-  day = day.length > 1 ? day : '0' + day;
-  let hour = date.getHours();
-  let ampm;
-  if(hour == 0){
-    hour = "12";
-    ampm = "am";
-  }else if(hour == 12){
-    hour = hour.toString();
-    ampm = "pm";
-  }else if(hour > 12){
-    hour = (hour - 12).toString();
-    ampm = "pm";
-  }else{
-    hour = hour.toString();
-    ampm = "am"
+function dateFormattedToString(date, time) {
+  let year = date.substr(6,4);
+  let day = date.substr(3,2);
+  let month = date.substr(0,2);
+  let hours = time.substr(0,2);
+  let minutes = time.substr(3,2);
+  let ampm = time.substr(6,2);
+  if(ampm == "PM"){
+    hours = Number(hours) + 12;
   }
-  let minute = date.getMinutes().toString();
-  minute = minute.length > 1 ? minute : '0' + minute;
-  return month + '/' + day + '/' + year + " at " + hour + ":" + minute + ampm;
+  let dateString = year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":00Z";
+  let newDate = new Date(dateString);
+  return newDate;
 }
 
 
@@ -40,13 +29,10 @@ function getFormattedDate(date) {
 
 //Creating a New Hap
   socket.on('New Hap', (d) => {
-    console.log("d: ", d);
-    console.log("d.hap: ", d.hap);
     let newHap = new Event(d.hap);
-    console.log('new hap: ', newHap)
-    let newHapDate = new Date(d.hap.date);
-    newHap.date= getFormattedDate(newHapDate);
+    let newHapDate = dateFormattedToString(d.hap.date, d.hap.time);
     newHap.dateFormatted = (d.hap.date + " at " + d.hap.time);
+    newHap.date = newHapDate;
     newHap.loc = [d.hap.lng, d.hap.lat];
     io.emit('New Hap', {hap : newHap});
     newHap.save((err, newHap) => {
