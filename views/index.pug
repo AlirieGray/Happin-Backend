@@ -55,22 +55,30 @@ haphead
               .btn-large.primary-btn#signupSubmitBtn Sign Up
               .btn-large.primary-btn#loginSubmitBtn Log In
                   
-        //-     //- New Hap Form 
-        //-     .hapFormContainer
-        //-       .hapFormNav
-        //-         #hapFormCloseBtn X
-        //-       h1.newHapLabel New Hap
-        //-       .hapForm
-        //-         .hapFormInputs
-        //-           h2#hapTitleLabel Title
-        //-           input#newHapTitle.hapInput(placeholder="New Hap")
-        //-           h2#hapBodyLabel Description
-        //-           textarea#newHapBody.hapInput(placeholder="Let's make it happin!")
-        //-           h2#hapLocLabel Location
-        //-           input#newHapLoc.hapInput(placeholder="Union Square, San Francisco")
-        //-           h2#hapTimeLabel Date and Time
-        //-           input#newHapTime.hapInput(type="datetime-local")
-        //-         #newHapSubmit Submit 
+        //- New Hap Form 
+        .hapFormContainer
+          .hapFormNav
+            i.material-icons#hapFormCloseBtn.primary-text-dark close
+          h1.newHapFormLabel.flow-text.primary-text-dark Make it Happin
+          .hapForm
+            .hapFormInputs
+              .input-field.hapFormInput
+                input#newHapTitle.hapInput.primary-text-dark(type="text" class="validate")
+                label(for="newHapTitle") Title
+              .input-field.hapFormInput
+                textarea#newHapBody.materialize-textarea.primary-text-dark(type="text" class="validate")
+                label(for="newHapBody") Description
+              .input-field.hapFormInput
+                input#newHapLoc.hapInput.primary-text-dark(type="text" class="validate")
+                label#newHapLocLabel(for="newHapLoc") Location
+              .row
+                .input-field.col.s6
+                  input#newHapDate.hapInput.datepicker(type="text" class="validate")
+                  label(for="newHapDate") Date
+                .input-field.col.s6
+                  input#newHapTime.hapInput.timepicker(type="text" class="validate")
+                  label(for="newHapTime") Time
+              #newHapSubmit.btn-large.primary-btn Submit 
         //-     //- Hap Info Screen
         //-     .hapScreenContainer
         //-       .hapScreenNav

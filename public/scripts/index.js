@@ -7,7 +7,7 @@ let userLocMarker;
 let userLoc;
 
 initAutoComplete = () => {
-  // newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newHapLoc'));
+  newHapLocInput = new google.maps.places.Autocomplete(document.getElementById('newHapLoc'));
 
   showMap = (pos) => {
     $('#mapLoading').css('display', 'none');
@@ -250,6 +250,11 @@ $(document).ready(() => {
 
 //========================New Hap Form===========================
 
+  let dateElem = document.querySelector('.datepicker');
+  let dateInstance = M.Datepicker.init(dateElem, {});
+  let timeElem = document.querySelector('.timepicker');
+  let timeInstance = M.Timepicker.init(timeElem, {});
+
   //Toggle making a new Hap
   $('.newHapBtn').click(() => {
     let hapFormContainerDisplay = $('.hapFormContainer').css('display');
@@ -286,17 +291,17 @@ $(document).ready(() => {
     $('.hapFormContainer').css('display', 'none');
     $('.hapForm').css('display', 'none');
   })
-  //Update Hap Title
-  $('#newHapTitle').keypress((e) => {
-    if(e.key != 'enter'){
-      $('.newHapLabel').text($('#newHapTitle').val() + e.key);
-    }
-  })
-  $('#newHapTitle').keydown((e) => {
-    if(e.key == 'Backspace'){
-      $('.newHapLabel').text($('.newHapLabel').text().substr(0,$('.newHapLabel').text().length - 1));
-    }
-  });
+  // //Update Hap Title
+  // $('#newHapTitle').keypress((e) => {
+  //   if(e.key != 'enter'){
+  //     $('.newHapFormLabel').text($('#newHapTitle').val() + e.key);
+  //   }
+  // })
+  // $('#newHapTitle').keydown((e) => {
+  //   if(e.key == 'Backspace'){
+  //     $('.newHapFormLabel').text($('.newHapFormLabel').text().substr(0,$('.newHapFormLabel').text().length - 1));
+  //   }
+  // });
 
 
 //==================MAIN HAP SCREEN=====================
