@@ -13,12 +13,12 @@ input {
 
 .brand-logo{
   margin-left: 30px;
+  cursor: pointer;
 }
 
 li.hapDetailsBtn.navBtn{
   display: none
 }
-
 
 .mapContainer{
   display: none;
@@ -67,10 +67,11 @@ li.hapDetailsBtn.navBtn{
   display: inline;
   overflow-x: hidden;
   white-space: nowrap;
-  margin-left: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .navBtn:hover{
