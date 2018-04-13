@@ -84,7 +84,7 @@ module.exports = function(app) {
   })
 
   /**** GET the list of events created by a given user ****/
-  app.get('/users/:userId/events', (req, res) => {
+  app.get('/users/:userId/created', (req, res) => {
     // Look up the user by id and populate the array of events they've created
     User.findById(req.params.userId).populate('events').exec(function(err, user) {
       if (err) {
@@ -107,46 +107,6 @@ module.exports = function(app) {
       }
       console.log("User events: ", user.attending)
       return res.status(200).send({ events: user.attending })
-    })
-  })
-
-  /**** Set a given user's rsvp for an event to either true or false ****/
-  /**** STILL IN PROGRESS ****/
-  app.post('/events/:eventId/rsvp', (req, res) => {
-    console.log('RSVPing to event');
-    // First look up the user by the id passed in the body
-    User.findById(req.body.userId).exec(function(err, user) {
-      if (err) {
-        console.log("Error: " + err);
-        return res.status(401).send({message: "Could not find user"});
-      }
-      if (!user) {
-        return res.status(401).send({message: "Could not find user"});
-      }
-
-      // make sure that the event exists before saving it to the user model
-      Event.findById(req.params.eventId).exec(function(err, event) {
-        if (err) {
-          console.log("Error: " + err)
-          return res.status(500).send({message: "Could not find event"});
-        }
-        if (!event) {
-          return res.status(401).send({message: "Could not find event"});
-        }
-
-        // if the user is RSVPing yes, add the id to user.attending
-        if (req.body.rsvp) {
-          user.attending.push(event._id);
-          return res.status(200);
-        }
-        // if the user is RSVPing no, remove the id from user.attending
-        user.attending = user.attending.filter((eventId) => {
-          return eventId !== req.params.eventId
-        })
-        user.save(); // TODO next lines should be in a promise (?)
-        user.markModified('attending');
-        return res.status(200);
-      })
     })
   })
 
