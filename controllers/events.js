@@ -83,30 +83,17 @@ module.exports = function(app) {
     })
   })
 
-  /**** GET the list of events created by a given user ****/
-  app.get('/users/:userId/created', (req, res) => {
+  /**** GET the list of events that a user has created and is attending ****/
+  app.get('/users/:userId/events', (req, res) => {
     // Look up the user by id and populate the array of events they've created
-    User.findById(req.params.userId).populate('events').exec(function(err, user) {
+    User.findById(req.params.userId).populate('events').populate('attending').exec(function(err, user) {
       if (err) {
         console.log("Error: " + err);
         return res.status(401).send({message: "Could not find user", err});
       }
       console.log("User events: ", user.events)
-      return res.status(200).send({ events: user.events })
-    })
-  })
-
-  /**** GET the list of events that the a given user is attending ****/
-  app.get('/users/:userId/attending', (req, res) => {
-    console.log("Getting all events this user is attending")
-    // Loop up the user by id and populate the array of events they're attending
-    User.findById(req.params.userId).populate('attending').exec(function(err, user) {
-      if (err) {
-        console.log("Error: " + err);
-        return res.status(401).send({message: "Could not find user", err});
-      }
-      console.log("User events: ", user.attending)
-      return res.status(200).send({ events: user.attending })
+      console.log("User attending: ", user.attending)
+      return res.status(200).send({ created: user.events, attending: user.attending })
     })
   })
 
