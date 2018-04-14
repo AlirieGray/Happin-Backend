@@ -9,6 +9,7 @@ haphead
     link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
   script(src='/public/scripts/materialize.min.js')
   script(src='/public/scripts/jquery-3.3.1.min.js')
+  script(src='/public/scripts/moment.min.js')
   script(src='/public/scripts/socket.io.slim.js')
   if user
     script.
@@ -23,7 +24,9 @@ haphead
 .info
   nav
     .nav-wrapper.primary
-      .brand-logo Happin
+      .brand-logo
+        .brand-text Happin
+        img.lightning(src='/public/assets/icons/light.svg')
       ul.right.hide-on-med-and-down.nav-right
         if user
           li.newHapBtn.navBtn
@@ -108,12 +111,14 @@ haphead
         h4.nearHapslabel.center-align What's Happining
           .hapsPlaceholder
         .hapsContainer
-          .hap-prototype.row.valign-wrapper
+          .hap-prototype.row.valign-wrapper.card
             .hapBasicInfo.col.s9
               #hapTitle Help me learn biology please!
               .hapBasicInfoSep
-                #hapOwner.primary-text Bobby
-                #hapDistance 1547 Mission St
+                #hapOwner.primary-text-dark Bobby
+                .hapSetting
+                  #hapDistance 1547 Mission St
+                  #hapTime In 3 hours
             #viewHapBtn.col.s3.btn-large.primary-btn
               #viewHapBtnLabel View
               .viewHapBtnInfo.center-align

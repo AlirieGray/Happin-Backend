@@ -64,6 +64,17 @@ initAutoComplete = () => {
 
 $(document).ready(() => {
 
+  let socket = io.connect();
+  //Have socket connect to attending haps
+  if(curUser){
+    if(curUser.attending){
+      socket.emit('Connect To Haps', {
+        userId : curUser._id,
+        hapIds : curUser.attending
+      })
+    }
+  }
+
 //==================Details==================
   $('.hapDetailsBtn').click(function() {
     $('.mapContainer').css('display', 'none');
@@ -98,6 +109,19 @@ $(document).ready(() => {
     $('#mainHapJoinBtn').css('display', 'block');
   })
 
+  //Someone joined a hap
+  socket.on('Join Hap', (d) => {
+    if(hap.id = d.hapId){
+      $('.mainHapAttendeeCount').text(d.attendeeCount);
+    }
+  });
+  //Someone left a hap
+  socket.on('Leave Hap', (d) => {
+    if(hap.id = d.hapId){
+      $('.mainHapAttendeeCount').text(d.attendeeCount);
+    }
+  });
+
 //==================Map======================
   $('.hapMapBtn').click(function() {
     $('.mapContainer').css('display', 'flex');
@@ -107,7 +131,7 @@ $(document).ready(() => {
   })
 
 //==================Site Links===============
-  $('.brand').click(function() {
+  $('.brand-logo').click(function() {
     window.location = '/';
   })
 

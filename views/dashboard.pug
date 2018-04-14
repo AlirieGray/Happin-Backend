@@ -25,7 +25,9 @@ haphead
 .info
   nav
     .nav-wrapper.primary
-      .brand-logo Happin
+      .brand-logo
+        .brand-text Happin
+        img.lightning(src='/public/assets/icons/light.svg')
       ul.right.hide-on-med-and-down.nav-right
         if user
           li.hapMapBtn.navBtn Hap Map
@@ -64,4 +66,7 @@ haphead
         
       .content.col.s3
         h3.center-align People
+        .peopleContainer
+          for person in people
+            h4=person.username
           

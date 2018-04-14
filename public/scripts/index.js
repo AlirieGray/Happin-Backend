@@ -44,10 +44,16 @@ initAutoComplete = () => {
   }
 
 //==============LOAD ALL HAPS===================
+  //Get time from hap date to now
+  function getTimeFromHap(hapDate){
+    return moment(hapDate).toNow(true);
+  }
+
   loadHapsFromPos = (pos) => {
     $.post('near_haps', {userLoc : [pos.lng, pos.lat]}, (d) => {
       d.haps.forEach((hap) => {
-        addNewHap(hap, d.hapDistances[hap._id]);
+        hapTime = getTimeFromHap(hap.date);
+        addNewHap(hap, d.hapDistances[hap._id], hapTime);
       })
     })
   }
@@ -88,7 +94,7 @@ $(document).ready(() => {
   }
 
 //==========================NEW REQUESTS=========================
-  addNewHap = (hap, distance) => {
+  addNewHap = (hap, distance, time) => {
     //ADD HAP TO REQUEST CONTAINER
     let newHapClone = $('.hap-prototype').clone(true, true);
     newHapClone.addClass('hap').removeClass('hap-prototype');
@@ -96,6 +102,7 @@ $(document).ready(() => {
     newHapClone.find('#hapTitle').text(hap.name);
     newHapClone.find('#hapOwner').text(hap.organizer);
     newHapClone.find('#hapDistance').text(distance + " miles away");
+    newHapClone.find('#hapTime').text("In " + time);
     newHapClone.find('#hapAttendeeCount').text(hap.attendeeCount);
     newHapClone.find('#hapId').text(hap._id);
     newHapClone.find('#hapPos').text(JSON.stringify({lat : hap.lat, lng : hap.lng}));
@@ -331,12 +338,18 @@ $(document).ready(() => {
 
 
 //==================SOCKETS HANDLERS===================
+//Get time from hap date to now
+  function getTimeFromHap(hapDate){
+    return moment(hapDate).toNow(true);
+  }
+
   //Someone made a new hap
   socket.on('New Hap', (d) => {
     //If nearby
     hapDistance = getDistanceToHap(d.hap.lat, d.hap.lng, userLoc.lat, userLoc.lng);
+    hapTime = getTimeFromHap(d.hap.date);
     if(hapDistance < 10) {
-      addNewHap(d.hap, hapDistance);
+      addNewHap(d.hap, hapDistance, hapTime);
     }
   });
   //Someone joined a hap

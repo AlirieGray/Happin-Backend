@@ -20,22 +20,26 @@ module.exports = function(app) {
   app.get('/hap/:id/dashboard', (req, res) => {
     const mapApiKey = 'AIzaSyCucitjj7AcVk8Hv35Pd6JVPQiNhzB8LwI';
     Event.findById(req.params.id, (err, hap) => {
-      if(req.user){
-        User.findById(req.user.id, (err, user) => {
+      User.find({'_id': { $in: hap.attendees}}, (err, users) => {
+        if(req.user){
+          User.findById(req.user.id, (err, user) => {
+            res.render('dashboard', {
+              mapApiKey : mapApiKey,
+              user : user,
+              hap : hap,
+              people : users
+            });
+          })
+        }else{
           res.render('dashboard', {
             mapApiKey : mapApiKey,
-            user : user,
-            hap : hap
+            hap : hap,
+            people : users
           });
-        })
-      }else{
-        res.render('dashboard', {
-          mapApiKey : mapApiKey,
-          hap : hap
-        });
-      }
+        }
+      })
     })
-  })
+  });
 
   function getDistanceToHap(pos1,pos2) {
     function deg2rad(deg){

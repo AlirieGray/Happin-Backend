@@ -11,8 +11,22 @@ input {
   color : #4ab169;
 }
 
-.brand-logo{
+nav .brand-logo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width : 300px;
   margin-left: 30px;
+  cursor : pointer;
+}
+
+.lightning{
+  align-items: flex-start;
+  display: inline;
+  width : 30px;
+  height : 30px;
+  margin-left: 3px;
+  /*margin-top: -20px;*/
 }
 
 li.hapDetailsBtn.navBtn{
