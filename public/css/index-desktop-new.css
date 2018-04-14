@@ -33,6 +33,7 @@ nav .brand-logo{
   align-items: center;
   width : 300px;
   margin-left: 30px;
+<<<<<<< HEAD
   cursor : pointer;
 }
 
@@ -43,6 +44,9 @@ nav .brand-logo{
   height : 30px;
   margin-left: 3px;
   /*margin-top: -20px;*/
+=======
+  cursor: pointer;
+>>>>>>> 9bf1abf6b919262a4e135dc1828e1649b1c3037a
 }
 
 
@@ -157,10 +161,11 @@ nav .brand-logo{
   display: inline;
   overflow-x: hidden;
   white-space: nowrap;
-  margin-left: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .navBtn:hover{

@@ -8,8 +8,8 @@ var UserSchema = new Schema({
   , updatedAt       : { type: Date }
   , password        : { type: String, select: false }
   , username        : { type: String, required: true, unique: true }
-  , events          : [String]
-  , attending       : [String]
+  , events          : [{type: Schema.Types.ObjectId, ref: 'Event'}]
+  , attending       : [{type: Schema.Types.ObjectId, ref: 'Event'}]
   , invites         : []
 });
 
