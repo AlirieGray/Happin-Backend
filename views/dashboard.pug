@@ -54,16 +54,25 @@ haphead
           #map
         //- Hap Info Screen
         .detailsContainer
-          .hapInfo.card
-            .hapOrganizer.primary-text-dark=hap.organizer + ": "
-            .hapDescription.center-align=hap.description
-          .hapSettingContainer
-            .whenSettingDivide.settingDivide.card
-              .hapSettingLabel WHEN
-              .hapDate=hap.dateFormatted
-            .whereSettingDivide.settingDivide.card
-              .hapSettingLabel WHERE
-              .hapAddress=hap.address
+          .hapInfo
+            .hapInfoTitleContainer
+              .hapInfoTitle.primary-text-dark=hap.name
+            .hapOrganizerContainer
+              .hapOrganizerLabel.primary-text-dark Created By:
+              .hapOrganizer.primary-text-dark=hap.organizer
+            .hapDescriptionContainer
+              .hapDescriptionLabel.primary-text-dark Description:
+              .hapDescriptionCard.card
+                .hapDescription.center-align=hap.description
+            .hapSettingContainer
+              .whenSettingDivide.settingDivide
+                .hapSettingLabel.primary-text-dark WHEN
+                .card.settingCard
+                  .hapDate=hap.dateFormatted
+              .whereSettingDivide.settingDivide
+                .hapSettingLabel.primary-text-dark WHERE
+                .card.settingCard
+                  .hapAddress=hap.address
           #hapId(hidden)=hap._id
         
       .content.col.s3
