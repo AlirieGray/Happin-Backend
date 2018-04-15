@@ -159,6 +159,7 @@ li.hapDetailsBtn.navBtn{
 }
 
 .hapTitle{
+  color : #fffa7f;
   font-size: 25px;
   font-weight: bold;
   overflow: hidden;
@@ -372,6 +373,7 @@ li.hapDetailsBtn.navBtn{
 }
 
 #chatIcon{
+  color : #fffa7f;
   font-size: 20px;
   margin-bottom: -30px;
   margin-top: -10px;
