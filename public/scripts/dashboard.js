@@ -103,7 +103,7 @@ $(document).ready(() => {
   });
 
   $('#hapLeaveBtn').click(function(){
-    let hapId = $(this).siblings('#hapId').text();
+    let hapId = $('#hapId').text();
     socket.emit('Leave Hap', {hapId : hapId, userId : curUser._id});
     $('#hapLeaveBtn').css('display', 'none');
     $('#hapJoinBtn').css('display', 'block');
