@@ -7,6 +7,12 @@ body{
     opacity: 0.5; /* Firefox */
 }
 
+/*.dashNav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}*/
+
 input {
   color : #4ab169;
 }
@@ -27,6 +33,12 @@ nav .brand-logo{
   height : 30px;
   margin-left: 3px;
   /*margin-top: -20px;*/
+}
+
+.navBtns{
+  display: flex;
+  flex-direction: row;
+  margin-top : -54px;
 }
 
 li.hapDetailsBtn.navBtn{
@@ -69,6 +81,15 @@ li.hapDetailsBtn.navBtn{
   color : #32874b;
 }
 
+.secondary-btn{
+  background-color: #fed74c;
+  color : black;
+  font-weight: bold;
+}
+.secondary-btn:hover{
+  background-color: #ffe27c
+}
+
 .nav-right{
   margin-right: 45px;
 }
@@ -92,9 +113,80 @@ li.hapDetailsBtn.navBtn{
 }
 
 
+.hapNav{
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+
+.hapNavBtn{
+  font-weight: bold;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.hapNavBtn:hover{
+  background-color: #d1ffdf
+}
+
+.joinLeaveSetBtn{
+  font-weight: bold;
+  border-right: 1px solid #ccc;
+  cursor : pointer;
+  border-bottom: 1px solid #ccc;
+}
+
+.joinLeaveSetBtn:hover{
+  background-color: #d1ffdf;
+}
+
+.hapNavBtn:last-child{
+  border-right: 0px solid #ccc;
+}
+
+.activeHapNavBtn{
+  border-bottom: 0px solid #ccc;
+}
+
+.navTitleContainer{
+  width : 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.hapTitle{
+  font-size: 25px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  align-self: center;
+  text-align: center;
+  float: none;
+}
+
+.hapAttendeeContainer{
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#attendeeCountIcon{
+  color : #4ab169;
+  font-size: 35px;
+}
+
+.hapAttendeeCount{
+  font-size: 25px;
+}
 
 
-.hapScreenContainer{
+
+.detailsContainer{
   width: 100%;
   height: 90%;
   display: flex;
@@ -110,22 +202,7 @@ li.hapDetailsBtn.navBtn{
   justify-content: center;
 }
 
-.mainHapAttendeeContainer{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-#attendeeCountIcon{
-  color : #4ab169;
-  font-size: 50px;
-}
-
-.mainHapAttendeeCount{
-  font-size: 30px;
-}
-
-.mainHapInfo{
+.hapInfo{
   width : 50%;
   display: flex;
   flex-direction: row;
@@ -134,16 +211,16 @@ li.hapDetailsBtn.navBtn{
   font-size: 18px;
 }
 
-.mainHapOrganizer{
+.hapOrganizer{
   /*font-size: 25px;*/
 }
 
-.mainHapDescription{
+.hapDescription{
   padding : 5px 5px;
   /*font-size: 25px;*/
 }
 
-.mainHapSettingContainer{
+.hapSettingContainer{
   width : 50%;
   display: flex;
   flex-direction: row;
@@ -164,20 +241,79 @@ li.hapDetailsBtn.navBtn{
   margin-right: 2px;
 }
 
-.mainHapSettingLabel{
+.hapSettingLabel{
   margin-top: 5px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-#mainHapJoinBtn{
+#hapJoinBtn{
   display: none;
 }
 
-#mainHapLeaveBtn{
+#hapLeaveBtn{
   display: none;
 }
 
-#mainHapSettingsBtn{
+#hapSettingsBtn{
   display: none;
+}
+
+
+/*Person Container*/
+
+.personContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.peopleLabelContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.peopleLabel{
+  font-size: 35px;
+}
+
+.person{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 5px;
+}
+
+.personPic{
+  border-radius: 100%;
+  width : 50px;
+  height : 50px;
+  border : 2px solid #4ab179;
+  margin-right: 10px;
+}
+
+.personInfo{
+  display: flex;
+  flex-direction: row;
+}
+
+.personDetails{
+  display: flex;
+  flex-direction: column;
+}
+
+.personName{
+  font-weight: bold;
+}
+
+#chatBtnLabel{
+}
+
+#chatIcon{
+  font-size: 20px;
+  margin-bottom: -30px;
+  margin-top: -10px;
 }

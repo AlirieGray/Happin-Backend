@@ -84,41 +84,41 @@ $(document).ready(() => {
   });
 
   if(hap.organizerId == curUser._id){
-    $('#mainHapSettingsBtn').css('display', 'block');
-    $('#mainHapJoinBtn').css('display', 'none');
-    $('#mainHapLeaveBtn').css('display', 'none');
+    $('#hapSettingsBtn').css('display', 'block');
+    $('#hapJoinBtn').css('display', 'none');
+    $('#hapLeaveBtn').css('display', 'none');
   }else if(hap.attendees.includes(curUser._id)){
-    $('#mainHapLeaveBtn').css('display', 'block');
-    $('#mainHapJoinBtn').css('display', 'none');
+    $('#hapLeaveBtn').css('display', 'block');
+    $('#hapJoinBtn').css('display', 'none');
   }else{
-    $('#mainHapJoinBtn').css('display', 'block');
-    $('#mainHapLeaveBtn').css('display', 'none');
+    $('#hapJoinBtn').css('display', 'block');
+    $('#hapLeaveBtn').css('display', 'none');
   }
 
-  $('#mainHapJoinBtn').click(function(){
-    let hapId = $(this).siblings('#mainHapId').text();
+  $('#hapJoinBtn').click(function(){
+    let hapId = $(this).siblings('#hapId').text();
     socket.emit('Join Hap', {hapId : hapId, userId : curUser._id});
-    $('#mainHapJoinBtn').css('display', 'none');
-    $('#mainHapLeaveBtn').css('display', 'block');
+    $('#hapJoinBtn').css('display', 'none');
+    $('#hapLeaveBtn').css('display', 'block');
   });
 
-  $('#mainHapLeaveBtn').click(function(){
-    let hapId = $(this).siblings('#mainHapId').text();
+  $('#hapLeaveBtn').click(function(){
+    let hapId = $(this).siblings('#hapId').text();
     socket.emit('Leave Hap', {hapId : hapId, userId : curUser._id});
-    $('#mainHapLeaveBtn').css('display', 'none');
-    $('#mainHapJoinBtn').css('display', 'block');
+    $('#hapLeaveBtn').css('display', 'none');
+    $('#hapJoinBtn').css('display', 'block');
   })
 
   //Someone joined a hap
   socket.on('Join Hap', (d) => {
     if(hap.id = d.hapId){
-      $('.mainHapAttendeeCount').text(d.attendeeCount);
+      $('.hapAttendeeCount').text(d.attendeeCount);
     }
   });
   //Someone left a hap
   socket.on('Leave Hap', (d) => {
     if(hap.id = d.hapId){
-      $('.mainHapAttendeeCount').text(d.attendeeCount);
+      $('.hapAttendeeCount').text(d.attendeeCount);
     }
   });
 

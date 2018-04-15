@@ -24,49 +24,70 @@ haphead
     
 .info
   nav
-    .nav-wrapper.primary
-      .brand-logo
-        .brand-text Happin
-        img.lightning(src='/public/assets/icons/light.svg')
-      ul.right.hide-on-med-and-down.nav-right
-        if user
-          li.hapMapBtn.navBtn Hap Map
-          li.hapDetailsBtn.navBtn Hap Details
-          li.profileBtn.navBtn=user.username
-        else
-          li.signupBtn.navBtn Sign Up / Log in
+    .nav-wrapper.primary.row
+      .col.s12
+        .brand-logo
+          .brand-text Happin
+          img.lightning(src='/public/assets/icons/light.svg')
+        h5.hapTitle=hap.name
+        ul.right.hide-on-med-and-down.nav-right.navBtns
+          if user
+            li.hapMapBtn.navBtn Hap Map
+            li.hapDetailsBtn.navBtn Hap Details
+            li.profileBtn.navBtn=user.username
+          else
+            li.signupBtn.navBtn Sign Up / Log in
           
   .mapAndHaps
     .row
-      //- Map
-      .mapContainer.col.s9
-        img#mapLoading(src="/public/assets/Procfile.svg")
-        #map
-      //- Hap Info Screen
-      .hapScreenContainer.col.s9.z-depth-2
-        .hapScreenNav 
-          h3.mainHapTitle=hap.name
-        .mainHapAttendeeContainer
-          i.material-icons#attendeeCountIcon person
-          .mainHapAttendeeCount=hap.attendeeCount 
-        .mainHapInfo.card
-          .mainHapOrganizer.primary-text-dark=hap.organizer + ": "
-          .mainHapDescription.center-align=hap.description
-        .mainHapSettingContainer
-          .whenSettingDivide.settingDivide.card
-            .mainHapSettingLabel WHEN
-            .mainHapDate=hap.dateFormatted
-          .whereSettingDivide.settingDivide.card
-            .mainHapSettingLabel WHERE
-            .mainHapAddress=hap.address
-        #mainHapJoinBtn.btn-large.primary-btn Join Hap
-        #mainHapLeaveBtn.btn-large.primary-btn Leave Hap
-        #mainHapSettingsBtn.btn-large.primary-btn Settings
-        #mainHapId(hidden)=hap._id
+      .leftView.col.s9.z-depth-2
+        .tabs.tabs-fixed-width.hapNav
+          #hapJoinBtn.tab.joinLeaveSetBtn Join Hap
+          #hapLeaveBtn.tab.joinLeaveSetBtn Leave Hap
+          #hapSettingsBtn.tab.joinLeaveSetBtn Settings
+          .tab.hapNavBtn.activeHapNavBtn Details 
+          .tab.hapNavBtn Hap Map
+          .tab.hapNavBtn Connect
+        //- Map
+        .mapContainer
+          img#mapLoading(src="/public/assets/Procfile.svg")
+          #map
+        //- Hap Info Screen
+        .detailsContainer
+          .hapInfo.card
+            .hapOrganizer.primary-text-dark=hap.organizer + ": "
+            .hapDescription.center-align=hap.description
+          .hapSettingContainer
+            .whenSettingDivide.settingDivide.card
+              .hapSettingLabel WHEN
+              .hapDate=hap.dateFormatted
+            .whereSettingDivide.settingDivide.card
+              .hapSettingLabel WHERE
+              .hapAddress=hap.address
+          #hapId(hidden)=hap._id
         
       .content.col.s3
-        h3.center-align People
-        .peopleContainer
+        h3.center-align.peopleLabelContainer
+          .peopleLabel People
+          .hapAttendeeContainer
+            i.material-icons#attendeeCountIcon person
+            .hapAttendeeCount=hap.attendeeCount 
+        .personContainer
           for person in people
-            h4=person.username
+            .person.card.row
+              .personInfo.col.s9
+                img.personPic(src=person.picture)
+                .personDetails
+                  .personName.primary-text-dark=person.username
+                  .personOnline Online
+              .chatBtn.btn-large.primary-btn.col.s3
+                i.material-icons#chatIcon chat_bubble
+                #chatBtnLabel Chat 
+                
+              
+          
+          
+          
+          
+          
           

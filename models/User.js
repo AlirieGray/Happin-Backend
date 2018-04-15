@@ -11,6 +11,7 @@ var UserSchema = new Schema({
   , events          : [{type: Schema.Types.ObjectId, ref: 'Event'}]
   , attending       : [{type: Schema.Types.ObjectId, ref: 'Event'}]
   , invites         : []
+  , picture         : { type: String, default : 'http://www.freelogovectors.net/wp-content/uploads/2015/06/turtle-icon.png'}
 });
 
 UserSchema.pre('save', function(next){
