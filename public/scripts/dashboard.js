@@ -76,6 +76,13 @@ $(document).ready(() => {
   }
 
 //==================Details==================
+  $('#detailsTabBtn').click(function(){
+    $('.mapContainer').css('display', 'none');
+    $('.detailsContainer').css('display', 'flex');
+    $('.activeHapNavBtn').removeClass('activeHapNavBtn');
+    $(this).addClass('activeHapNavBtn');
+  })
+
   $('.hapDetailsBtn').click(function() {
     $('.mapContainer').css('display', 'none');
     $('.hapScreenContainer').css('display', 'flex');
@@ -123,11 +130,11 @@ $(document).ready(() => {
   });
 
 //==================Map======================
-  $('.hapMapBtn').click(function() {
+  $('#mapTabBtn').click(function() {
     $('.mapContainer').css('display', 'flex');
-    $('.hapScreenContainer').css('display', 'none');
-    $('.hapMapBtn').css('display', 'none');
-    $('.hapDetailsBtn').css('display', 'block');
+    $('.detailsContainer').css('display', 'none');
+    $('.activeHapNavBtn').removeClass('activeHapNavBtn');
+    $(this).addClass('activeHapNavBtn');
   })
 
 //==================Site Links===============
