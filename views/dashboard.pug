@@ -18,8 +18,8 @@ haphead
       let curUser = false;
   script.
     let hap = !{JSON.stringify(hap)};
-  script(src="/public/scripts/dashboard.js")
   script(src="/public/scripts/map.js")
+  script(src="/public/scripts/dashboard.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
     
 .info

@@ -33,7 +33,6 @@ nav .brand-logo{
   align-items: center;
   width : 300px;
   margin-left: 30px;
-<<<<<<< HEAD
   cursor : pointer;
 }
 
@@ -44,9 +43,7 @@ nav .brand-logo{
   height : 30px;
   margin-left: 3px;
   /*margin-top: -20px;*/
-=======
   cursor: pointer;
->>>>>>> 9bf1abf6b919262a4e135dc1828e1649b1c3037a
 }
 
 
@@ -97,33 +94,52 @@ nav .brand-logo{
   background-color: #edfff2;
 }
 
+.hapOwnerAndAttending{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -15px;
+  margin-bottom: -15px;
+}
+
+.hapAttendingInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .hapSetting{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-#viewHapBtn{
+#findHapBtn{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.viewHapBtnInfo{
+.findHapBtnInfo{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-#viewHapBtnLabel{
+#findHapBtnLabel{
   margin-bottom: -20px;
   margin-top: -10px;
 }
 
+#findHapIcon{
+  font-size: 20px;
+}
+
 #hapAttendeeCountIcon{
-  width : 15px;
-  height : 15px;
+  color: #4ab169;
+  font-size: 23px;
   display: inline-block;
 }
 
@@ -238,7 +254,7 @@ nav .brand-logo{
 
 .hapFormContainer{
   width : 80%;
-  opacity: 1;
+  opacity: 0;
   /*margin-top: 20px;*/
   background-color: rgba(250, 255, 249, 0.9);
   flex-direction: column;

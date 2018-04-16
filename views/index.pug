@@ -5,7 +5,7 @@ haphead
     //- link(type='text/css' rel='stylesheet' href='/public/css/index-desktop.css')
     link(type='text/css' rel='stylesheet' href='/public/css/index-desktop-new.css')
   else
-    meta(name="viewport" content="initial-scale=1.0, user-scalable=no")
+    meta(name="findport" content="initial-scale=1.0, user-scalable=no")
     link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
   script(src='/public/scripts/materialize.min.js')
   script(src='/public/scripts/jquery-3.3.1.min.js')
@@ -17,8 +17,8 @@ haphead
   else
     script.
       let curUser = false;
-  script(src="/public/scripts/index.js")
   script(src="/public/scripts/map.js")
+  script(src="/public/scripts/index.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
   
 .info
@@ -115,15 +115,18 @@ haphead
             .hapBasicInfo.col.s9
               #hapTitle Help me learn biology please!
               .hapBasicInfoSep
-                #hapOwner.primary-text-dark Bobby
+                .hapOwnerAndAttending
+                  #hapOwner.primary-text-dark Bobby
+                  .hapAttendingInfo
+                    i.material-icons#hapAttendeeCountIcon person
+                    p#hapAttendeeCount
                 .hapSetting
                   #hapDistance 1547 Mission St
                   #hapTime In 3 hours
-            #viewHapBtn.col.s3.btn-large.primary-btn
-              #viewHapBtnLabel View
-              .viewHapBtnInfo.center-align
-                img#hapAttendeeCountIcon(src='/public/assets/user.svg')
-                p#hapAttendeeCount
+            #findHapBtn.col.s3.btn-large.primary-btn
+              #findHapBtnLabel Find
+              .findHapBtnInfo.center-align
+                i.material-icons#findHapIcon my_location
             #hapId(hidden)
             #hapPos(hidden)
       

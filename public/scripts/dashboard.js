@@ -12,8 +12,20 @@ initAutoComplete = () => {
     $('#mapLoading').css('display', 'none');
     $('#map').css('display' , 'block');
     Map = new google.maps.Map(document.getElementById('map'), {
-      center : pos,
-      zoom: 15
+      center : {lat : hap.lat, lng: hap.lng},
+      zoom: 15,
+      styles : mapStyles
+    });
+    let hapLocmarkerIcon = {
+      url : '/public/assets/icons/star_yellow.svg',
+    }
+    let hapLocMarker = new google.maps.Marker({
+      position : {
+        lat : hap.lat,
+        lng : hap.lng
+      },
+      map : Map,
+      icon : hapLocmarkerIcon
     });
   }
 
@@ -25,7 +37,7 @@ initAutoComplete = () => {
     let markerImage = {
       url : '/public/assets/userloc.svg',
     }
-    Map.setCenter(pos);
+    // Map.setCenter(pos);
     let userLocation = new google.maps.Marker({
       position : pos,
       map : Map,

@@ -14,7 +14,8 @@ initAutoComplete = () => {
     $('#map').css('display' , 'block');
     Map = new google.maps.Map(document.getElementById('map'), {
       center : pos,
-      zoom: 15
+      zoom: 15,
+      styles : mapStyles
     });
   }
 
@@ -137,7 +138,7 @@ $(document).ready(() => {
   }
 
   //SHOW HAP SCREEN WHEN CLICKED
-  $('#viewHapBtn').click(function() {
+  $('.hapBasicInfo').click(function() {
     if(!curUser){
       $('.signupContainer').css('display', 'flex');
       $('.signupForm').css('display', 'flex');
@@ -169,7 +170,7 @@ $(document).ready(() => {
     }
   });
 
-  $('.hapBasicInfo').click(function() {
+  $('#findHapBtn').click(function() {
     let hapPos = JSON.parse($(this).siblings('#hapPos').text());
     Map.panTo(hapPos);
   })
@@ -263,17 +264,24 @@ $(document).ready(() => {
   let timeElem = document.querySelector('.timepicker');
   let timeInstance = M.Timepicker.init(timeElem, {});
 
-  //Toggle making a new Hap
+  //Toggle New Hap Form Window
   $('.newHapBtn').click(() => {
     let hapFormContainerDisplay = $('.hapFormContainer').css('display');
+    $('.hapFormContainer').css('display', 'flex');
     if(hapFormContainerDisplay == 'none'){
+      $('.hapFormContainer').animate({
+        opacity : 1
+      }, 400);
       $('.mapForms').css('display', 'flex');
-      $('.hapFormContainer').css('display', 'flex');
       $('.hapForm').css('display', 'flex');
     }else{
-      $('.mapForms').css('display', 'none');
+      $('.hapFormContainer').animate({
+        opacity : 0
+      }, 400, ()=>{
       $('.hapFormContainer').css('display', 'none');
+      $('.mapForms').css('display', 'none');
       $('.hapForm').css('display', 'none');
+      });
     }
   });
 
