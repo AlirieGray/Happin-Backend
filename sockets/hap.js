@@ -69,7 +69,7 @@ function dateFormattedToString(date, time) {
           socket.join(d.hapId, () => {
             io.to(d.hapId).emit('Join Hap', {
               hapId : d.hapId,
-              username : user.username,
+              newPerson : user,
               attendeeCount : hap.attendeeCount});
             console.log(user.username + " has joined " + hap.name);
           });
@@ -91,7 +91,8 @@ function dateFormattedToString(date, time) {
           user.save();
           io.to(d.hapId).emit('Leave Hap', {
             hapId : d.hapId,
-            attendeeCount : hap.attendeeCount
+            attendeeCount : hap.attendeeCount,
+            personId : user._id
           });
           socket.leave(d.hapId);
           console.log(user.username + " has left " + hap.name);

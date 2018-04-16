@@ -87,6 +87,22 @@ $(document).ready(() => {
     }
   }
 
+  addNewPerson = (person) => {
+    let newPersonClone = $('.personPrototype').clone(true);
+    newPersonClone.removeClass('personPrototype');
+    newPersonClone.addClass('person');
+    newPersonClone.attr('id', person._id);
+    newPersonClone.find('.personPic').attr('src', person.picture);
+    newPersonClone.find('.personName').text(person.username);
+    newPersonClone.appendTo('.personContainer');
+  }
+
+  //Load up all the people in hap
+  console.log(people);
+  people.forEach((person) => {
+    addNewPerson(person);
+  });
+
 //==================Details==================
   $('#detailsTabBtn').click(function(){
     $('.mapContainer').css('display', 'none');
@@ -128,19 +144,6 @@ $(document).ready(() => {
     $('#hapJoinBtn').css('display', 'block');
   })
 
-  //Someone joined a hap
-  socket.on('Join Hap', (d) => {
-    if(hap.id = d.hapId){
-      $('.hapAttendeeCount').text(d.attendeeCount);
-    }
-  });
-  //Someone left a hap
-  socket.on('Leave Hap', (d) => {
-    if(hap.id = d.hapId){
-      $('.hapAttendeeCount').text(d.attendeeCount);
-    }
-  });
-
 //==================Map======================
   $('#mapTabBtn').click(function() {
     $('.mapContainer').css('display', 'flex');
@@ -148,6 +151,27 @@ $(document).ready(() => {
     $('.activeHapNavBtn').removeClass('activeHapNavBtn');
     $(this).addClass('activeHapNavBtn');
   })
+
+
+//==================People=====================
+
+
+
+//==================Socket Handlers=============
+  //Someone joined a hap
+  socket.on('Join Hap', (d) => {
+    if(hap.id = d.hapId){
+      $('.hapAttendeeCount').text(d.attendeeCount);
+      addNewPerson(d.newPerson);
+    }
+  });
+  //Someone left a hap
+  socket.on('Leave Hap', (d) => {
+    if(hap.id = d.hapId){
+      $('.hapAttendeeCount').text(d.attendeeCount);
+      $('#' + d.personId).remove();
+    }
+  });
 
 //==================Site Links===============
   $('.brand-logo').click(function() {

@@ -18,6 +18,7 @@ haphead
       let curUser = false;
   script.
     let hap = !{JSON.stringify(hap)};
+    let people = !{JSON.stringify(people)};
   script(src="/public/scripts/map.js")
   script(src="/public/scripts/dashboard.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
@@ -80,18 +81,27 @@ haphead
           .peopleLabel People
           .hapAttendeeContainer
             i.material-icons#attendeeCountIcon person
-            .hapAttendeeCount=hap.attendeeCount 
+            .hapAttendeeCount
         .personContainer
-          for person in people
-            .person.card.row
-              .personInfo.col.s9
-                img.personPic(src=person.picture)
-                .personDetails
-                  .personName.primary-text-dark=person.username
-                  .personOnline Online
-              .chatBtn.btn-large.primary-btn.col.s3
-                i.material-icons#chatIcon chat_bubble
-                #chatBtnLabel Chat 
+          .personPrototype.card.row
+            .personInfo.col.s9
+              img.personPic
+              .personDetails
+                .personName.primary-text-dark
+                .personOnline Online
+            .chatBtn.btn-large.primary-btn.col.s3
+              i.material-icons#chatIcon chat_bubble
+              #chatBtnLabel Chat 
+          //- for person in people
+          //-   .person.card.row(id=person._id)
+          //-     .personInfo.col.s9
+          //-       img.personPic(src=person.picture)
+          //-       .personDetails
+          //-         .personName.primary-text-dark=person.username
+          //-         .personOnline Online
+          //-     .chatBtn.btn-large.primary-btn.col.s3
+          //-       i.material-icons#chatIcon chat_bubble
+          //-       #chatBtnLabel Chat 
                 
               
           

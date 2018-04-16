@@ -339,6 +339,14 @@ li.hapDetailsBtn.navBtn{
   font-size: 35px;
 }
 
+.personPrototype{
+  display: none;
+  width: 100%;
+  flex-direction: row;
+  padding: 5px 5px;
+  margin-bottom: 0px;
+}
+
 .person{
   width: 100%;
   display: flex;
@@ -373,7 +381,7 @@ li.hapDetailsBtn.navBtn{
 }
 
 #chatIcon{
-  color : #fffa7f;
+  /*color : #fffa7f;*/
   font-size: 20px;
   margin-bottom: -30px;
   margin-top: -10px;
