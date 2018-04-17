@@ -46,20 +46,51 @@ li.hapDetailsBtn.navBtn{
 }
 
 .mapContainer{
+  margin-top: -5px;
   width: 100%;
   display: none;
+  flex-direction: row;
 }
 
 #map{
-  margin-top : 3px;
+  /*margin-top : 3px;*/
   width : 100%;
-  height : 82%;
+  height : 83%;
+  flex : 11;
 }
 
 #mapLoading{
-  margin-top : 3px;
+  /*margin-top : 3px;*/
   width : 100%;
   height : 90%;
+}
+
+.mapIconSelectionContainer{
+  flex : 1;
+  border-right: 1px solid #ccc;
+  margin-top: -15px;
+  margin-left: -12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mapIcon{
+  display: flex;
+  justify-content: center;
+  border-top : 1px solid #ccc;
+  width: 100%;
+  padding: 5px 0px;
+  cursor : pointer;
+}
+
+.mapIcon:first-child{
+  margin-top: 15px;
+  border-top: 0px solid #ccc;
+}
+
+.mapIcon:hover{
+  background-color: #d1ffdf;
 }
 
 
@@ -128,7 +159,7 @@ li.hapDetailsBtn.navBtn{
 }
 
 .hapNavBtn:hover{
-  background-color: #d1ffdf
+  background-color: #d1ffdf;
 }
 
 .joinLeaveSetBtn{

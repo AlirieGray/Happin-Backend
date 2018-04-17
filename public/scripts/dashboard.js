@@ -98,7 +98,6 @@ $(document).ready(() => {
   }
 
   //Load up all the people in hap
-  console.log(people);
   people.forEach((person) => {
     addNewPerson(person);
   });
@@ -150,6 +149,22 @@ $(document).ready(() => {
     $('.detailsContainer').css('display', 'none');
     $('.activeHapNavBtn').removeClass('activeHapNavBtn');
     $(this).addClass('activeHapNavBtn');
+  });
+
+  $('.mapIcon').click(function(){
+    //Icons for Organizer only (AT LEAST FOR NOW)
+    if(hap.organizer == curUser.username){
+      let markerImage = {
+        url : $(this).find('.mapIconImg').attr('src'),
+      }
+      // Map.setCenter(pos);
+      let newMapIcon = new google.maps.Marker({
+        position : Map.getCenter(),
+        map : Map,
+        icon : markerImage,
+        draggable : true
+      });
+    }
   })
 
 

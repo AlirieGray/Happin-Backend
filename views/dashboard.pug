@@ -19,6 +19,7 @@ haphead
   script.
     let hap = !{JSON.stringify(hap)};
     let people = !{JSON.stringify(people)};
+    let mapIcons = !{JSON.stringify(mapIcons)};
   script(src="/public/scripts/map.js")
   script(src="/public/scripts/dashboard.js")
   script(async defer src='https://maps.googleapis.com/maps/api/js?key=' + mapApiKey + '&libraries=places&callback=initMap&callback=initAutoComplete')
@@ -52,6 +53,10 @@ haphead
         //- Map
         .mapContainer
           img#mapLoading(src="/public/assets/Procfile.svg")
+          .mapIconSelectionContainer
+            for mapIcon in mapIcons 
+              .mapIcon
+                img.mapIconImg(src=mapIcon.img)
           #map
         //- Hap Info Screen
         .detailsContainer
@@ -81,7 +86,7 @@ haphead
           .peopleLabel People
           .hapAttendeeContainer
             i.material-icons#attendeeCountIcon person
-            .hapAttendeeCount
+            .hapAttendeeCount=hap.attendeeCount
         .personContainer
           .personPrototype.card.row
             .personInfo.col.s9

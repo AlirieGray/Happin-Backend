@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Event = require('../models/Event');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const mapIcons = require('../models/MapIcons');
 
 module.exports = function(app) {
 
@@ -27,14 +28,16 @@ module.exports = function(app) {
               mapApiKey : mapApiKey,
               user : user,
               hap : hap,
-              people : users
+              people : users,
+              mapIcons : mapIcons
             });
           })
         }else{
           res.render('dashboard', {
             mapApiKey : mapApiKey,
             hap : hap,
-            people : users
+            people : users,
+            mapIcons : mapIcons
           });
         }
       })
