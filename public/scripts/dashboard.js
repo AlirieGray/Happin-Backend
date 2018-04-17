@@ -35,7 +35,7 @@ initAutoComplete = () => {
       userLocMarker = null;
     }
     let markerImage = {
-      url : '/public/assets/userloc.svg',
+      url : '/public/assets/userLoc.svg',
     }
     // Map.setCenter(pos);
     let userLocation = new google.maps.Marker({
