@@ -112,10 +112,20 @@ $(document).ready(() => {
     let newHapLocation = new google.maps.Marker({
       position : {
         lat : hap.lat,
-        lng : hap.lng
+        lng : hap.lng,
       },
-      map : Map
+      map : Map,
+      icon : {url : '/public/assets/icons/lightning-circle.svg'}
     });
+    let newHapInfoWindow = new google.maps.InfoWindow({
+      content : hap.name
+    });
+    newHapLocation.addListener('mouseover', (e) => {
+      newHapInfoWindow.open(Map, newHapLocation);
+    });
+    newHapLocation.addListener('mouseout', (e) => {
+      newHapInfoWindow.close();
+    })
     hapMarkers.push(newHapLocation);
   }
 
@@ -174,6 +184,10 @@ $(document).ready(() => {
     let hapPos = JSON.parse($(this).siblings('#hapPos').text());
     Map.panTo(hapPos);
   })
+
+
+//==========================MAP INTERACTIVITY=====================
+
 
 
 
