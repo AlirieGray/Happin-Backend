@@ -115,16 +115,18 @@ $(document).ready(() => {
         lng : hap.lng,
       },
       map : Map,
-      icon : {url : '/public/assets/icons/lightning-circle.svg'}
+      icon : {url : '/public/assets/icons/hapIcon.svg'}
     });
     let newHapInfoWindow = new google.maps.InfoWindow({
       content : hap.name
     });
     newHapLocation.addListener('mouseover', (e) => {
       newHapInfoWindow.open(Map, newHapLocation);
+      newHapLocation.setIcon({url : '/public/assets/icons/hapIconHover.svg'})
     });
     newHapLocation.addListener('mouseout', (e) => {
       newHapInfoWindow.close();
+      newHapLocation.setIcon({url : '/public/assets/icons/hapIcon.svg'})
     })
     hapMarkers.push(newHapLocation);
   }
