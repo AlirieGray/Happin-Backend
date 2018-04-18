@@ -153,7 +153,7 @@ $(document).ready(() => {
 
   $('.mapIcon').click(function(){
     //Icons for Organizer only (AT LEAST FOR NOW)
-    if(hap.organizer == curUser.username){
+    // if(hap.organizer == curUser.username){
       let markerImage = {
         url : $(this).find('.mapIconImg').attr('src'),
       }
@@ -164,7 +164,7 @@ $(document).ready(() => {
         icon : markerImage,
         draggable : true
       });
-    }
+    // }
   })
 
 
