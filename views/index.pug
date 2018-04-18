@@ -7,8 +7,8 @@ haphead
   else
     meta(name="findport" content="initial-scale=1.0, user-scalable=no")
     link(type='text/css' rel='stylesheet' href='/public/css/index-mobile.css')
-  script(src='/public/scripts/materialize.min.js')
   script(src='/public/scripts/jquery-3.3.1.min.js')
+  script(src='/public/scripts/materialize.min.js')
   script(src='/public/scripts/moment.min.js')
   script(src='/public/scripts/socket.io.slim.js')
   if user
@@ -32,9 +32,9 @@ haphead
           li.newHapBtn.navBtn
             img#newHapIcon(src='public/assets/icons/add.svg')
             .newHapLabel New Hap
-          li.profileBtn.navBtn
+          .profileBtn.navBtn
             i.material-icons person
-            .profileBtnLabel=user.username
+            .profileBtnLabel Log Out
         else
           li.signupBtn.navBtn Sign Up
           li.loginBtn.navBtn Log in

@@ -194,6 +194,13 @@ $(document).ready(() => {
 
 
 //========================Sign Up Form===========================
+
+  // $('.profileBtn').hover(function(){
+  //   $('.logoutBtn').css('display', 'inline-block');
+  // }, function(){
+  //   $('.logoutBtn').css('display', 'none');
+  // })
+
   //Toggle SignUp Form Display
   $('.signupBtn').click(() => {
     let signupDisplay = $('.signupContainer').css('display');
@@ -390,8 +397,6 @@ $(document).ready(() => {
       $('.hapScreenContainer').find('.mainHapAttendeeCount').text(d.attendeeCount);
     }
   });
-
-
 
   //Refresh Page
   $('.brand-logo').click(() => {
