@@ -34,9 +34,9 @@ haphead
         h5.hapTitle=hap.name
         ul.right.hide-on-med-and-down.nav-right.navBtns
           if user
-            li.hapMapBtn.navBtn Hap Map
-            li.hapDetailsBtn.navBtn Hap Details
-            li.profileBtn.navBtn=user.username
+            li.profileBtn.navBtn
+              i.material-icons person
+              .profileBtnLabel=user.username
           else
             li.signupBtn.navBtn Sign Up / Log in
           
