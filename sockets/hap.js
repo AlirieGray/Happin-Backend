@@ -54,6 +54,31 @@ function dateFormattedToString(date, time) {
     });
   });
 
+  //New Hap pins
+  socket.on('New Hap Pin', (d) => {
+    let newHapPin = {
+      pos : d.pos,
+      img : d.img,
+      id : d.id
+    }
+    io.to(d.hapId).emit('New Hap Pin', newHapPin);
+    Event.findById(d.hapId, (err, hap) => {
+      hap.pins.push(newHapPin);
+      hap.save((err, hap) => {
+        console.log(hap);
+      })
+    })
+  });
+
+  socket.on('Hap Pin Drag', (d) => {
+    io.to(d.hapId).emit('Hap Pin Drag', d);
+    Event.findById(d.hapId, (err, hap) => {
+      let movedPin = hap.pins.find((pin => pin.id == d.id));
+      movedPin.pos = d.pos;
+      hap.save();
+    })
+  })
+
 
 //Joining a Hap to Attend
   socket.on('Join Hap', (d) => {

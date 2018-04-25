@@ -20,6 +20,11 @@ var EventSchema = new Schema({
   , attendeeCount   : { type: Number, default: 1 }
   , attendees       : [String]
   , payout          : { type: Number, default: 0}
+  , pins            : [{
+      id : Number,
+      img : String,
+      pos : {lat : Number, lng : Number}
+    }]
 });
 
 EventSchema.pre('save', function(next){

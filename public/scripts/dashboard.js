@@ -2,9 +2,10 @@
 //====================GOOGLE MAPS=========================
 let newHapLocInput;
 let Map;
-let hapMarkers = [];
+let hapPins = {};
 let userLocMarker;
 let userLoc;
+let socket = io.connect();
 
 initAutoComplete = () => {
 
@@ -27,6 +28,26 @@ initAutoComplete = () => {
       map : Map,
       icon : hapLocmarkerIcon
     });
+    //Load up all the user pins in hap map
+    hap.pins.forEach((hapPin) => {
+      let newHapPin = new google.maps.Marker({
+        position : hapPin.pos,
+        map : Map,
+        icon : {url : hapPin.img},
+        draggable : true,
+        id : hapPin.id
+      });
+      newHapPin.addListener('dragend', () => {
+        socket.emit('Hap Pin Drag', {
+          id : newHapPin.id,
+          pos : newHapPin.getPosition(),
+          hapId : hap._id
+        });
+      });
+      hapPins[hapPin.id] = newHapPin;
+      hapPinCount += 1;
+    })
+
   }
 
   showUserPos = (pos) => {
@@ -46,13 +67,13 @@ initAutoComplete = () => {
     userLocMarker = userLocation;
   }
 
-  clearHapMarkers = () => {
-    hapMarkers.forEach((hapMarker) => {
-      hapMarker.setMap(null);
-    })
-    hapMarkers.length = 0;
-    $('.hap').remove();
-  }
+  // clearHapMarkers = () => {
+  //   hapPins.forEach((hapMarker) => {
+  //     hapMarker.setMap(null);
+  //   })
+  //   hapPins.length = 0;
+  //   $('.hap').remove();
+  // }
 
   //===============GET USER LOCATION===============
   $.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBDPiZQRAopncSA6oAdW6bZQ5AufZNPVz0', (data) => {
@@ -67,22 +88,22 @@ initAutoComplete = () => {
         };
         userLoc = pos;
         showUserPos(pos);
-        clearHapMarkers();
       });
     }
   });
 }
 
+let hapPinCount = 0;
 
 $(document).ready(() => {
 
-  let socket = io.connect();
+
   //Have socket connect to attending haps
   if(curUser){
     if(curUser.attending){
       socket.emit('Connect To Haps', {
         userId : curUser._id,
-        hapIds : curUser.attending
+        hapIds : [hap._id]
       })
     }
   }
@@ -151,6 +172,7 @@ $(document).ready(() => {
     $(this).addClass('activeHapNavBtn');
   });
 
+//=============HAP MAP PINS============
   $('.mapIcon').click(function(){
     //Icons for Organizer only (AT LEAST FOR NOW)
     // if(hap.organizer == curUser.username){
@@ -158,11 +180,11 @@ $(document).ready(() => {
         url : $(this).find('.mapIconImg').attr('src'),
       }
       // Map.setCenter(pos);
-      let newMapIcon = new google.maps.Marker({
-        position : Map.getCenter(),
-        map : Map,
-        icon : markerImage,
-        draggable : true
+      socket.emit('New Hap Pin', {
+        id : hapPinCount,
+        pos : Map.getCenter(),
+        img : markerImage.url,
+        hapId : hap._id
       });
     // }
   })
@@ -187,6 +209,23 @@ $(document).ready(() => {
       $('#' + d.personId).remove();
     }
   });
+  //Someone Made a New Hap Pin
+  socket.on('New Hap Pin', (d) => {
+    let newMapIcon = new google.maps.Marker({
+      position : d.pos,
+      map : Map,
+      icon : d.img,
+      draggable : true,
+      id : d.id
+    });
+    hapPins[d.id] = newMapIcon;
+    hapPinCount += 1;
+  });
+
+  socket.on('Hap Pin Drag', (d) => {
+    hapPins[d.id].setPosition(d.pos);
+  })
+
 
 //==================Site Links===============
   $('.brand-logo').click(function() {
