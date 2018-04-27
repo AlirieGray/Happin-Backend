@@ -329,6 +329,7 @@ $(document).ready(() => {
       };
       $('.hapFormContainer').css('display', 'none');
       $('.hapForm').css('display', 'none');
+      $('.mapForms').css('display' ,'none');
       socket.emit('New Hap', {hap : newHapData})
     }
   });

@@ -349,6 +349,57 @@ li.hapDetailsBtn.navBtn{
   display: none;
 }
 
+/*CONNECT PAGE*/
+.connectContainer{
+  margin-top: 10px;
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.groupChatContainer{
+  width : 100%;
+  height : 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.groupChatMessagesContainer{
+  width : 100%;
+  flex : 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.groupChatMessage{
+  width : 80%;
+  border-bottom : 1px solid #ccc;
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.groupChatMessageInfo{
+  display: flex;
+  flex-direction: column;
+}
+
+.chatProfileImg{
+  width : 45px;
+  height: 45px;
+  border-radius: 100%;
+  border : 2px solid #4ab169;
+  margin-right: 5px;
+}
+
+#groupChatInput{
+  width: 80%;
+  flex: 2;
+}
+
 
 /*Person Container*/
 

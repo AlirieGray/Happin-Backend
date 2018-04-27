@@ -127,6 +127,7 @@ $(document).ready(() => {
   $('#detailsTabBtn').click(function(){
     $('.mapContainer').css('display', 'none');
     $('.detailsContainer').css('display', 'flex');
+    $('.connectContainer').css('display', 'none');
     $('.activeHapNavBtn').removeClass('activeHapNavBtn');
     $(this).addClass('activeHapNavBtn');
   })
@@ -168,6 +169,7 @@ $(document).ready(() => {
   $('#mapTabBtn').click(function() {
     $('.mapContainer').css('display', 'flex');
     $('.detailsContainer').css('display', 'none');
+    $('.connectContainer').css('display', 'none');
     $('.activeHapNavBtn').removeClass('activeHapNavBtn');
     $(this).addClass('activeHapNavBtn');
   });
@@ -190,7 +192,14 @@ $(document).ready(() => {
   })
 
 
-//==================People=====================
+//==================CONNECT=====================
+  $('#connectTabBtn').click(function(){
+    $('.connectContainer').css('display', 'flex');
+    $('.mapContainer').css('display', 'none');
+    $('.detailsContainer').css('display', 'none');
+    $('.activeHapNavBtn').removeClass('activeHapNavBtn');
+    $(this).addClass('activeHapNavBtn');
+  })
 
 
 

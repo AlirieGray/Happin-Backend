@@ -80,6 +80,16 @@ haphead
                 .card.settingCard
                   .hapAddress=hap.address
           #hapId(hidden)=hap._id
+        //- Connect Screen
+        .connectContainer
+          .groupChatContainer
+            .groupChatMessagesContainer
+              .groupChatMessage
+                img.chatProfileImg(src='http://www.freelogovectors.net/wp-content/uploads/2015/06/turtle-icon.png')
+                .groupChatMessageInfo
+                  .chatUsername James
+                  .chatMessage Hello this is a group chat message!
+            textarea#groupChatInput.materialize-textarea(placeholder="Type to Chat")
         
       .content.col.s3
         h3.center-align.peopleLabelContainer
@@ -97,16 +107,7 @@ haphead
             .chatBtn.btn-large.primary-btn.col.s3
               i.material-icons#chatIcon chat_bubble
               #chatBtnLabel Chat 
-          //- for person in people
-          //-   .person.card.row(id=person._id)
-          //-     .personInfo.col.s9
-          //-       img.personPic(src=person.picture)
-          //-       .personDetails
-          //-         .personName.primary-text-dark=person.username
-          //-         .personOnline Online
-          //-     .chatBtn.btn-large.primary-btn.col.s3
-          //-       i.material-icons#chatIcon chat_bubble
-          //-       #chatBtnLabel Chat 
+        
                 
               
           
