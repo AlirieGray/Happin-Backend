@@ -120,6 +120,9 @@ $(document).ready(() => {
     let newHapInfoWindow = new google.maps.InfoWindow({
       content : hap.name
     });
+    newHapLocation.addListener('click', (e) => {
+      Map.panTo(newHapLocation.position);
+    })
     newHapLocation.addListener('mouseover', (e) => {
       newHapInfoWindow.open(Map, newHapLocation);
       newHapLocation.setIcon({url : '/public/assets/icons/hapIconHover.svg'})
